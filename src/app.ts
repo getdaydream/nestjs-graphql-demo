@@ -32,7 +32,7 @@ app.use(bodyParser({
 app.use(jwt({
   secret: config.JWT_SECRECT
 }).unless({
-  path: [/^\/oauth/]
+  path: [/^\/v1\/oauth/, /^\/v1\/users\/login/,/^\/v1\/users\/signup/]
 }));
 
 app.use(logger);

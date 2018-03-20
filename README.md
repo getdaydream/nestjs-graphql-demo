@@ -2,7 +2,7 @@
 
 > Server for getdaydream.
 
-## dependencies
+## Dependencies
 - [koa-router](https://github.com/alexmingoia/koa-router)
 - [got](https://github.com/sindresorhus/got): Simplified HTTP requests.
 - middlewares
@@ -10,7 +10,7 @@
   - [koa2-cors](https://github.com/zadzbw/koa2-cors)
   - [koa-jwt](https://www.npmjs.com/package/koa-jwt): This module lets you authenticate HTTP requests using JSON Web Tokens in your Koa (node.js) applications.
 
-## bug
+## Bug
 - request github access_token twice
 
 ## TODO
@@ -18,3 +18,7 @@
 * upload avatar
 * Gravatar random avatar
 * email verification
+* [移花接木：针对OAuth2的攻击](http://insights.thoughtworkers.org/attack-aim-at-oauth2/)
+* token expire
+* 密码非对称加密
+* https
