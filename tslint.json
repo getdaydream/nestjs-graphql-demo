@@ -94,11 +94,11 @@
         "indent": [
             true,
             "spaces",
-            4
+            2
         ],
         "ter-indent": [
             true,
-            4,
+            2,
             {
                 "SwitchCase": 1
             }
@@ -123,7 +123,7 @@
         "await-promise": false,
         "linebreak-style": [
             true,
-            "CRLF"
+            "LF"
         ],
         "number-literal-format": false,
         "typedef": false
