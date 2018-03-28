@@ -459,7 +459,7 @@ clone-response@1.0.2:
   dependencies:
     mimic-response "^1.0.0"
 
-co-body@^5.1.0:
+co-body@^5.1.1:
   version "5.1.1"
   resolved "http://registry.npm.taobao.org/co-body/download/co-body-5.1.1.tgz#d97781d1e3344ba4a820fd1806bddf8341505236"
   dependencies:
@@ -544,10 +544,6 @@ cookies@~0.7.0:
 copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "http://registry.npm.taobao.org/copy-descriptor/download/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
-
-copy-to@^2.0.1:
-  version "2.0.1"
-  resolved "http://registry.npm.taobao.org/copy-to/download/copy-to-2.0.1.tgz#2680fbb8068a48d08656b6098092bdafc906f4a5"
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -827,6 +823,10 @@ form-data@~2.1.1:
     asynckit "^0.4.0"
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
+
+formidable@^1.1.1:
+  version "1.2.1"
+  resolved "http://registry.npm.taobao.org/formidable/download/formidable-1.2.1.tgz#70fb7ca0290ee6ff961090415f4b3df3d2082659"
 
 fragment-cache@^0.2.1:
   version "0.2.1"
@@ -1444,12 +1444,12 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "http://registry.npm.taobao.org/kind-of/download/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-koa-bodyparser@^4.2.0:
-  version "4.2.0"
-  resolved "http://registry.npm.taobao.org/koa-bodyparser/download/koa-bodyparser-4.2.0.tgz#bce6e08bc65f8709b6d1faa9411c7f0d8938aa54"
+koa-body@^2.5.0:
+  version "2.5.0"
+  resolved "http://registry.npm.taobao.org/koa-body/download/koa-body-2.5.0.tgz#84e8fcd8d5229a8cc1cb98a926e939069e716915"
   dependencies:
-    co-body "^5.1.0"
-    copy-to "^2.0.1"
+    co-body "^5.1.1"
+    formidable "^1.1.1"
 
 koa-compose@^3.0.0:
   version "3.2.1"

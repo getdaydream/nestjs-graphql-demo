@@ -2,9 +2,10 @@
  * app main
  */
 import * as Koa from 'koa';
-import * as bodyParser from 'koa-bodyparser';
+import * as koaBody from 'koa-body';
 import * as jwt from 'koa-jwt';
 import * as cors from 'koa2-cors';
+import * as path from 'path';
 
 import { config } from './config';
 import { logger } from './middleware/logger';
@@ -24,18 +25,27 @@ const app = new Koa();
 // allow cross domain
 app.use(cors({ origin: '*' }));
 
-app.use(bodyParser({
-  enableTypes: ['json', 'form', 'text']
-}));
+app.use(logger);
 
 // Middleware below this line is only reached if JWT token is valid
-app.use(jwt({
-  secret: config.JWT_SECRECT
-}).unless({
-  path: [/^\/v1\/oauth/, /^\/v1\/users\/login/,/^\/v1\/users\/signup/]
-}));
+// If the token is valid, ctx.state.user (by default) 
+// will be set with the JSON object decoded to be used by later middleware 
+// for authorization and access control.
+app.use(
+  jwt({
+    secret: config.secretKey
+  }).unless({
+    path: [
+      /^\/api\/v1\/oauth/,
+      /^\/api\/v1\/users\/login/,
+      /^\/api\/v1\/users\/signup/
+    ]
+  })
+);
 
-app.use(logger);
+app.use(koaBody({ 
+  multipart: true
+}));
 
 // route
 app.use(router.routes());

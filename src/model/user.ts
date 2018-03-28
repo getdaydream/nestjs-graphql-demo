@@ -12,7 +12,7 @@ const UserSchema = new Schema({
   password: {
     type: String
   },
-  nickname: {type: String},
+  nickname: { type: String },
   avatar: { type: String },
   githubID: { type: String },
   githubUsername: { type: String },

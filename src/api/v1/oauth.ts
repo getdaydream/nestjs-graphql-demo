@@ -41,7 +41,6 @@ router.get('/github/callback', async ctx => {
       }
     );
     const { access_token } = querystring.parse(tokenResponse.body);
-    console.log(`access_token ${access_token}`);
     // use access_token to request user data from github
     const userResponse = await got.get('https://api.github.com/user', {
       headers: {
@@ -55,25 +54,23 @@ router.get('/github/callback', async ctx => {
     const githubUser = JSON.parse(userResponse.body);
     const githubID = githubUser.id;
     const oldUser = await User.findOne({ githubID });
-    // 如果用户还不存在
     if (!oldUser) {
+      // 如果用户还不存在,创建用户
       const user = new User({
         githubID,
+        nickname: githubUser.name,
         githubUsername: githubUser.name,
         avatar: githubUser.avatar_url || githubUser.gravatar_id,
-        githubAccessToken: access_token
+        githubAccessToken: access_token 
       });
       const result = await user.save();
-      console.log(result);
       const token = genToken(result._id);
-      console.log(`token is ${token}`);
       ctx.body = {
         token
       };
     } else {
-      const token = genToken(oldUser._id);
       ctx.body = {
-        token
+        token:genToken(oldUser._id)
       };
     }
   } catch (e) {

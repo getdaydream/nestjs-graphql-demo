@@ -9,13 +9,13 @@
     "start": "cross-env NODE_ENV=production node build/app.js",
     "build": "cross-env NODE_ENV=production tsc"
   },
-  "author": "",
+  "author": "getdaydream <getdaydream@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "got": "^8.3.0",
     "jsonwebtoken": "^8.2.0",
     "koa": "^2.5.0",
-    "koa-bodyparser": "^4.2.0",
+    "koa-body": "^2.5.0",
     "koa-jwt": "^3.3.1",
     "koa-router": "^7.4.0",
     "koa2-cors": "^2.0.5",
