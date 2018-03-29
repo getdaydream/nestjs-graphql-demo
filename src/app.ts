@@ -5,7 +5,6 @@ import * as Koa from 'koa';
 import * as koaBody from 'koa-body';
 import * as jwt from 'koa-jwt';
 import * as cors from 'koa2-cors';
-import * as path from 'path';
 
 import { config } from './config';
 import { logger } from './middleware/logger';
@@ -25,6 +24,10 @@ const app = new Koa();
 // allow cross domain
 app.use(cors({ origin: '*' }));
 
+app.use(koaBody({ 
+  multipart: true
+}));
+
 app.use(logger);
 
 // Middleware below this line is only reached if JWT token is valid
@@ -42,10 +45,6 @@ app.use(
     ]
   })
 );
-
-app.use(koaBody({ 
-  multipart: true
-}));
 
 // route
 app.use(router.routes());

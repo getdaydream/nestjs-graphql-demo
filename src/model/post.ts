@@ -18,6 +18,8 @@ const PostSchema = new Schema({
     type: String,
     enum: ['article','draft' ,'moments']
   },
+  // article和draft的帖子标题 
+  title: String,
   // 帖子内容
   content: String,
   create_at: {
