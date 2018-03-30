@@ -13,22 +13,23 @@ router.get('/', async ctx => {
   try {
     // 如果提供了id,根据id查找
     if (id) {
-      posts = [await Post.findById(id)]
-    } else { //否则返回所有相应的帖子
-      posts = await Post.find({ category }).sort({update_at: -1});
+      posts = [await Post.findById(id)];
+    } else {
+      // 否则返回所有相应的帖子
+      posts = await Post.find({ category }).sort({ update_at: -1 });
     }
     ctx.body = {
       success: '查询成功',
       posts: posts
         ? posts.map(post => {
-            return {
-              category,
-              id: post._id,
-              content: post['content'],
-              title: post['title'],
-              update_at: post['update_at']
-            };
-          })
+          return {
+            category,
+            id: post._id,
+            content: post['content'],
+            title: post['title'],
+            update_at: post['update_at']
+          };
+        })
         : []
     };
   } catch (e) {
@@ -57,7 +58,16 @@ router.post('/', async ctx => {
     const result = await post.save();
     ctx.body = {
       success: '创建帖子成功',
-      id: result.id
+      // TODO 删去该字段
+      id: result.id,
+      // 返回创建成功后的帖子
+      post: {
+        id: result._id,
+        userID,
+        content,
+        title,
+        update_at: result['update_at']
+      }
     };
   } catch (e) {
     ctx.body = {
@@ -79,8 +89,6 @@ router.put('/', async ctx => {
         title,
         category: category ? category : post['category']
       });
-      console.log(content);
-      console.log(post);
       const result = await post.save();
       ctx.body = {
         success: '更新帖子成功',

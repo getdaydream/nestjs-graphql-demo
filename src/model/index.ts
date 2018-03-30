@@ -8,5 +8,5 @@ import { config } from '../config';
 mongoose.Promise = global.Promise;
 
 export const connectMongodb = () => {
-  return mongoose.connect(config.mongodbUri);
+  return mongoose.connect(config.MONGODB_URI);
 }; 

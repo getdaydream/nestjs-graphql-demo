@@ -14,9 +14,9 @@ router.get('/', async ctx => {
 
 // 用户注册
 router.post('/signup', async ctx => {
-  const { nickname, email, password } = ctx.request['body'];
+  const { username, email, password } = ctx.request['body'];
   try {
-    if (await User.findOne({ nickname })) {
+    if (await User.findOne({ username })) {
       ctx.body = {
         error: '昵称 已被使用，换一个吧'
       };
@@ -31,7 +31,7 @@ router.post('/signup', async ctx => {
       return;
     }
     const user = new User({
-      nickname,
+      username,
       email,
       password
     });
@@ -41,7 +41,9 @@ router.post('/signup', async ctx => {
       success: '恭喜你 注册成功'
     };
   } catch (e) {
-    console.log(e);
+    ctx.body = {
+      error: e
+    };
   }
 });
 
@@ -66,16 +68,24 @@ router.post('/login', async ctx => {
 
       return;
     }
+    console.log(user);
     ctx.body = {
       token: genToken(user._id),
+      user: {
+        avatar: user['avatar'],
+        username: user['username'] || user['githubUsername'],
+        userID: user['userID']
+      },
       message: '登录成功'
     };
   } catch (e) {
-    console.log(e);
+    ctx.body = {
+      error: e
+    };
   }
 });
 
 // 绑定第三方账号
-router.post('/bind',async () => {
+router.post('/bind', async () => {
   // TODO
 });

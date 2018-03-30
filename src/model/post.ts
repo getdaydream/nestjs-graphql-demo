@@ -2,7 +2,7 @@
  * 帖子分为多种类型
  * article：markdown 文章
  * draft：article的草稿
- * moments：动态
+ * dynamic：动态
  */
 import { model, Schema } from 'mongoose';
 
@@ -16,7 +16,7 @@ const PostSchema = new Schema({
   // 帖子类型
   category: {
     type: String,
-    enum: ['article','draft' ,'moments']
+    enum: ['article','draft' ,'dynamic']
   },
   // article和draft的帖子标题 
   title: String,

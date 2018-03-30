@@ -58,7 +58,7 @@ router.get('/github/callback', async ctx => {
       // 如果用户还不存在,创建用户
       const user = new User({
         githubID,
-        nickname: githubUser.name,
+        username: githubUser.name,
         githubUsername: githubUser.name,
         avatar: githubUser.avatar_url || githubUser.gravatar_id,
         githubAccessToken: access_token 
