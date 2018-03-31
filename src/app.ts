@@ -4,7 +4,9 @@
 import * as Koa from 'koa';
 import * as koaBody from 'koa-body';
 import * as jwt from 'koa-jwt';
+import * as serve from 'koa-static';
 import * as cors from 'koa2-cors';
+import * as path from 'path';
 
 import { config } from './config';
 import { logger } from './middleware/logger';
@@ -24,11 +26,8 @@ const app = new Koa();
 // allow cross domain
 app.use(cors({ origin: '*' }));
 
-app.use(koaBody({ 
-  multipart: true
-}));
-
-app.use(logger);
+// serve static file
+app.use(serve(path.resolve(__dirname, '../upload/')));
 
 // Middleware below this line is only reached if JWT token is valid
 // If the token is valid, ctx.state.user (by default) 
@@ -41,10 +40,20 @@ app.use(
     path: [
       /^\/api\/v1\/oauth/,
       /^\/api\/v1\/users\/login/,
-      /^\/api\/v1\/users\/signup/
+      /^\/api\/v1\/users\/signup/,
+      /^\/upload/      
     ]
   })
 );
+
+app.use(koaBody({ 
+  multipart: true,
+  formidable: {
+    keepExtensions: true
+  }
+}));
+
+app.use(logger);
 
 // route
 app.use(router.routes());

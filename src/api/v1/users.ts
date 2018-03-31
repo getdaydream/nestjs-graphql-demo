@@ -7,9 +7,44 @@ import { genToken } from '../../util';
 
 export const router = new Router();
 
+// 查找用户信息
 router.get('/', async ctx => {
-  console.log(ctx.body);
-  ctx.body = { result: 'success' };
+  const { id } = ctx.state.user;
+  try {
+    const user = await User.findById(id);
+    if (user) {
+      ctx.body =  {
+        success: '查找用户成功',
+        user: formatUser(user)
+      };
+    } else {
+      ctx.body = {
+        error: '不存在的用户'
+      };
+    }
+  } catch (e) {
+    ctx.body = {
+      error: e
+    };
+  }
+});
+
+// 修改用户信息
+router.put('/',async ctx => {
+  const { id } = ctx.state.user;
+  try {
+    const user = await User.findById(id);
+    Object.assign(user, ctx.request.body);
+    const newUser = await user.save();
+    ctx.body = {
+      success: '修改用户信息成功',
+      user: formatUser(newUser)
+    };
+  }  catch (e) {
+    ctx.body = {
+      error: e
+    };
+  } 
 });
 
 // 用户注册
@@ -89,3 +124,12 @@ router.post('/login', async ctx => {
 router.post('/bind', async () => {
   // TODO
 });
+
+const formatUser = (userDocument) => {
+  return {
+    id: userDocument._id,
+    username: userDocument.username,
+    email: userDocument.email,
+    avatar: userDocument.avatar
+  };
+};

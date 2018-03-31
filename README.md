@@ -10,6 +10,7 @@
   - [koa-body](https://github.com/dlau/koa-body): koa body parser middleware.
   - [koa2-cors](https://github.com/zadzbw/koa2-cors)
   - [koa-jwt](https://github.com/koajs/jwt): This module lets you authenticate HTTP requests using JSON Web Tokens in your Koa (node.js) applications.
+  - [koa-static](https://github.com/koajs/static): Koa static file serving middleware, wrapper for koa-send.
 
 
 ## Bug
