@@ -22,6 +22,8 @@ const PostSchema = new Schema({
   title: String,
   // 帖子内容
   content: String,
+  // 最多上传9张
+  images:Array,
   create_at: {
     type: Date,
     default: Date.now()

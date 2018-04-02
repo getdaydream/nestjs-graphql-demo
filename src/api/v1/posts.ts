@@ -3,6 +3,7 @@
  */
 import * as Router from 'koa-router';
 import { Post } from '../../model/post';
+import { config } from '../../config';
 
 export const router = new Router();
 
@@ -22,14 +23,17 @@ router.get('/', async ctx => {
       success: '查询成功',
       posts: posts
         ? posts.map(post => {
-          return {
-            category,
-            id: post._id,
-            content: post['content'],
-            title: post['title'],
-            update_at: post['update_at']
-          };
-        })
+            return {
+              category,
+              id: post._id,
+              content: post['content'],
+              title: post['title'],
+              images: post['images'].map(filename => {
+                return `${config.host}/dynamic/${filename}`;
+              }),
+              update_at: post['update_at']
+            };
+          })
         : []
     };
   } catch (e) {
@@ -41,13 +45,19 @@ router.get('/', async ctx => {
 
 // 创建新的帖子
 router.post('/', async ctx => {
-  const { content, category, title } = ctx.request.body;
+  let { content, category, title, images } = ctx.request.body;
+  if (images.length) {
+    images = images.split(',');
+  } else {
+    images = [];
+  }
   const userID = ctx.state.user.id;
   const post = new Post({
     title,
     content,
     category,
-    userID
+    userID,
+    images
   });
   if (!category) {
     return (ctx.body = {
@@ -66,6 +76,9 @@ router.post('/', async ctx => {
         userID,
         content,
         title,
+        images: post['images'].map(filename => {
+          return `${config.host}/dynamic/${filename}`;
+        }),
         update_at: result['update_at']
       }
     };

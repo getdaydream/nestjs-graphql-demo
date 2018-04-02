@@ -28,3 +28,6 @@
 * 密码非对称加密
 * https
 * git flow
+
+## Q
+* post 传送数组参数
