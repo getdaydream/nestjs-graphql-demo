@@ -4,26 +4,77 @@
 import * as Router from 'koa-router';
 import * as got from 'got';
 import { Movie } from '../../model/movie';
+import * as _ from 'lodash';
 
 export const router = new Router();
 
 const doubanMovieApiUrl = 'http://api.douban.com/v2/movie/subject/';
 
+// 返回电影条目中的基本字段
+const MOVIE_BASIC_KEYS = ['id', 'title', 'year', 'poster', 'ratingValue'];
+
+// 返回电影条目中的完整字段
+const MOVIE_KEYS = [
+  'id',
+  'title',
+  'originalTitle',
+  'aka',
+  'year',
+  'subtype',
+  'ratingValue',
+  'ratingCount',
+  'ratingOnWeight',
+  'poster',
+  'directors',
+  'writers',
+  'casts',
+  'countries',
+  'languages',
+  'genres',
+  'durations',
+  'pubDates',
+  'summary',
+  'recommendations',
+  'userTags',
+  'imdbID'
+];
+
+/**
+ * id: 如果有id，直接返回相应的文档
+ */
 router.get('/', async ctx => {
   const { id } = ctx.query;
-  console.log(id);
   if (id) {
     try {
       const movie = await Movie.findOne({ id });
-      console.log(movie)
       if (movie) {
         ctx.body = {
           success: '查找电影成功',
-          movies: [formatMovie(movie)]
+          movies: [_.pick(movie, MOVIE_KEYS)]
+        };
+      } else {
+        ctx.body = {
+          error: '不存在的电影'
         };
       }
     } catch (e) {
-      console.log(e);
+      ctx.body = {
+        error: e
+      };
+    }
+  } else {
+    try {
+      const movies = await Movie.find({})
+        .sort({ ratingCount: 'desc' })
+        .limit(10);
+      ctx.body = {
+        success: '查找电影成功',
+        movies: movies.map(movie => _.pick(movie, MOVIE_BASIC_KEYS))
+      };
+    } catch (e) {
+      ctx.body = {
+        error: e
+      };
     }
   }
 });
@@ -56,20 +107,3 @@ router.post('/', async ctx => {
     console.log(e);
   }
 });
-
-const formatMovie = movieDocument => {
-  return {
-    id: movieDocument.id,
-    title: movieDocument.title,
-    original_title: movieDocument.original_title,
-    aka: movieDocument.aka,
-    year: movieDocument.year,
-    ratingValue: movieDocument.ratingValue,
-    ratingCount: movieDocument.ratingCount,
-    poster: movieDocument.poster,
-    countries: movieDocument.countries,
-    genres: movieDocument.genres,
-    subtype: movieDocument.subtype,
-    summary: movieDocument.summary
-  };
-};

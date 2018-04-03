@@ -4,6 +4,7 @@
 import * as Router from 'koa-router';
 import { Post } from '../../model/post';
 import { config } from '../../config';
+// import * as _ from 'lodash';
 
 export const router = new Router();
 
@@ -139,3 +140,7 @@ router.delete('/', async ctx => {
     };
   }
 });
+
+// const formatPost = doc => {
+//   return _.pick(doc, ['']);
+// };

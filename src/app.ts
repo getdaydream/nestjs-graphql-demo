@@ -12,6 +12,7 @@ import { config } from './config';
 import { logger } from './middleware/logger';
 import { connectMongodb } from './model/index';
 import { router } from './route/index';
+import { runOnce } from './once';
 
 connectMongodb()
   .then(() => {
@@ -30,8 +31,8 @@ app.use(cors({ origin: '*' }));
 app.use(serve(path.resolve(__dirname, '../upload/')));
 
 // Middleware below this line is only reached if JWT token is valid
-// If the token is valid, ctx.state.user (by default) 
-// will be set with the JSON object decoded to be used by later middleware 
+// If the token is valid, ctx.state.user (by default)
+// will be set with the JSON object decoded to be used by later middleware
 // for authorization and access control.
 app.use(
   jwt({
@@ -41,17 +42,19 @@ app.use(
       /^\/api\/v1\/oauth/,
       /^\/api\/v1\/users\/login/,
       /^\/api\/v1\/users\/signup/,
-      /^\/upload/      
+      /^\/upload/
     ]
   })
 );
 
-app.use(koaBody({ 
-  multipart: true,
-  formidable: {
-    keepExtensions: true
-  }
-}));
+app.use(
+  koaBody({
+    multipart: true,
+    formidable: {
+      keepExtensions: true
+    }
+  })
+);
 
 app.use(logger);
 
@@ -60,3 +63,5 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.listen(3000);
+
+runOnce();

@@ -19,8 +19,6 @@ router.post('/', async ctx => {
   console.log(files);
 
   Object.keys(files).forEach(key => {
-    console.log('key');
-    console.log(key);
     const file = files[key];
     const fileName = file.path.split('\\').pop();
     const dstPath = path.join(

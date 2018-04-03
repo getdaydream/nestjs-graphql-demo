@@ -17,17 +17,20 @@
 - request github access_token twice
 
 ## TODO
-
+* 豆瓣图片访问次数过多会被ban
+* email verification
+* mongoose 添加索引
 * [koa2-jwt-demo](https://github.com/yunzaifei/koa2-jwt-demo)
 * ts and mongoose
 * upload avatar
 * Gravatar random avatar
-* email verification
 * [移花接木：针对OAuth2的攻击](http://insights.thoughtworkers.org/attack-aim-at-oauth2/)
 * token expire
 * 密码非对称加密
 * https
 * git flow
+* IMDB
 
 ## Q
+* mongoose query async
 * post 传送数组参数
