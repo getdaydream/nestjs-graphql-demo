@@ -11,7 +11,7 @@ const movieKeys = [
   'ratingValue',
   'ratingCount',
   'ratingOnWeight',
-  'poster',
+  'doubanPoster',
   'directors',
   'writers',
   'casts',
@@ -35,6 +35,7 @@ export const parseHTML = async () => {
     update_at: { $lt: new Date('2018-4-2') }
     // id: '10512661'
   });
+  console.log(movie);
   if (!movie) {
     return false;
   }

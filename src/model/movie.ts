@@ -1,13 +1,15 @@
 /**
  * 电影
  */
+import * as path from 'path';
 import { model, Schema } from 'mongoose';
+import { config } from '../config';
 
 // tslint:disable:variable-name
 const MovieSchema = new Schema({
   from: {
     type: String,
-    enum: ['douban']
+    enum: ['douban', 'imdb']
   },
   html: String,
   id: { type: String, unique: true },
@@ -30,8 +32,8 @@ const MovieSchema = new Schema({
   ratingCount: Number,
   // 评一星到五星的人数权重
   ratingOnWeight: [String],
-  // 海报
-  poster: String,
+  // 豆瓣海报
+  doubanPoster: String,
   // 导演
   directors: [{ id: String, name: String }],
   // 编剧
@@ -67,8 +69,21 @@ const MovieSchema = new Schema({
   // tv only
   // 所有季对应的id
   seasons: [String],
+  // tv only
   // 集数
-  episodeCount: [String]
+  episodeCount: [String],
+
+  // 海报在本地是否有缓存
+  posterCache: {
+    type: String,
+    enum: ['fulfilled', 'rejected']
+  }
+
+  // deprecated
+  // poster : 作为虚拟属性，如果本地缓存，就用本地的，否则就用doubanPoster
+  // maybe deprecated
+  //   traversed
+  //   html
 });
 
 MovieSchema.pre('save', function(next) {
@@ -78,12 +93,22 @@ MovieSchema.pre('save', function(next) {
   next();
 });
 
-MovieSchema.index({ ratingValue: -1 });
+// 电影的海报如果在服务器已经缓存，就使用服务器的
+MovieSchema.virtual('poster').get(function() {
+  if (
+    this.doubanPoster &&
+    this.posterCache &&
+    this.posterCache === 'fulfilled'
+  ) {
+    return `${config.host}/poster/${this.id}${path.extname(this.doubanPoster)}`;
+  } else {
+    return this.doubanPoster;
+  }
+});
+
 MovieSchema.index({ ratingCount: -1 });
-MovieSchema.index({ id: -1 });
+MovieSchema.index({ ratingValue: -1 });
 MovieSchema.index({ title: -1 });
 MovieSchema.index({ update_at: 1 });
-
-
 
 export const Movie = model('Movie', MovieSchema);

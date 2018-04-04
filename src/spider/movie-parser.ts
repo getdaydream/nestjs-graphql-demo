@@ -3,7 +3,6 @@
  */
 import * as cheerio from 'cheerio';
 
-//TODO: title original title cast director
 export class MovieParser {
   private $: CheerioStatic;
   // $('#info') 中电影的相关属性
@@ -21,6 +20,15 @@ export class MovieParser {
       let [key, value] = v.split(':');
       this.attrs.set(key, value);
     });
+  }
+
+  get id() {
+    const element = this.$('meta[name="mobile-agent"]');
+    if (isElementExists(element) && isAttrExistsInElement(element, 'content')) {
+      const result = element.attr('content').split('/')[5];
+      return isNaN(Number(result)) ? '' : result;
+    }
+    return '';
   }
 
   // 中文名
@@ -110,7 +118,7 @@ export class MovieParser {
   }
 
   // 海报
-  get poster() {
+  get doubanPoster() {
     let element = this.$('a.nbgnbg > img');
     if (isAttrExistsInElement(element, 'src')) {
       return element.attr('src');

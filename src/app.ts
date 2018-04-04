@@ -12,7 +12,6 @@ import { config } from './config';
 import { logger } from './middleware/logger';
 import { connectMongodb } from './model/index';
 import { router } from './route/index';
-import { runOnce } from './once';
 
 connectMongodb()
   .then(() => {
@@ -29,6 +28,7 @@ app.use(cors({ origin: '*' }));
 
 // serve static file
 app.use(serve(path.resolve(__dirname, '../upload/')));
+app.use(serve(path.resolve(__dirname, '../static/')));
 
 // Middleware below this line is only reached if JWT token is valid
 // If the token is valid, ctx.state.user (by default)
@@ -63,5 +63,3 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 app.listen(3000);
-
-runOnce();

@@ -7,7 +7,6 @@
     "removeComments": true,
     "sourceMap": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "sourceRoot": "src",
     "outDir": "build"
   }

@@ -5,16 +5,21 @@ import * as Router from 'koa-router';
 import * as got from 'got';
 import { Movie } from '../../model/movie';
 import * as _ from 'lodash';
+import { MovieParser } from '../../spider/movie-parser';
 
 export const router = new Router();
 
-const doubanMovieApiUrl = 'http://api.douban.com/v2/movie/subject/';
-
 // 返回电影条目中的基本字段
-const MOVIE_BASIC_KEYS = ['id', 'title', 'year', 'poster', 'ratingValue'];
+export const MOVIE_BASIC_KEYS = [
+  'id',
+  'title',
+  'year',
+  'poster',
+  'ratingValue'
+];
 
 // 返回电影条目中的完整字段
-const MOVIE_KEYS = [
+export const MOVIE_KEYS = [
   'id',
   'title',
   'originalTitle',
@@ -39,8 +44,11 @@ const MOVIE_KEYS = [
   'imdbID'
 ];
 
+const doubanMovieBaseUrl = 'https://movie.douban.com/subject/';
+
 /**
- * id: 如果有id，直接返回相应的文档
+ * @param id 如果有id，直接返回相应电影的详细信息
+ * @returns movies
  */
 router.get('/', async ctx => {
   const { id } = ctx.query;
@@ -82,28 +90,24 @@ router.get('/', async ctx => {
 router.post('/', async ctx => {
   const { id } = ctx.request.body;
   try {
-    const resp = await got.get(`${doubanMovieApiUrl}${id}`);
-    const movieData = JSON.parse(resp.body);
-    const movie = new Movie({
-      id,
-      title: movieData.title,
-      original_title: movieData.original_title,
-      aka: movieData.aka,
-      year: movieData.year,
-      ratingValue: movieData.rating.average,
-      ratingCount: movieData.ratings_count,
-      poster: movieData.images.large,
-      countries: movieData.countries,
-      genres: movieData.genres,
-      subtype: movieData.subtype,
-      summary: movieData.summary
-    });
-    const result = await movie.save();
-    ctx.body = {
-      success: '创建电影数据成功',
-      movie: result
-    };
+    const { body } = await got.get(`${doubanMovieBaseUrl}${id}`);
+    const doubanMovie = new MovieParser(body);
+    const data = _.pick(doubanMovie, MOVIE_KEYS);
+    if (data.id && data.title && data.year) {
+      const movie = new Movie(data);
+      const doc = await movie.save();
+      ctx.body = {
+        success: '创建电影成功',
+        movie: _.pick(doc, MOVIE_KEYS)
+      };
+    } else {
+      ctx.body = {
+        error: '未请求到相应数据'
+      };
+    }
   } catch (e) {
-    console.log(e);
+    ctx.body = {
+      error: e
+    };
   }
 });

@@ -7,7 +7,8 @@
     "dev": "nodemon --watch build build/app.js",
     "watch": "tsc -w",
     "start": "cross-env NODE_ENV=production node build/app.js",
-    "build": "cross-env NODE_ENV=production tsc"
+    "build": "cross-env NODE_ENV=production tsc",
+    "download": "node build/spider/download.js"
   },
   "author": "getdaydream <getdaydream@gmail.com>",
   "license": "MIT",
