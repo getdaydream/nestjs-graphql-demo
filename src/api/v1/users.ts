@@ -13,24 +13,22 @@ router.get('/', async ctx => {
   try {
     const user = await User.findById(id);
     if (user) {
-      ctx.body =  {
+      ctx.body = {
         success: '查找用户成功',
-        user: formatUser(user)
+        user: formatUser(user),
       };
     } else {
       ctx.body = {
-        error: '不存在的用户'
+        error: '不存在的用户',
       };
     }
   } catch (e) {
-    ctx.body = {
-      error: e
-    };
+    ctx.body = { error: e };
   }
 });
 
 // 修改用户信息
-router.put('/',async ctx => {
+router.put('/', async ctx => {
   const { id } = ctx.state.user;
   try {
     const user = await User.findById(id);
@@ -38,13 +36,13 @@ router.put('/',async ctx => {
     const newUser = await user.save();
     ctx.body = {
       success: '修改用户信息成功',
-      user: formatUser(newUser)
+      user: formatUser(newUser),
     };
-  }  catch (e) {
+  } catch (e) {
     ctx.body = {
-      error: e
+      error: e,
     };
-  } 
+  }
 });
 
 // 用户注册
@@ -53,31 +51,30 @@ router.post('/signup', async ctx => {
   try {
     if (await User.findOne({ username })) {
       ctx.body = {
-        error: '昵称 已被使用，换一个吧'
+        error: '昵称 已被使用，换一个吧',
       };
 
       return;
     }
     if (await User.findOne({ email })) {
       ctx.body = {
-        error: '邮箱 已被使用，换一个吧'
+        error: '邮箱 已被使用，换一个吧',
       };
-
       return;
     }
     const user = new User({
       username,
       email,
-      password
+      password,
     });
     const { _id } = await user.save();
     ctx.body = {
       token: genToken(_id),
-      success: '恭喜你 注册成功'
+      success: '恭喜你 注册成功',
     };
   } catch (e) {
     ctx.body = {
-      error: e
+      error: e,
     };
   }
 });
@@ -89,33 +86,29 @@ router.post('/login', async ctx => {
     const user = await User.findOne({ email });
     if (!user) {
       ctx.body = {
-        error: '未注册的邮箱'
+        error: '未注册的邮箱',
       };
-
       return;
     }
-    // FIXME: possible-timing-attack
     const isMatch = user['password'] === password;
     if (!isMatch) {
       ctx.body = {
-        error: '密码错误'
+        error: '密码错误',
       };
-
       return;
     }
-    console.log(user);
     ctx.body = {
       token: genToken(user._id),
       user: {
         avatar: user['avatar'],
         username: user['username'] || user['githubUsername'],
-        userID: user['userID']
+        userID: user['userID'],
       },
-      message: '登录成功'
+      message: '登录成功',
     };
   } catch (e) {
     ctx.body = {
-      error: e
+      error: e,
     };
   }
 });
@@ -125,11 +118,11 @@ router.post('/bind', async () => {
   // TODO
 });
 
-const formatUser = (userDocument) => {
+const formatUser = userDocument => {
   return {
     id: userDocument._id,
     username: userDocument.username,
     email: userDocument.email,
-    avatar: userDocument.avatar
+    avatar: userDocument.avatar,
   };
 };

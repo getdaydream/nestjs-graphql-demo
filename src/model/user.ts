@@ -3,33 +3,19 @@
  */
 import { model, Schema } from 'mongoose';
 
-// tslint:disable:variable-name
 const UserSchema = new Schema({
-  email: {
-    type: String,
-    unique: true
-  },
-  password: {
-    type: String
-  },
+  email: { type: String,unique: true },
+  password: String,
   username: { type: String },
   avatar: { type: String },
   githubID: { type: String },
   githubUsername: { type: String },
   githubAccessToken: { type: String },
-  create_at: {
-    type: Date,
-    default: Date.now()
-  },
-  update_at: {
-    type: Date,
-    default: Date.now()
-  }
+  create_at: { type: Date,default: Date.now },
+  update_at: { type: Date,default: Date.now },
 });
 
 UserSchema.methods.comparePassword = async function(password: string) {
-  // tslint:disable:no-invalid-this
-  // tslint:disable-next-line:possible-timing-attack
   return password === this.password;
 };
 

@@ -1,7 +1,6 @@
 /**
  * 
  */
-// tslint:disable-next-line:no-require-imports
 import mongoose  = require('mongoose');
 import { config } from '../config';
 

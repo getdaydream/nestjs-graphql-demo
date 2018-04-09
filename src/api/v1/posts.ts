@@ -2,8 +2,8 @@
  * 用户发帖
  */
 import * as Router from 'koa-router';
-import { Post } from '../../model/post';
 import { config } from '../../config';
+import { Post } from '../../model/post';
 // import * as _ from 'lodash';
 
 export const router = new Router();
@@ -24,28 +24,29 @@ router.get('/', async ctx => {
       success: '查询成功',
       posts: posts
         ? posts.map(post => {
-            return {
-              category,
-              id: post._id,
-              content: post['content'],
-              title: post['title'],
-              images: post['images'].map(filename => {
-                return `${config.host}/dynamic/${filename}`;
-              }),
-              update_at: post['update_at']
-            };
-          })
-        : []
+          return {
+            category,
+            id: post._id,
+            content: post['content'],
+            title: post['title'],
+            images: post['images'].map(filename => {
+              return `${config.host}/dynamic/${filename}`;
+            }),
+            update_at: post['update_at'],
+          };
+        })
+        : [],
     };
   } catch (e) {
     ctx.body = {
-      error: e
+      error: e,
     };
   }
 });
 
 // 创建新的帖子
 router.post('/', async ctx => {
+  // tslint:disable-next-line:prefer-const
   let { content, category, title, images } = ctx.request.body;
   if (images.length) {
     images = images.split(',');
@@ -58,11 +59,11 @@ router.post('/', async ctx => {
     content,
     category,
     userID,
-    images
+    images,
   });
   if (!category) {
     return (ctx.body = {
-      error: '未指定帖子种类'
+      error: '未指定帖子种类',
     });
   }
   try {
@@ -80,12 +81,12 @@ router.post('/', async ctx => {
         images: post['images'].map(filename => {
           return `${config.host}/dynamic/${filename}`;
         }),
-        update_at: result['update_at']
-      }
+        update_at: result['update_at'],
+      },
     };
   } catch (e) {
     ctx.body = {
-      error: e
+      error: e,
     };
   }
 });
@@ -101,7 +102,7 @@ router.put('/', async ctx => {
       Object.assign(post, {
         content,
         title,
-        category: category ? category : post['category']
+        category: category ? category : post['category'],
       });
       const result = await post.save();
       ctx.body = {
@@ -111,17 +112,17 @@ router.put('/', async ctx => {
           category,
           content,
           title,
-          update_at: post['update_at']
-        }
+          update_at: post['update_at'],
+        },
       };
     } else {
       ctx.body = {
-        error: '不存在的帖子'
+        error: '不存在的帖子',
       };
     }
   } catch (e) {
     ctx.body = {
-      error: e
+      error: e,
     };
   }
 });
@@ -132,11 +133,11 @@ router.delete('/', async ctx => {
   try {
     await Post.findByIdAndRemove(id);
     ctx.body = {
-      success: '删除帖子成功'
+      success: '删除帖子成功',
     };
   } catch (e) {
     ctx.body = {
-      error: e
+      error: e,
     };
   }
 });

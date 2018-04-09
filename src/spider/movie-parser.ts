@@ -10,14 +10,14 @@ export class MovieParser {
 
   constructor(html) {
     this.$ = cheerio.load(html);
-    let infoArray = this.$('#info')
+    const infoArray = this.$('#info')
       .text()
       .split('\n')
       .filter(v => v !== '')
       .map(item => item.trim());
     this.attrs = new Map();
     infoArray.forEach(v => {
-      let [key, value] = v.split(':');
+      const [key, value] = v.split(':');
       this.attrs.set(key, value);
     });
   }
@@ -40,16 +40,18 @@ export class MovieParser {
 
   // 原名
   get originalTitle() {
-    let element = this.$('#mainpic > a > img');
+    const element = this.$('#mainpic > a > img');
     if (isAttrExistsInElement(element, 'alt')) {
-      return element.attr('alt');
+      if (element.attr('alt') !== this.title) {
+        return element.attr('alt');
+      }
     }
     return undefined;
   }
 
   // 又名
   get aka() {
-    let result = [];
+    const result = [];
     if (this.attrs.get('又名')) {
       this.attrs
         .get('又名')
@@ -64,7 +66,7 @@ export class MovieParser {
 
   // 年代
   get year() {
-    let element = this.$('span.year');
+    const element = this.$('span.year');
     if (isElementExists(element)) {
       const year = element.text().replace(/\(|\)/g, '');
       return isNaN(Number(year)) ? undefined : Number(year);
@@ -74,7 +76,7 @@ export class MovieParser {
 
   // 条目分类, movie或者tv
   get subtype() {
-    let element = this.$('.gtleft span.rec > a');
+    const element = this.$('.gtleft span.rec > a');
     if (isAttrExistsInElement(element, 'data-type')) {
       if (element.attr('data-type') === '电影') {
         return 'movie';
@@ -88,7 +90,7 @@ export class MovieParser {
 
   // 评分
   get ratingValue() {
-    let element = this.$('strong[property="v:average"]');
+    const element = this.$('strong[property="v:average"]');
     if (isElementExists(element)) {
       return element.text() ? Number(element.text()) : undefined;
     }
@@ -97,7 +99,7 @@ export class MovieParser {
 
   // 评价人数
   get ratingCount() {
-    let element = this.$('span[property="v:votes"]');
+    const element = this.$('span[property="v:votes"]');
     if (isElementExists(element)) {
       return element.text() ? Number(element.text()) : undefined;
     }
@@ -106,7 +108,7 @@ export class MovieParser {
 
   // 评一星到五星的人数权重
   get ratingOnWeight() {
-    let element = this.$('span[class="rating_per"]');
+    const element = this.$('span[class="rating_per"]');
     if (element && element.length === 5) {
       return this.$('span[class="rating_per"]')
         .text()
@@ -119,7 +121,7 @@ export class MovieParser {
 
   // 海报
   get doubanPoster() {
-    let element = this.$('a.nbgnbg > img');
+    const element = this.$('a.nbgnbg > img');
     if (isAttrExistsInElement(element, 'src')) {
       return element.attr('src');
     }
@@ -128,7 +130,7 @@ export class MovieParser {
 
   // 制片国家 / 地区
   get countries() {
-    let result = [];
+    const result = [];
     if (this.attrs.get('制片国家/地区')) {
       this.attrs
         .get('制片国家/地区')
@@ -143,7 +145,7 @@ export class MovieParser {
 
   // 类型
   get genres() {
-    let result = [];
+    const result = [];
     if (this.attrs.get('类型')) {
       this.attrs
         .get('类型')
@@ -192,16 +194,16 @@ export class MovieParser {
 
   // 导演
   get directors() {
-    let result = [];
+    const result = [];
     if (this.attrs.get('导演')) {
-      let elements = this.$('a[rel="v:directedBy"]');
+      const elements = this.$('a[rel="v:directedBy"]');
       for (let i = 0; i < elements.length; i++) {
         result.push({
           id: elements
             .eq(i)
             .attr('href')
             .split('/')[2],
-          name: elements.eq(i).text()
+          name: elements.eq(i).text(),
         });
       }
     }
@@ -210,9 +212,9 @@ export class MovieParser {
 
   // 编剧
   get writers() {
-    let result = [];
+    const result = [];
     if (this.attrs.get('编剧')) {
-      let elements = this.$('span:contains("编剧")')
+      const elements = this.$('span:contains("编剧")')
         .next()
         .children();
       for (let i = 0; i < elements.length; i++) {
@@ -222,7 +224,7 @@ export class MovieParser {
               .eq(i)
               .attr('href')
               .split('/')[2],
-            name: elements.eq(i).text()
+            name: elements.eq(i).text(),
           });
         }
       }
@@ -232,16 +234,16 @@ export class MovieParser {
 
   // 主演
   get casts() {
-    let result = [];
+    const result = [];
     if (this.attrs.get('主演')) {
-      let elements = this.$('a[rel="v:starring"]');
+      const elements = this.$('a[rel="v:starring"]');
       for (let i = 0; i < elements.length; i++) {
         result.push({
           id: elements
             .eq(i)
             .attr('href')
             .split('/')[2],
-          name: elements.eq(i).text()
+          name: elements.eq(i).text(),
         });
       }
     }
@@ -250,15 +252,15 @@ export class MovieParser {
 
   // 相关电影推荐
   get recommendations() {
-    let result = [];
-    let elements = this.$('#recommendations dd a');
+    const result = [];
+    const elements = this.$('#recommendations dd a');
     if (isElementExists(elements)) {
       for (let i = 0; i < elements.length; i++) {
         result.push(
           elements
             .eq(i)
             .attr('href')
-            .split('/')[4]
+            .split('/')[4],
         );
       }
     }
@@ -267,8 +269,8 @@ export class MovieParser {
 
   // 用户标签
   get userTags() {
-    let result = [];
-    let elements = this.$('.tags-body a');
+    const result = [];
+    const elements = this.$('.tags-body a');
     if (isElementExists(elements)) {
       for (let i = 0; i < elements.length; i++) {
         result.push(elements.eq(i).text());
@@ -280,7 +282,7 @@ export class MovieParser {
   // tv only
   // 所有季对应的id
   get seasons() {
-    let result = [];
+    const result = [];
     if (this.attrs.get('季数')) {
       if (
         this.$('span:contains("季数:")')
@@ -309,7 +311,7 @@ export class MovieParser {
 
   // 首播日期或上映日期
   get pubDates() {
-    let result = [];
+    const result = [];
     let elements;
     if (this.attrs.get('首播') || this.attrs.get('上映日期')) {
       elements = this.$('span[property="v:initialReleaseDate"]');

@@ -1,25 +1,27 @@
 /**
  *
  */
-import * as Router from 'koa-router';
 import * as got from 'got';
-import { Movie } from '../../model/movie';
+import * as Router from 'koa-router';
 import * as _ from 'lodash';
+import { Movie } from '../../model/movie';
 import { MovieParser } from '../../spider/movie-parser';
 
 export const router = new Router();
 
 // 返回电影条目中的基本字段
 export const MOVIE_BASIC_KEYS = [
+  '_id',
   'id',
   'title',
   'year',
   'poster',
-  'ratingValue'
+  'ratingValue',
 ];
 
 // 返回电影条目中的完整字段
 export const MOVIE_KEYS = [
+  '_id',
   'id',
   'title',
   'originalTitle',
@@ -41,7 +43,7 @@ export const MOVIE_KEYS = [
   'summary',
   'recommendations',
   'userTags',
-  'imdbID'
+  'imdbID',
 ];
 
 const doubanMovieBaseUrl = 'https://movie.douban.com/subject/';
@@ -58,30 +60,31 @@ router.get('/', async ctx => {
       if (movie) {
         ctx.body = {
           success: '查找电影成功',
-          movies: [_.pick(movie, MOVIE_KEYS)]
+          movies: [_.pick(movie, MOVIE_KEYS)],
         };
       } else {
         ctx.body = {
-          error: '不存在的电影'
+          error: '不存在的电影',
         };
       }
     } catch (e) {
       ctx.body = {
-        error: e
+        error: e,
       };
     }
   } else {
     try {
       const movies = await Movie.find({})
         .sort({ ratingCount: 'desc' })
-        .limit(10);
+        .skip(800)
+        .limit(12);
       ctx.body = {
         success: '查找电影成功',
-        movies: movies.map(movie => _.pick(movie, MOVIE_BASIC_KEYS))
+        movies: movies.map(movie => _.pick(movie, MOVIE_BASIC_KEYS)),
       };
     } catch (e) {
       ctx.body = {
-        error: e
+        error: e,
       };
     }
   }
@@ -98,16 +101,16 @@ router.post('/', async ctx => {
       const doc = await movie.save();
       ctx.body = {
         success: '创建电影成功',
-        movie: _.pick(doc, MOVIE_KEYS)
+        movie: _.pick(doc, MOVIE_KEYS),
       };
     } else {
       ctx.body = {
-        error: '未请求到相应数据'
+        error: '未请求到相应数据',
       };
     }
   } catch (e) {
     ctx.body = {
-      error: e
+      error: e,
     };
   }
 });

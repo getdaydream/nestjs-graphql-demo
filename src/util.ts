@@ -6,6 +6,6 @@ import { config } from './config';
 
 export const genToken = (id) => {
   return jwt.sign({
-    id
+    id,
   }, config.secretKey,{ expiresIn: '10h' }); 
 };

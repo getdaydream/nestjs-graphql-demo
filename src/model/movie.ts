@@ -1,15 +1,14 @@
 /**
  * 电影
  */
-import * as path from 'path';
 import { model, Schema } from 'mongoose';
+import * as path from 'path';
 import { config } from '../config';
 
-// tslint:disable:variable-name
 const MovieSchema = new Schema({
   from: {
     type: String,
-    enum: ['douban', 'imdb']
+    enum: ['douban', 'imdb'],
   },
   html: String,
   id: { type: String, unique: true },
@@ -24,7 +23,7 @@ const MovieSchema = new Schema({
   // 条目分类
   subtype: {
     type: String,
-    enum: ['movie', 'tv', 'unknown']
+    enum: ['movie', 'tv', 'unknown'],
   },
   // 评分
   ratingValue: Number,
@@ -59,11 +58,11 @@ const MovieSchema = new Schema({
   imdbID: String,
   create_at: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
   },
   update_at: {
     type: Date,
-    default: Date.now()
+    default: Date.now(),
   },
 
   // tv only
@@ -76,8 +75,8 @@ const MovieSchema = new Schema({
   // 海报在本地是否有缓存
   posterCache: {
     type: String,
-    enum: ['fulfilled', 'rejected']
-  }
+    enum: ['fulfilled', 'rejected'],
+  },
 
   // deprecated
   // poster : 作为虚拟属性，如果本地缓存，就用本地的，否则就用doubanPoster
@@ -88,7 +87,6 @@ const MovieSchema = new Schema({
 
 MovieSchema.pre('save', function(next) {
   const now = new Date();
-  // tslint:disable:no-invalid-this
   this.update_at = now;
   next();
 });

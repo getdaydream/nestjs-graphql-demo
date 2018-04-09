@@ -20,7 +20,7 @@ router.get('/github', async ctx => {
   ctx.body = {
     redirect: `https://github.com/login/oauth/authorize?client_id=${
       config.GITHUB_OAUTH.clientID
-    }&scope=${config.GITHUB_OAUTH.scope}`
+    }&scope=${config.GITHUB_OAUTH.scope}`,
   };
 });
 
@@ -36,16 +36,16 @@ router.get('/github/callback', async ctx => {
         body: querystring.stringify({
           client_id: config.GITHUB_OAUTH.clientID,
           client_secret: config.GITHUB_OAUTH.clientSecret,
-          code
-        })
-      }
+          code,
+        }),
+      },
     );
     const { access_token } = querystring.parse(tokenResponse.body);
     // use access_token to request user data from github
     const userResponse = await got.get('https://api.github.com/user', {
       headers: {
-        Authorization: `token ${access_token}`
-      }
+        Authorization: `token ${access_token}`,
+      },
     });
     /**
      * 用户信息数据结构
@@ -61,16 +61,16 @@ router.get('/github/callback', async ctx => {
         username: githubUser.name,
         githubUsername: githubUser.name,
         avatar: githubUser.avatar_url || githubUser.gravatar_id,
-        githubAccessToken: access_token 
+        githubAccessToken: access_token, 
       });
       const result = await user.save();
       const token = genToken(result._id);
       ctx.body = {
-        token
+        token,
       };
     } else {
       ctx.body = {
-        token:genToken(oldUser._id)
+        token:genToken(oldUser._id),
       };
     }
   } catch (e) {

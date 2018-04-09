@@ -4,39 +4,31 @@
  * draft：article的草稿
  * dynamic：动态
  */
-import { model, Schema } from 'mongoose';
+import { model, Schema, SchemaTypes } from 'mongoose';
 
-// tslint:disable:variable-name
 const PostSchema = new Schema({
   // 用户id
   userID: {
-    type: String,
-    required: true
+    type: SchemaTypes.ObjectId,
+    required: true,
   },
   // 帖子类型
   category: {
     type: String,
-    enum: ['article','draft' ,'dynamic']
+    enum: ['article', 'draft', 'dynamic'],
   },
-  // article和draft的帖子标题 
+  // article和draft的帖子标题
   title: String,
   // 帖子内容
   content: String,
   // 最多上传9张
-  images:Array,
-  create_at: {
-    type: Date,
-    default: Date.now()
-  },
-  update_at: {
-    type: Date,
-    default: Date.now()
-  }
+  images: Array,
+  create_at: { type: Date, default: Date.now },
+  update_at: { type: Date, default: Date.now },
 });
 
 PostSchema.pre('save', function(next) {
   const now = new Date();
-    // tslint:disable:no-invalid-this
   this.update_at = now;
   next();
 });

@@ -4,29 +4,27 @@
  * 目录为poster
  * 文件名为电影id
  */
-import * as got from 'got';
 import * as fs from 'fs';
+import * as got from 'got';
 import * as path from 'path';
-import { Movie } from '../model/movie';
 import { connectMongodb } from '../model/index';
+import { Movie } from '../model/movie';
 
 connectMongodb();
 
 const findMovie = async () => {
-  const movie = await Movie.findOne({
-    // posterCache: { $exists: false },
-    // ratingValue: { $gt: 7 },
-    // ratingCount: { $gt: 3000 }
-    posterCache: 'rejected'
+  return Movie.findOne({
+    posterCache: { $exists: false },
+    ratingValue: { $gt: 7 },
+    ratingCount: { $gt: 3000 },
   });
-  return movie;
 };
 
 let count = 0;
 let errorCount = 0;
 
 const download = () => {
-  findMovie().then(movie => {
+  findMovie().then((movie) => {
     if (movie) {
       console.log(movie['title']);
       console.log(movie['ratingValue']);
@@ -39,16 +37,16 @@ const download = () => {
             console.log(`count:   ${++count}`);
             setTimeout(() => {
               download();
-            }, 1000 + (0.5 - Math.random() * 500));
+            }, (0.5 - Math.random() * 500) + 1000);
           });
         })
         .on('error', () => {
           console.log(
-            '=========================================================='
+            '==========================================================',
           );
           console.log('error');
           console.log(
-            '=========================================================='
+            '==========================================================',
           );
           console.log(`错误次数 ${++errorCount} ===================`);
           movie['posterCache'] = 'rejected';
@@ -60,9 +58,9 @@ const download = () => {
             path.join(
               __dirname,
               '../../poster',
-              `${movie['id']}${path.extname(movie['poster'])}`
-            )
-          )
+              `${movie['id']}${path.extname(movie['poster'])}`,
+            ),
+          ),
         );
     } else {
       console.log('完成');

@@ -4,12 +4,12 @@
 import * as Koa from 'koa';
 import * as koaBody from 'koa-body';
 import * as jwt from 'koa-jwt';
+import * as logger from 'koa-logger';
 import * as serve from 'koa-static';
 import * as cors from 'koa2-cors';
 import * as path from 'path';
 
 import { config } from './config';
-import { logger } from './middleware/logger';
 import { connectMongodb } from './model/index';
 import { router } from './route/index';
 
@@ -17,7 +17,7 @@ connectMongodb()
   .then(() => {
     console.log('connect mongodb success');
   })
-  .catch(e => {
+  .catch((e) => {
     console.log(`connect mongodb failed ${e}`);
   });
 
@@ -36,27 +36,27 @@ app.use(serve(path.resolve(__dirname, '../static/')));
 // for authorization and access control.
 app.use(
   jwt({
-    secret: config.secretKey
+    secret: config.secretKey,
   }).unless({
     path: [
       /^\/api\/v1\/oauth/,
       /^\/api\/v1\/users\/login/,
       /^\/api\/v1\/users\/signup/,
-      /^\/upload/
-    ]
-  })
+      /^\/upload/,
+    ],
+  }),
 );
 
 app.use(
   koaBody({
     multipart: true,
     formidable: {
-      keepExtensions: true
-    }
-  })
+      keepExtensions: true,
+    },
+  }),
 );
 
-app.use(logger);
+app.use(logger());
 
 // route
 app.use(router.routes());

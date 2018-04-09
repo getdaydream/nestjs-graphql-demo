@@ -24,7 +24,7 @@ router.post('/', async ctx => {
     const dstPath = path.join(
       __dirname,
       `../../../upload/${directory}/`,
-      fileName
+      fileName,
     );
     const reader = fs.createReadStream(file.path);
     const writer = fs.createWriteStream(dstPath);
@@ -37,7 +37,7 @@ router.post('/', async ctx => {
     const { id } = ctx.state.user;
     const user = await User.findById(id);
     Object.assign(user, {
-      avatar: `${config.host}/${directory}/${filePaths[0]}`
+      avatar: `${config.host}/${directory}/${filePaths[0]}`,
     });
     await user.save();
   }
@@ -46,7 +46,7 @@ router.post('/', async ctx => {
 
   ctx.body = {
     success: '上传图片成功',
-    images: filePaths
+    images: filePaths,
   };
 });
 
@@ -56,22 +56,22 @@ router.delete('/', async ctx => {
   const filePath = path.resolve(
     __dirname,
     `../../../upload/${directory}/`,
-    filename
+    filename,
   );
   if (fs.existsSync(filePath)) {
     try {
       fs.unlinkSync(filePath);
       ctx.body = {
-        success: '删除成功'
-      }
+        success: '删除成功',
+      };
     } catch (e) {
       ctx.body = {
-        error: e
-      }
+        error: e,
+      };
     }
   } else {
     ctx.body = {
-      error: '不存在的文件'
+      error: '不存在的文件',
     };
   }
 });

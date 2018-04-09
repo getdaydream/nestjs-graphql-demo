@@ -11,18 +11,17 @@
   - [koa2-cors](https://github.com/zadzbw/koa2-cors)
   - [koa-jwt](https://github.com/koajs/jwt): This module lets you authenticate HTTP requests using JSON Web Tokens in your Koa (node.js) applications.
   - [koa-static](https://github.com/koajs/static): Koa static file serving middleware, wrapper for koa-send.
-
+  - [koa-logger](https://github.com/koajs/logger): Development style logger middleware for koa.
 
 ## Bug
 - request github access_token twice
 
 ## TODO
-* 豆瓣图片访问次数过多会被ban
+* 如果originalTitle == title,删除originalTitle字段
+* data validation
 * email verification
-* mongoose 添加索引
 * [koa2-jwt-demo](https://github.com/yunzaifei/koa2-jwt-demo)
 * ts and mongoose
-* upload avatar
 * Gravatar random avatar
 * [移花接木：针对OAuth2的攻击](http://insights.thoughtworkers.org/attack-aim-at-oauth2/)
 * token expire
@@ -30,6 +29,8 @@
 * https
 * git flow
 * IMDB
+* pocket api
+* 数据库
 
 ## Q
 * mongoose query async
