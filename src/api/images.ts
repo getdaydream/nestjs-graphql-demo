@@ -4,8 +4,8 @@
 import * as fs from 'fs';
 import * as Router from 'koa-router';
 import * as path from 'path';
-import { config } from '../../config';
-import { User } from '../../model/user';
+import { config } from '../config';
+import { User } from '../model/user';
 
 export const router = new Router();
 

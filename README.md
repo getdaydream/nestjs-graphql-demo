@@ -15,8 +15,10 @@
 
 ## Bug
 - request github access_token twice
+- 上传路径
 
 ## TODO
+* 多条件搜索过慢
 * 如果originalTitle == title,删除originalTitle字段
 * data validation
 * email verification

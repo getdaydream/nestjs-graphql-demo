@@ -4,9 +4,9 @@
 import * as got from 'got';
 import * as Router from 'koa-router';
 import * as querystring from 'querystring';
-import { config } from '../../config';
-import { User } from '../../model/user';
-import { genToken } from '../../util';
+import { config } from '../config';
+import { User } from '../model/user';
+import { genToken } from '../util';
 
 export const router = new Router();
 

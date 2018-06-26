@@ -17,7 +17,7 @@ connectMongodb()
   .then(() => {
     console.log('connect mongodb success');
   })
-  .catch((e) => {
+  .catch(e => {
     console.log(`connect mongodb failed ${e}`);
   });
 

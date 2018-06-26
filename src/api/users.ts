@@ -2,8 +2,8 @@
  * 用户登录注册
  */
 import * as Router from 'koa-router';
-import { User } from '../../model/user';
-import { genToken } from '../../util';
+import { User } from '../model/user';
+import { genToken } from '../util';
 
 export const router = new Router();
 

@@ -46,7 +46,7 @@ export class MovieParser {
         return element.attr('alt');
       }
     }
-    return undefined;
+    return;
   }
 
   // 又名
@@ -71,7 +71,7 @@ export class MovieParser {
       const year = element.text().replace(/\(|\)/g, '');
       return isNaN(Number(year)) ? undefined : Number(year);
     }
-    return undefined;
+    return;
   }
 
   // 条目分类, movie或者tv
@@ -94,7 +94,7 @@ export class MovieParser {
     if (isElementExists(element)) {
       return element.text() ? Number(element.text()) : undefined;
     }
-    return undefined;
+    return;
   }
 
   // 评价人数
@@ -103,7 +103,7 @@ export class MovieParser {
     if (isElementExists(element)) {
       return element.text() ? Number(element.text()) : undefined;
     }
-    return undefined;
+    return;
   }
 
   // 评一星到五星的人数权重
@@ -116,7 +116,7 @@ export class MovieParser {
         .slice(0, -1)
         .reverse();
     }
-    return undefined;
+    return;
   }
 
   // 海报
@@ -125,7 +125,7 @@ export class MovieParser {
     if (isAttrExistsInElement(element, 'src')) {
       return element.attr('src');
     }
-    return undefined;
+    return;
   }
 
   // 制片国家 / 地区
@@ -134,6 +134,21 @@ export class MovieParser {
     if (this.attrs.get('制片国家/地区')) {
       this.attrs
         .get('制片国家/地区')
+        .trim()
+        .split('/')
+        .forEach(v => {
+          result.push(v.trim());
+        });
+    }
+    return result.length ? result : undefined;
+  }
+
+  // 语言
+  get languages() {
+    const result = [];
+    if (this.attrs.get('语言')) {
+      this.attrs
+        .get('语言')
         .trim()
         .split('/')
         .forEach(v => {
@@ -294,7 +309,7 @@ export class MovieParser {
           result.push(elements.eq(i).attr('value'));
         }
       } else {
-        result.push(this.attrs['季数'].trim());
+        result.push(this.attrs.get('季数').trim());
       }
     }
     return result.length ? result : undefined;
@@ -302,7 +317,7 @@ export class MovieParser {
 
   // 集数
   get episodeCount() {
-    let result;
+    let result = '';
     if (this.attrs.get('集数')) {
       result = this.attrs.get('集数').trim();
     }

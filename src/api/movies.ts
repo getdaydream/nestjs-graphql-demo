@@ -4,8 +4,8 @@
 import * as got from 'got';
 import * as Router from 'koa-router';
 import * as _ from 'lodash';
-import { Movie } from '../../model/movie';
-import { MovieParser } from '../../spider/movie-parser';
+import { MovieParser } from '../crawler/paser/movie';
+import { Movie } from '../model/movie';
 
 export const router = new Router();
 
