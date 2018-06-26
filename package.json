@@ -8,7 +8,9 @@
     "watch": "tsc -w",
     "start": "cross-env NODE_ENV=production node build/app.js",
     "build": "cross-env NODE_ENV=production tsc",
-    "download": "node build/spider/download.js"
+    "download": "node build/spider/download.js",
+    "movie": "cross-env NODE_ENV=production node build/spider/movie.js",
+    "once": "cross-env NODE_ENV=production node build/spider/delete-unimportant.js"
   },
   "author": "getdaydream <getdaydream@gmail.com>",
   "license": "MIT",
@@ -23,7 +25,8 @@
     "koa-static": "^4.0.2",
     "koa2-cors": "^2.0.5",
     "lodash": "^4.17.5",
-    "mongoose": "^5.0.10"
+    "mongoose": "^5.0.10",
+    "puppeteer": "^1.2.0"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.7",
@@ -32,7 +35,8 @@
     "@types/koa": "^2.0.44",
     "@types/koa-router": "^7.0.27",
     "@types/lodash": "^4.14.106",
-    "@types/mongoose": "^5.0.7",
+    "@types/mongoose": "^5.0.9",
+    "@types/puppeteer": "^1.2.1",
     "cross-env": "^5.1.4",
     "koa-logger": "^3.2.0",
     "nodemon": "^1.17.1",

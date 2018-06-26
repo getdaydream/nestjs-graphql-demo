@@ -1,7 +1,7 @@
 import * as Router from 'koa-router';
 import * as _ from 'lodash';
-import { List } from '../../model/list';
-import { Movie } from '../../model/movie';
+import { List } from '../model/list';
+import { Movie } from '../model/movie';
 import { MOVIE_BASIC_KEYS } from './movies';
 
 export const router = new Router();
