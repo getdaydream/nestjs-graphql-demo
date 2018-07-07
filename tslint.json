@@ -1,81 +1,43 @@
-// tslint rules
-// https://palantir.github.io/tslint/rules/
-//
-// based on tslint-config-airbnb
-// https://github.com/progre/tslint-config-airbnb/blob/9732a9ef0e6ac2d4a1240233f280c4d87b5069d2/tslint.js
-//
-// dependencies
-// tslint-eslint-rules:https://github.com/buzinas/tslint-eslint-rules
 {
-  "extends": [
-    // tslint preset rules
-    "tslint:recommended",
-    "tslint-eslint-rules"
-  ],
+  "extends": "tslint:latest",
   "rules": {
-    ////////////////////////////////////////////////
-    //  tslint rules
-    ///////////////////////////////////////////////
-    "no-console": false,
-    "eofline": true,
-    "no-boolean-literal-compare": false,
-    "no-trailing-whitespace": false,
-    // requires interface names to not have an “I” prefix
-    "interface-name": [true, "never-prefix"],
-    "prefer-const": true,
-    "no-var-keyword": true,
-    "object-literal-sort-keys": false,
-    // no parens when only single arg
-    "arrow-parens": [true, "ban-single-arg-parens"],
-    // allow use
-    "no-relative-imports": false,
-    // https://palantir.github.io/tslint/rules/object-literal-key-quotes/
-    // add quote for object key when needed
-    "object-literal-key-quotes": [true, "as-needed"],
-    "quotemark": [true, "single"],
-    "only-arrow-functions": true,
-    // disallow input parameter reassignment
-    "no-parameter-reassignment": true,
-    "no-duplicate-imports": true,
-    "one-variable-per-declaration": [true, "ignore-for-loop"],
-    // allow use increment and decrement
-    "no-increment-decrement": false,
-    "triple-equals": [true],
-    // force brackets for if/do/for/while
-    "curly": [true, "ignore-same-line"],
-    // comment must start with space
-    "comment-format": [true, "check-space"],
-    "align": false,
-    "indent": [true, "spaces", 2],
-    "ter-indent": [
+    "quotemark": [
       true,
-      2,
+      "single",
+      "jsx-double"
+    ],
+    "no-console": [
+      true,
+      "dir",
+      "log",
+      "error",
+      "warn"
+    ],
+    "space-before-function-paren": false,
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "adjacent-overload-signatures": true,
+    "member-access": [
+      false
+    ],
+    "member-ordering": [
+      true,
       {
-        "SwitchCase": 1
+        "order": "fields-first"
       }
     ],
-    "whitespace": [
+    "object-literal-sort-keys": false,
+    "max-classes-per-file": [
       true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-preblock"
+      10
     ],
-    // https://palantir.github.io/tslint/rules/no-construct/
-    "no-construct": true,
-    "radix": true,
-    "no-this-assignment": true,
-    // use T[], instead of Array<T>
-    "array-type": [true, "array"],
-    "linebreak-style": [true, "LF"],
-    "number-literal-format": false,
-    "no-string-literal": false,
-    ////////////////////////////////////////////////
-    //  tslint-eslint-rules
-    ///////////////////////////////////////////////
-    // no space inside array
-    "array-bracket-spacing": [true, "never"],
-    // const obj = { foo: { zoo: 'bar' } };
-    "object-curly-spacing": [true, "always"]
+    "variable-name": [
+      true,
+      "allow-leading-underscore"
+    ],
+    "align": [true, "statements"]
   }
 }
+
