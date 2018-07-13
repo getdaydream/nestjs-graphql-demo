@@ -1,14 +1,22 @@
-.DS_Store
+# dependencies
 node_modules/
-/dist/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# Editor directories and files
-.idea
-.vscode
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
+# IDE
+/.idea
+/.awcache
+/.vscode
+
+# misc
+.DS_Store
+lerna-debug.log
+npm-debug.log
+yarn-error.log
+/src/common/npm-debug.log
+/src/core/npm-debug.log
+/src/testing/npm-debug.log
+/src/microservices/npm-debug.log
+/src/websockets/npm-debug.log
+
+# example
+
+# tests
