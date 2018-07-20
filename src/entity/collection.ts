@@ -1,23 +1,23 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 
 @Entity()
-export class User {
+export class Collection {
 
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    name: string;
-
-    @Column({ type: 'varchar',  length: 100, unique: true })
-    email: string;
+    status: 'todo' | 'doing' | 'done';
 
     @Column()
-    password: string;
+    // 操作的时间
+    action: object;
 
     @Column()
-    // File
-    avatar: string;
+    category: string;
+
+    @Column()
+    tags: string;
 
     @CreateDateColumn()
     creat_at: Date;
