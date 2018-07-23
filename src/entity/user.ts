@@ -6,18 +6,14 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: 'varchar', length: 10 })
     name: string;
 
-    @Column({ type: 'varchar',  length: 100, unique: true })
+    @Column({ type: 'varchar', length: 100, unique: true })
     email: string;
 
     @Column()
     password: string;
-
-    @Column()
-    // File
-    avatar: string;
 
     @CreateDateColumn()
     creat_at: Date;

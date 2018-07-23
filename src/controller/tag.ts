@@ -4,7 +4,7 @@ import { getRepository } from 'typeorm';
 import { tagService } from 'service/tag';
 
 export const tagController = {
-    async create(ctx: Context) {
+    async create(ctx) {
         const { name } = ctx.request.body;
         if (await tagService.tagExists(name)) {
             return ctx.body = {
