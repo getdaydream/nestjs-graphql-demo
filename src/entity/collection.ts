@@ -11,7 +11,7 @@ export class Collection {
 
     @Column()
     // 操作的时间
-    action: object;
+    action: Date;
 
     @Column()
     category: string;
