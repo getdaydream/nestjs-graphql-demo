@@ -10,15 +10,21 @@
   },
   "scripts": {
     "start": "ts-node src/app.ts",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "test": "jest"
   },
   "devDependencies": {
+    "@types/jest": "^23.3.0",
     "@types/koa": "^2.0.46",
     "@types/koa-bodyparser": "^5.0.1",
     "@types/koa-router": "^7.0.30",
+    "@types/supertest": "^2.0.5",
     "consola": "^1.4.1",
+    "jest": "^23.4.1",
     "koa-logger": "^3.2.0",
     "nodemon": "^1.18.1",
+    "supertest": "^3.1.0",
+    "ts-jest": "^23.0.1",
     "ts-node": "^7.0.0",
     "tsconfig-paths": "^3.4.2",
     "tslint": "^5.10.0",
