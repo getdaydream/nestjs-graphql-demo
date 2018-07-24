@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { Tag } from 'entity';
+import { Tag } from '../entity';
 
 export const tagService = {
     async findAll(): Promise<Tag[]> {

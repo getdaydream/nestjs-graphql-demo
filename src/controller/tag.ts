@@ -1,7 +1,7 @@
 import { Tag } from '../entity';
 import { Context } from 'koa';
 import { getRepository } from 'typeorm';
-import { tagService } from 'service/tag';
+import { tagService } from '../service/tag';
 
 export const tagController = {
     async create(ctx) {
