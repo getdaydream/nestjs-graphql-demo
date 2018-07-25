@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany } from 'typeorm';
+import { Tag } from './tag';
 
 @Entity()
 export class User {
@@ -14,6 +15,9 @@ export class User {
 
     @Column()
     password: string;
+
+    @OneToMany(type => Tag, tag => tag.user)
+    tags: Tag[];
 
     @CreateDateColumn()
     creat_at: Date;
