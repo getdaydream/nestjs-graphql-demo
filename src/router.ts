@@ -7,6 +7,7 @@ const router = new Router();
 
 router.prefix('/api');
 
+router.post('/auth/login', userController.login);
 router.post('/user', userController.create);
 
 router.get('/tag', tagController.find);
