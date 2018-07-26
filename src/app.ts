@@ -16,4 +16,4 @@ app.use(bodyParser());
 
 app.use(router.routes());
 
-export const server = app.listen(3001);
+export const server = app.listen(3000);

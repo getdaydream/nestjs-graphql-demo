@@ -7,9 +7,9 @@ export abstract class Post {
   @Column()
   content: string;
 
-  // TODO
-  @Column()
-  Comment;
+  // // TODO
+  // @Column()
+  // Comment;
 
   @CreateDateColumn()
   creat_at: Date;
