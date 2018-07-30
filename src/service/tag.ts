@@ -7,10 +7,10 @@ export const tagService = {
         const tags = await tagRepo.find();
         return tags;
     },
-    async findById(id: number): Promise<Tag[]> {
+    async findById(id: number): Promise<Tag> {
         const tagRepo = getRepository(Tag);
         const tags = await tagRepo.findByIds([id]);
-        return tags;
+        return tags.length ? tags[0] : null;
     },
     async tagExists(name): Promise<boolean> {
         const tagRepo = getRepository(Tag);
