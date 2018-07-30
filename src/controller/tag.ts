@@ -22,18 +22,16 @@ export const tagController = {
       console.log(e);
     }
   },
+  async findById(ctx) {
+    const tag = await tagService.findById(ctx.params.id);
+    ctx.body = {
+      tag,
+    };
+  },
   async find(ctx: Context) {
-    const { id } = ctx.query;
-    if (!id) {
-      const tags = await tagService.findAll();
-      ctx.body = {
-        tags,
-      };
-    } else {
-      const tags = await tagService.findById(id);
-      ctx.body = {
-        tags,
-      };
-    }
+    const tags = await tagService.findAll();
+    ctx.body = {
+      tags,
+    };
   },
 };
