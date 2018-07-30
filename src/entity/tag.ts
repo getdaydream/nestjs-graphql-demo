@@ -4,19 +4,21 @@ import { User } from './user';
 @Entity()
 export class Tag {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    // TODO 测试ManyToOne
-    @ManyToOne(type => User, user => user.tags)
-    user: User;
+  @Column({ type: 'int' })
+  userId: number;
 
-    @Column({ unique: true })
-    name: string;
+  @ManyToOne(type => User, user => user.tags)
+  user: User;
 
-    @Column({ default: 0 })
-    count: number;
+  @Column({ unique: true })
+  name: string;
 
-    @CreateDateColumn()
-    creat_at: Date;
+  @Column({ default: 0 })
+  count: number;
+
+  @CreateDateColumn()
+  creat_at: Date;
 }

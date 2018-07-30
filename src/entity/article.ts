@@ -6,7 +6,7 @@ import { Tag } from './tag';
 @Entity()
 export  class Article extends Post {
   @Column()
-  published: boolean;
+  published: boolean = false;
 
   @ManyToOne(type => User, user => user.articles)
   user: User;
