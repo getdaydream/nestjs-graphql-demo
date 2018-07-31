@@ -7,7 +7,7 @@ export const articleController = {
     const { userId } = ctx.state.user;
     const { content } = ctx.request.body;
     const articleRepo = getRepository(Article);
-    const article = articleRepo.create({ content });
+    const article = articleRepo.create({ content, userId });
   },
   async edit(ctx) { },
   async findOneById(ctx) {

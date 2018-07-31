@@ -5,6 +5,9 @@ export abstract class Post {
   id: number;
 
   @Column()
+  userId: number;
+
+  @Column()
   content: string;
 
   // // TODO

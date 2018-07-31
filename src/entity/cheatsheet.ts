@@ -1,11 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 import { Post } from './post';
 
 @Entity()
-export class CheatSheet  extends Post {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+export class CheatSheet extends Post {
   @Column()
   language: string;
 }
