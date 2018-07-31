@@ -1,11 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Post } from './post';
 
 @Entity()
-export class Collection {
-
-    @PrimaryGeneratedColumn()
-    id: number;
-
+export class Collection extends Post {
     @Column()
     status: 'todo' | 'doing' | 'done';
 

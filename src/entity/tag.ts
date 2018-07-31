@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne } from 'typeorm';
-import { User } from './user';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
 
 @Entity()
 export class Tag {
@@ -9,9 +8,6 @@ export class Tag {
 
   @Column({ type: 'int' })
   userId: number;
-
-  @ManyToOne(type => User, user => user.tags)
-  user: User;
 
   @Column({ unique: true })
   name: string;
