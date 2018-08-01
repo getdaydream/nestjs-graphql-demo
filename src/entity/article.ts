@@ -2,8 +2,8 @@ import { Column, Entity, OneToMany, ManyToMany, JoinTable } from 'typeorm';
 import { Post } from './post';
 import { Tag } from './tag';
 
-export  class Article extends Post {
 @Entity()
+export class Article extends Post {
   @Column()
   published: boolean = false;
 
