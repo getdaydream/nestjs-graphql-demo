@@ -7,7 +7,7 @@ export const authService = {
       id,
     };
     const signOptions = {
-      expiresIn: '2h',
+      expiresIn: '7d',
     };
     return sign(payload, config.tokenSecret, signOptions);
   },
