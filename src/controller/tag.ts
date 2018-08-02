@@ -6,7 +6,7 @@ export const tagController = {
   async create(ctx) {
     const { name } = ctx.request.body;
     const { id: userId } = ctx.state.user;
-    if (await getRepository(Tag).find({ name })) {
+    if (await getRepository(Tag).findOne({ name })) {
       return (ctx.body = {
         error: 'duplicate tag name',
       });
@@ -14,10 +14,10 @@ export const tagController = {
     const tagRepo = getRepository(Tag);
     const tag = tagRepo.create({ name, userId });
     try {
-      const res = await tagRepo.save(tag);
+      await tagRepo.save(tag);
       ctx.body = tag;
     } catch (e) {
-      console.log(e);
+      ctx.body = e;
     }
   },
   async findById(ctx) {

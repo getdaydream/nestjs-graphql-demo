@@ -1,6 +1,5 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -14,9 +13,9 @@ export enum MOVIE_SOURCE {
 
 @Entity()
 export class Movie {
-  @PrimaryColumn('int') source: number;
-
   @PrimaryColumn() id: string;
+
+  @Column('int') source: number = MOVIE_SOURCE.DOUBAN;
 
   @Column() title: string;
 

@@ -21,5 +21,6 @@ router.post('/articles', articleController.create);
 router.put('/articles/:id', articleController.edit);
 
 router.post('/movies', movieController.create);
+router.get('/movies/:id', movieController.findOne);
 
 export { router };
