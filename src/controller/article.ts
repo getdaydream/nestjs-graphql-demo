@@ -1,4 +1,3 @@
-import { articleService } from '../service';
 import { getRepository } from 'typeorm';
 import { Article, Tag } from 'entity';
 

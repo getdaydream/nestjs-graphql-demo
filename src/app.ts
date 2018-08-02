@@ -15,8 +15,8 @@ DatabaseConnection.open();
 const app = new Koa();
 
 app.use(logger());
-app.use(jwt({ secret: config.tokenSecret })
-  .unless({ path: [/^\/api\/users/, /^\/api\/auth/] }));
+// app.use(jwt({ secret: config.tokenSecret })
+//   .unless({ path: [/^\/api\/users/, /^\/api\/auth/] }));
 app.use(bodyParser());
 
 app.use(router.routes());
