@@ -13,6 +13,7 @@ export class DatabaseConnection {
       password: config.mysql.password,
       database: config.mysql.database,
       entities: [__dirname + '/entity/*.{ts,js}'],
+      charset: 'utf8mb4',
       synchronize: true,
     });
   }

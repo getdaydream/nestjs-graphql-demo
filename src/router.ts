@@ -3,6 +3,7 @@ import * as Router from 'koa-router';
 import { tagController } from './controller/tag';
 import { userController } from './controller/user';
 import { articleController } from 'controller/article';
+import { movieController } from 'controller/movie';
 
 const router = new Router();
 
@@ -18,5 +19,7 @@ router.post('/tags', tagController.create);
 router.get('/articles/:id', articleController.findOneById);
 router.post('/articles', articleController.create);
 router.put('/articles/:id', articleController.edit);
+
+router.post('/movies', movieController.create);
 
 export { router };
