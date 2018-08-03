@@ -5,14 +5,13 @@ import { getRepository } from 'typeorm';
 export const tagController = {
   async create(ctx) {
     const { name } = ctx.request.body;
-    const { id: userId } = ctx.state.user;
     if (await getRepository(Tag).findOne({ name })) {
       return (ctx.body = {
         error: 'duplicate tag name',
       });
     }
     const tagRepo = getRepository(Tag);
-    const tag = tagRepo.create({ name, userId });
+    const tag = tagRepo.create({ name });
     try {
       await tagRepo.save(tag);
       ctx.body = tag;
