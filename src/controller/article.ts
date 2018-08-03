@@ -24,13 +24,9 @@ export const articleController = {
     });
     try {
       await articleRepo.save(article);
-      ctx.body = {
-        article,
-      };
+      ctx.body = article;
     } catch (e) {
-      ctx.body = {
-        error: e,
-      };
+      ctx.body = e;
     }
   },
   async edit(ctx) {},

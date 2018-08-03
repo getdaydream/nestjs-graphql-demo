@@ -6,6 +6,7 @@
     "test": "jest --forceExit --coverage --verbose"
   },
   "dependencies": {
+    "@types/winston": "^2.3.9",
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^6.0.0",
     "got": "^8.3.2",
@@ -18,7 +19,8 @@
     "lodash": "^4.17.10",
     "mysql": "^2.15.0",
     "reflect-metadata": "^0.1.12",
-    "typeorm": "^0.2.7"
+    "typeorm": "^0.2.7",
+    "winston": "^3.0.0"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.8",
