@@ -15,3 +15,6 @@ yarn-error.log
 
 # tests
 coverage/
+
+# env
+.env.dev

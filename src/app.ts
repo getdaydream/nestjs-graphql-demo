@@ -3,10 +3,14 @@ import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
 import * as logger from 'koa-logger';
 import * as jwt from 'koa-jwt';
+import 'reflect-metadata';
+
+import * as dotenv from 'dotenv';
+
+dotenv.config({ path: '.env.dev' });
+
 import { router } from './router';
 import { DatabaseConnection } from './connection';
-
-import 'reflect-metadata';
 import { config } from 'config';
 
 DatabaseConnection.open();
@@ -15,8 +19,11 @@ DatabaseConnection.open();
 const app = new Koa();
 
 app.use(logger());
-app.use(jwt({ secret: config.tokenSecret })
-  .unless({ path: [/^\/api\/users/, /^\/api\/auth/] }));
+app.use(
+  jwt({ secret: config.tokenSecret }).unless({
+    path: [/^\/api\/users/, /^\/api\/auth/],
+  }),
+);
 app.use(bodyParser());
 
 app.use(router.routes());

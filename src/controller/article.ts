@@ -33,7 +33,7 @@ export const articleController = {
       };
     }
   },
-  async edit(ctx) { },
+  async edit(ctx) {},
   async findOneById(ctx) {
     // select  a.content, (select group_concat(m.tagId) from mapping_article_tag as m where m.articleId = a.id) as 'tagIds' from article as a
     const { id } = ctx.params;
@@ -41,10 +41,7 @@ export const articleController = {
       .createQueryBuilder('article')
       .where('article.id = :id', { id })
       .leftJoinAndSelect('article.tags', 'tag')
-      .printSql()
-      .getOne();
-    ctx.body = {
-      article,
-    };
+      .getSql();
+    ctx.body = article;
   },
 };
