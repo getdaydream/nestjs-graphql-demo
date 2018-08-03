@@ -33,7 +33,7 @@ export class MovieParser {
       const result = element.attr('content').split('/')[5];
       return isNaN(Number(result)) ? '' : result;
     }
-    return '';
+    throw Error('parse movie id failed!');
   }
 
   // 中文名
