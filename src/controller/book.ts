@@ -32,12 +32,13 @@ export const bookController = {
       const doubanBook = new BookParser(body);
       const data = _.pick(doubanBook, BOOK_KEYS);
       const book = bookRepo.create(data);
-      book.id = doubanId;
+      // book.id = doubanId;
       await bookRepo.save(book);
       ctx.body = book;
     } catch (e) {
       ctx.status = 500;
       ctx.body = e;
+      throw(e);
     }
   },
   async findOne(ctx) {
