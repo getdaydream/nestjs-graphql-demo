@@ -1,5 +1,4 @@
-import { sign, verify } from 'jsonwebtoken';
-import { config } from 'config';
+import { sign } from 'jsonwebtoken';
 
 export const authService = {
   createToken(id): string {
@@ -9,10 +8,6 @@ export const authService = {
     const signOptions = {
       expiresIn: '7 days',
     };
-    return sign(payload, config.tokenSecret, signOptions);
-  },
-  verifyToken(token: string) {
-    // return verify(token, config.tokenSecret);
-    console.log(verify(token, config.tokenSecret));
+    return sign(payload, process.env.TOEKN_SECRET, signOptions);
   },
 };

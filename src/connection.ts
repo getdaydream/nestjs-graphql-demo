@@ -1,17 +1,17 @@
-import { config } from './config/index';
 import { createConnection, Connection } from 'typeorm';
 
 export class DatabaseConnection {
   static connection: Connection;
 
   static async open() {
+    console.log(process.env.MYSQL_DATABASE);
     this.connection = await createConnection({
       type: 'mysql',
-      host: config.mysql.host,
+      host: process.env.MYSQL_HOST,
       port: 3306,
-      username: config.mysql.user,
-      password: config.mysql.password,
-      database: config.mysql.database,
+      username: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE,
       entities: [__dirname + '/entity/*.{ts,js}'],
       charset: 'utf8mb4',
       synchronize: true,
