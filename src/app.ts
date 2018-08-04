@@ -11,7 +11,6 @@ dotenv.config({ path: '.env.dev' });
 import { logger } from './util/logger';
 import { router } from './router';
 import { DatabaseConnection } from './connection';
-import { config } from 'config';
 
 DatabaseConnection.open();
 
@@ -20,7 +19,7 @@ const app = new Koa();
 
 app.use(koaLogger());
 app.use(
-  jwt({ secret: config.tokenSecret }).unless({
+  jwt({ secret: process.env.TOEKN_SECRET }).unless({
     path: [/^\/api\/users/, /^\/api\/auth/],
   }),
 );
@@ -28,7 +27,7 @@ app.use(bodyParser());
 
 app.use(router.routes());
 
-export const server = app.listen(3001);
+export const server = app.listen(3000);
 
 app.on('error', err => {
   logger.error(err);
