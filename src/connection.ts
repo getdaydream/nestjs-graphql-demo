@@ -4,7 +4,6 @@ export class DatabaseConnection {
   static connection: Connection;
 
   static async open() {
-    console.log(process.env.MYSQL_DATABASE);
     this.connection = await createConnection({
       type: 'mysql',
       host: process.env.MYSQL_HOST,
