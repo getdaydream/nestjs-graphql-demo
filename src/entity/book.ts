@@ -19,7 +19,7 @@ export class Book {
 
   @Column() title: string;
 
-  @Column() originalTitle: string;
+  @Column() original_title: string;
 
   @Column() subtitle: string;
 
@@ -29,11 +29,11 @@ export class Book {
 
   @Column() cover: string;
 
-  @Column() ratingValue: number;
+  @Column({ type: 'decimal', precision: 2, scale: 1 }) rating_value: number;
 
-  @Column() ratingCount: number;
+  @Column() rating_count: number;
 
-  @Column() ratingOnWeight: string;
+  @Column() rating_on_weight: string;
 
   @UpdateDateColumn() update_at: Date;
 

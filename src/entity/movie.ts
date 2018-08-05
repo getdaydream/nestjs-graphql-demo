@@ -11,25 +11,34 @@ export enum MOVIE_SOURCE {
   IMDB,
 }
 
+export enum MOVIE_SUBTYPE {
+  TV,
+  MOVIE,
+}
+
 @Entity()
 export class Movie {
   @PrimaryColumn() id: string;
 
-  @Column('int') source: number = MOVIE_SOURCE.DOUBAN;
+  @Column('int') source: MOVIE_SOURCE = MOVIE_SOURCE.DOUBAN;
+
+  @Column() subtype: MOVIE_SUBTYPE;
 
   @Column() title: string;
 
-  @Column() originalTitle: string;
+  @Column() original_title: string;
 
   @Column() year: number;
 
   @Column() cover: string;
 
-  @Column() ratingValue: number;
+  @Column({ type: 'decimal', precision: 2, scale: 1 }) rating_value: number;
 
-  @Column() ratingCount: number;
+  @Column() rating_count: number;
 
-  @Column() ratingOnWeight: string;
+  @Column() rating_on_weight: string;
+
+  @Column({ type: 'text' }) summary: string;
 
   @UpdateDateColumn() update_at: Date;
 
