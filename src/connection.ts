@@ -1,4 +1,5 @@
 import { createConnection, Connection } from 'typeorm';
+import signale from 'signale';
 
 export class DatabaseConnection {
   static connection: Connection;
@@ -15,6 +16,7 @@ export class DatabaseConnection {
       charset: 'utf8mb4',
       synchronize: true,
     });
+    signale.success('Connect database success.');
   }
 
   static async close() {

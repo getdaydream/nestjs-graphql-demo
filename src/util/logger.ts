@@ -1,5 +1,5 @@
-import * as winston from 'winston';
-import * as path from 'path';
+import winston from 'winston';
+import path from 'path';
 
 const logDirname = path.resolve(__dirname, '../../log/');
 

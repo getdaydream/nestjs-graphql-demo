@@ -1,4 +1,4 @@
-import * as got from 'got';
+import got from 'got';
 import { Book } from 'entity';
 import { getRepository } from 'typeorm';
 

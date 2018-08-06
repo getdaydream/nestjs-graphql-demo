@@ -1,4 +1,4 @@
-import * as got from 'got';
+import got from 'got';
 import { MOVIE_SUBTYPE, Movie } from 'entity';
 import { getRepository } from 'typeorm';
 

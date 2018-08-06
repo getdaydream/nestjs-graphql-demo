@@ -1,5 +1,5 @@
-import * as got from 'got';
-import * as _ from 'lodash';
+import got from 'got';
+import _ from 'lodash';
 import { getRepository } from 'typeorm';
 import { Book } from 'entity';
 import { BookParser } from 'util/book-parser';

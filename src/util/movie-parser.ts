@@ -1,4 +1,4 @@
-import * as cheerio from 'cheerio';
+import cheerio from 'cheerio';
 
 const isElementExists = (element): boolean => {
   return element && element.length;

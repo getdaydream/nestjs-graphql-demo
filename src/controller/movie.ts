@@ -1,5 +1,5 @@
-import * as got from 'got';
-import * as _ from 'lodash';
+import got from 'got';
+import _ from 'lodash';
 import { MovieParser } from '../util/movie-parser';
 import { getRepository } from 'typeorm';
 import { Movie, MOVIE_SOURCE } from 'entity/movie';
