@@ -1,4 +1,4 @@
-import * as request from 'supertest';
+import request from 'supertest';
 import { server } from '../src/app';
 import { DatabaseConnection } from '../src/connection';
 

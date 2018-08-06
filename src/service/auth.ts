@@ -8,6 +8,6 @@ export const authService = {
     const signOptions = {
       expiresIn: '7 days',
     };
-    return sign(payload, process.env.TOEKN_SECRET, signOptions);
+    return sign(payload, process.env.TOKEN_SECRET, signOptions);
   },
 };

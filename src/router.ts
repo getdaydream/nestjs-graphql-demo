@@ -1,4 +1,4 @@
-import * as Router from 'koa-router';
+import Router from 'koa-router';
 
 import { tagController } from './controller/tag';
 import { userController } from './controller/user';
