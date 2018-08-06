@@ -21,6 +21,7 @@ export const userController = {
   },
   async login(ctx) {
     const { email, password } = ctx.request.body;
+    console.log(email, password);
     const user = await userService.find({ email, password });
     if (user) {
       ctx.body = {

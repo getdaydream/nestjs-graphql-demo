@@ -1,6 +1,7 @@
 import Koa from 'koa';
 // https://github.com/koajs/bodyparser
 import bodyParser from 'koa-bodyparser';
+import cors from 'koa2-cors';
 import koaLogger from 'koa-logger';
 import jwt from 'koa-jwt';
 import 'reflect-metadata';
@@ -18,6 +19,7 @@ DatabaseConnection.open();
 const app = new Koa();
 
 app.use(koaLogger());
+app.use(cors());
 app.use(
   jwt({ secret: process.env.TOKEN_SECRET }).unless({
     path: [/^\/api\/users/, /^\/api\/auth/],
@@ -27,7 +29,7 @@ app.use(bodyParser());
 
 app.use(router.routes());
 
-export const server = app.listen(3000);
+export const server = app.listen(3001);
 
 app.on('error', err => {
   logger.error(err);
