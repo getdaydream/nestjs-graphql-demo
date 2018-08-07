@@ -21,9 +21,12 @@ export const userController = {
   },
   async login(ctx) {
     const { email, password } = ctx.request.body;
+    console.log(ctx.request.body);
     console.log(email, password);
     const user = await userService.find({ email, password });
     if (user) {
+      console.log(ctx.cookies.get('test'));
+      // ctx.cookies.set('token', 'sssss');
       ctx.body = {
         token: authService.createToken(user.id),
       };
