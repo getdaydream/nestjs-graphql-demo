@@ -1,5 +1,4 @@
 import Koa from 'koa';
-// https://github.com/koajs/bodyparser
 import bodyParser from 'koa-bodyparser';
 import cors from 'koa2-cors';
 import koaLogger from 'koa-logger';
@@ -18,20 +17,21 @@ DatabaseConnection.open();
 // 添加beforeStart
 const app = new Koa();
 
-app.keys = ['im a newer secret', 'i like turtle'];
-
 app.use(bodyParser());
 app.use(koaLogger());
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://127.0.0.1:3000',
     credentials: true,
-    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
   }),
 );
 
 app.use(
-  jwt({ secret: process.env.TOKEN_SECRET }).unless({
+  jwt({
+    secret: process.env.TOKEN_SECRET,
+    cookie: 'token',
+  })
+  .unless({
     path: [/^\/api\/users/, /^\/api\/auth/],
   }),
 );
