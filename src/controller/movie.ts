@@ -42,6 +42,14 @@ export const movieController = {
   async findOne(ctx) {
     const { id } = ctx.params;
     const movie = await getRepository(Movie).findOne({ id });
-    ctx.body = movie;
+    ctx.body = {
+      id: movie.id,
+      title: movie.title,
+      originalTitle: movie.original_title,
+      year: movie.year,
+      cover: movie.cover,
+      ratingCount: movie.rating_count,
+      ratingValue: movie.rating_value,
+    };
   },
 };

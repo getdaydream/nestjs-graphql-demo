@@ -23,9 +23,10 @@ export const userController = {
     const { email, password } = ctx.request.body;
     const user = await userService.find({ email, password });
     if (user) {
-      ctx.cookies.set('token', authService.createToken(user.id));
+      const token = authService.createToken(user.id);
+      ctx.cookies.set('token', token);
       ctx.body = {
-        token: authService.createToken(user.id),
+        message: 'success',
       };
     } else {
         ctx.body = {
