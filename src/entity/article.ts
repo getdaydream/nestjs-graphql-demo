@@ -5,6 +5,9 @@ import { Tag } from './tag';
 @Entity()
 export class Article extends Post {
   @Column()
+  title: string;
+
+  @Column()
   published: boolean = false;
 
   // this will generate article_tags table
