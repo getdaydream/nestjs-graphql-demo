@@ -1,4 +1,4 @@
-import { getRepository } from 'typeorm';
+import { getRepository, getConnection } from 'typeorm';
 import { Article, Tag } from 'entity';
 
 interface ArticleCreateDto {
@@ -10,10 +10,11 @@ interface ArticleCreateDto {
 export const articleController = {
   async create(ctx) {
     const { id: userId } = ctx.state.user;
-    const { content } = ctx.request.body;
+    const { content, title } = ctx.request.body;
     const tagIds: number[] = ctx.request.body.tagIds || [];
     const articleRepo = getRepository(Article);
     const article = articleRepo.create({
+      title,
       content,
       userId,
       tags: tagIds.map(tagId => {
@@ -29,15 +30,35 @@ export const articleController = {
       ctx.body = e;
     }
   },
-  async edit(ctx) {},
+  async publish(ctx) {
+    const { id } = ctx.request.body;
+    const articleRepo = getRepository(Article);
+    const article = await articleRepo.findOne({ id });
+    article.published = true;
+    await articleRepo.save(article);
+    ctx.body = article;
+  },
+  async edit(ctx) {
+    // 只能本人修改
+    const { id: userId } = ctx.state.user;
+    const { id, content, title } = ctx.request.body;
+    console.log(id);
+    const articleRepo = getRepository(Article);
+    const article = await articleRepo.findOne({ id });
+    console.log(article);
+    Object.assign(article, { content, title });
+    await articleRepo.save(article);
+    ctx.body = article;
+  },
   async findOneById(ctx) {
     // select  a.content, (select group_concat(m.tagId) from mapping_article_tag as m where m.articleId = a.id) as 'tagIds' from article as a
     const { id } = ctx.params;
-    const article = await getRepository(Article)
-      .createQueryBuilder('article')
-      .where('article.id = :id', { id })
-      .leftJoinAndSelect('article.tags', 'tag')
-      .getSql();
+    console.log(id);
+    const article = await getRepository(Article).findOne({ id });
+    // .createQueryBuilder('article')
+    // .where('article.id = :id', { id });
+    // .leftJoinAndSelect('article.tags', 'tag');
+    // .getSql();
     ctx.body = article;
   },
 };

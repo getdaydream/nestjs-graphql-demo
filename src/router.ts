@@ -19,7 +19,8 @@ router.post('/tags', tagController.create);
 
 router.get('/articles/:id', articleController.findOneById);
 router.post('/articles', articleController.create);
-router.put('/articles/:id', articleController.edit);
+router.put('/articles/:id/edit', articleController.edit);
+router.put('/articles/:id/publish', articleController.publish);
 
 router.post('/movies', movieController.create);
 router.get('/movies/:id', movieController.findOne);
