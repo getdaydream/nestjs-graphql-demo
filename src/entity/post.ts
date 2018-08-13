@@ -7,7 +7,7 @@ export abstract class Post {
   @Column()
   userId: number;
 
-  @Column()
+  @Column({type: 'text'})
   content: string;
 
   // // TODO
