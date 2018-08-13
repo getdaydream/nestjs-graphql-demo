@@ -176,6 +176,10 @@
   dependencies:
     "@types/superagent" "*"
 
+"@types/validator@^9.4.1":
+  version "9.4.1"
+  resolved "http://registry.npm.taobao.org/@types/validator/download/@types/validator-9.4.1.tgz#bea5a290e61f1cbf12af3fd878706aeec2ba0087"
+
 "@types/winston@^2.3.9":
   version "2.3.9"
   resolved "http://registry.npm.taobao.org/@types/winston/download/@types/winston-2.3.9.tgz#1ff9f1bb57952fe3d88c1b21c4899ede316a35bc"
@@ -4736,6 +4740,10 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
+
+validator@^10.5.0:
+  version "10.5.0"
+  resolved "http://registry.npm.taobao.org/validator/download/validator-10.5.0.tgz#1debbe1e6f5fd0c920ed2af47516f3762033939c"
 
 vary@^1.1.2:
   version "1.1.2"

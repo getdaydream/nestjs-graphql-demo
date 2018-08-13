@@ -1,3 +1,4 @@
+import validator from 'validator';
 import { getRepository, getConnection } from 'typeorm';
 import { Article, Tag } from 'entity';
 
@@ -9,10 +10,13 @@ interface ArticleCreateDto {
 
 export const articleController = {
   async create(ctx) {
-    const { id: userId } = ctx.state.user;
-    const { content, title } = ctx.request.body;
+    // TODO: 参数验证
+    const title = validator.trim(ctx.request.body.title || '');
+    const content = validator.trim(ctx.request.body.content || '');
+
     const tagIds: number[] = ctx.request.body.tagIds || [];
     const articleRepo = getRepository(Article);
+    const { id: userId } = ctx.state.user;
     const article = articleRepo.create({
       title,
       content,
@@ -42,10 +46,8 @@ export const articleController = {
     // 只能本人修改
     const { id: userId } = ctx.state.user;
     const { id, content, title } = ctx.request.body;
-    console.log(id);
     const articleRepo = getRepository(Article);
     const article = await articleRepo.findOne({ id });
-    console.log(article);
     Object.assign(article, { content, title });
     await articleRepo.save(article);
     ctx.body = article;
@@ -53,7 +55,6 @@ export const articleController = {
   async findOneById(ctx) {
     // select  a.content, (select group_concat(m.tagId) from mapping_article_tag as m where m.articleId = a.id) as 'tagIds' from article as a
     const { id } = ctx.params;
-    console.log(id);
     const article = await getRepository(Article).findOne({ id });
     // .createQueryBuilder('article')
     // .where('article.id = :id', { id });
