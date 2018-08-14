@@ -1,9 +1,15 @@
-import { Column, Entity, OneToMany, ManyToMany, JoinTable } from 'typeorm';
+import { Column, Entity, ManyToMany, JoinTable } from 'typeorm';
 import { Post } from './post';
 import { Tag } from './tag';
 
 @Entity()
 export class Article extends Post {
+  @Column({ readonly: true })
+  category: string = 'default';
+
+  @Column({ readonly: true })
+  resourceId: number = 0;
+
   @Column()
   title: string;
 

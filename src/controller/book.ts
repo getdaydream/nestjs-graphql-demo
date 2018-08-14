@@ -1,6 +1,6 @@
 import got from 'got';
 import _ from 'lodash';
-import { getRepository } from 'typeorm';
+import { getRepository, getManager } from 'typeorm';
 import { Book } from 'entity';
 import { BookParser } from 'util/book-parser';
 
@@ -44,6 +44,23 @@ export const bookController = {
   async findOne(ctx) {
     const { id } = ctx.params;
     const book = await getRepository(Book).findOne({ id });
-    ctx.body = book;
+    ctx.body = {
+      id: book.id,
+      title: book.title,
+      originalTitle: book.original_title,
+      year: book.year,
+      cover: book.cover,
+      ratingCount: book.rating_count,
+      ratingValue: book.rating_value,
+    };
+  },
+  async search(ctx) {
+    const { q } = ctx.request.query;
+    const books = await getManager().query(`
+      select * from book
+        where title like '%${q}%'
+        order by rating_count desc
+        limit 10`);
+    ctx.body = books;
   },
 };

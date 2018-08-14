@@ -13,17 +13,20 @@ export const articleController = {
     // TODO: 参数验证
     const title = validator.trim(ctx.request.body.title || '');
     const content = validator.trim(ctx.request.body.content || '');
+    const tags: number[] = ctx.request.body.tags || [];
+    const { category, resourceId } = ctx.request.body;
 
-    const tagIds: number[] = ctx.request.body.tagIds || [];
     const articleRepo = getRepository(Article);
     const { id: userId } = ctx.state.user;
     const article = articleRepo.create({
+      category,
+      resourceId,
       title,
       content,
       userId,
-      tags: tagIds.map(tagId => {
+      tags: tags.map(id => {
         const tag = new Tag();
-        tag.id = tagId;
+        tag.id = id;
         return tag;
       }),
     });
@@ -42,24 +45,34 @@ export const articleController = {
     await articleRepo.save(article);
     ctx.body = article;
   },
-  async edit(ctx) {
+  async update(ctx) {
     // 只能本人修改
     const { id: userId } = ctx.state.user;
     const { id, content, title } = ctx.request.body;
+    const tags: number[] = ctx.request.body.tags || [];
+
     const articleRepo = getRepository(Article);
     const article = await articleRepo.findOne({ id });
-    Object.assign(article, { content, title });
+    Object.assign(article, {
+      content,
+      title,
+      tags: tags.map(tagId => {
+        const tag = new Tag();
+        tag.id = tagId;
+        return tag;
+      }),
+    });
     await articleRepo.save(article);
     ctx.body = article;
   },
   async findOneById(ctx) {
     // select  a.content, (select group_concat(m.tagId) from mapping_article_tag as m where m.articleId = a.id) as 'tagIds' from article as a
     const { id } = ctx.params;
-    const article = await getRepository(Article).findOne({ id });
-    // .createQueryBuilder('article')
-    // .where('article.id = :id', { id });
-    // .leftJoinAndSelect('article.tags', 'tag');
-    // .getSql();
+    const article = await getRepository(Article)
+      .createQueryBuilder('article')
+      .where('article.id = :id', { id })
+      .leftJoinAndSelect('article.tags', 'tags')
+      .getOne();
     ctx.body = article;
   },
 };
