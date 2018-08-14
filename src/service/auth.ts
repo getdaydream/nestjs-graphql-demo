@@ -6,7 +6,7 @@ export const authService = {
       id,
     };
     const signOptions = {
-      expiresIn: '7 days',
+      expiresIn: '100h',
     };
     return sign(payload, process.env.TOKEN_SECRET, signOptions);
   },

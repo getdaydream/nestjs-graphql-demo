@@ -1,7 +1,7 @@
 import got from 'got';
 import _ from 'lodash';
 import { MovieParser } from '../util/movie-parser';
-import { getRepository } from 'typeorm';
+import { getRepository, getManager } from 'typeorm';
 import { Movie, MOVIE_SOURCE } from 'entity/movie';
 
 const MOVIE_KEYS = [
@@ -51,5 +51,14 @@ export const movieController = {
       ratingCount: movie.rating_count,
       ratingValue: movie.rating_value,
     };
+  },
+  async search(ctx) {
+    const { q } = ctx.request.query;
+    const movies = await getManager().query(`
+      select * from movie
+        where title like '%${q}%'
+        order by rating_count desc
+        limit 10`);
+    ctx.body = movies;
   },
 };
