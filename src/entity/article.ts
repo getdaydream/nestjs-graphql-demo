@@ -13,6 +13,9 @@ export class Article extends Post {
   @Column()
   title: string;
 
+  @Column({type: 'text'})
+  content: string;
+
   @Column()
   published: boolean = false;
 

@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, CreateDateColumn, TableForeignKey } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, CreateDateColumn, TableForeignKey, UpdateDateColumn } from 'typeorm';
 
 export abstract class Post {
   @PrimaryGeneratedColumn()
@@ -6,14 +6,13 @@ export abstract class Post {
 
   @Column()
   userId: number;
-
-  @Column({type: 'text'})
-  content: string;
-
   // // TODO
   // @Column()
   // Comment;
 
   @CreateDateColumn()
   creat_at: Date;
+
+  @UpdateDateColumn()
+  update_at: Date;
 }
