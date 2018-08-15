@@ -3,6 +3,7 @@ import _ from 'lodash';
 import { MovieParser } from '../util/movie-parser';
 import { getRepository, getManager } from 'typeorm';
 import { Movie, MOVIE_SOURCE } from 'entity/movie';
+import { Collection } from 'entity/collection';
 
 const MOVIE_KEYS = [
   'id',
@@ -60,5 +61,31 @@ export const movieController = {
         order by rating_count desc
         limit 10`);
     ctx.body = movies;
+  },
+  async collect(ctx) {
+    const { id, status, comment } = ctx.params;
+    const { id: userId } = ctx.state.user;
+    let collection: Collection;
+    const collectionRepo = getRepository(Collection);
+    // TODO 判断该电影是否存在
+    collection = await collectionRepo.findOne({
+      category: 'movie',
+      targetId: id,
+      userId,
+    });
+    if (collection) {
+      collection.status = status;
+      collection.comment = comment;
+    } else {
+      collection = collectionRepo.create({
+        category: 'movie',
+        targetId: id,
+        userId,
+        status,
+        comment,
+      });
+    }
+    await collectionRepo.save(collection);
+    ctx.body = collection;
   },
 };

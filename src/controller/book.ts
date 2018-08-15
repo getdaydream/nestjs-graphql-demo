@@ -1,7 +1,7 @@
 import got from 'got';
 import _ from 'lodash';
 import { getRepository, getManager } from 'typeorm';
-import { Book } from 'entity';
+import { Book, Collection } from 'entity';
 import { BookParser } from 'util/book-parser';
 
 const BOOK_KEYS = [
@@ -62,5 +62,31 @@ export const bookController = {
         order by rating_count desc
         limit 10`);
     ctx.body = books;
+  },
+  async collect(ctx) {
+    const { id, status, comment } = ctx.params;
+    const { id: userId } = ctx.state.user;
+    let collection: Collection;
+    const collectionRepo = getRepository(Collection);
+    // TODO 判断该书是否存在
+    collection = await collectionRepo.findOne({
+      category: 'book',
+      targetId: id,
+      userId,
+    });
+    if (collection) {
+      collection.status = status;
+      collection.comment = comment;
+    } else {
+      collection = collectionRepo.create({
+        category: 'book',
+        targetId: id,
+        userId,
+        status,
+        comment,
+      });
+    }
+    await collectionRepo.save(collection);
+    ctx.body = collection;
   },
 };

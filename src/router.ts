@@ -24,10 +24,12 @@ router.put('/articles/:id/publish', articleController.publish);
 
 router.post('/movies', movieController.create);
 router.get('/movies/search', movieController.search);
+router.get('/movies/collect', movieController.collect);
 router.get('/movies/:id', movieController.findOne);
 
 router.post('/books', bookController.create);
 router.get('/books/search', bookController.search);
+router.get('/books/collect', bookController.collect);
 router.get('/books/:id', bookController.findOne);
 
 export { router };

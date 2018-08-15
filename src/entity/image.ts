@@ -10,6 +10,9 @@ export class Image {
   name: string;
 
   @Column()
+  description: string = '';
+
+  @Column()
   url: string;
 
   @ManyToMany(type => Tag)
