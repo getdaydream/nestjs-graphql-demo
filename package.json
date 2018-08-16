@@ -9,6 +9,7 @@
     "@types/signale": "^1.2.0",
     "@types/winston": "^2.3.9",
     "cheerio": "^1.0.0-rc.2",
+    "class-validator": "^0.9.1",
     "dotenv": "^6.0.0",
     "got": "^8.3.2",
     "jsonwebtoken": "^8.3.0",

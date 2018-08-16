@@ -14,16 +14,16 @@ export const articleController = {
     const title = validator.trim(ctx.request.body.title || '');
     const content = validator.trim(ctx.request.body.content || '');
     const tags: number[] = ctx.request.body.tags || [];
-    const { category, resourceId } = ctx.request.body;
+    const { category, resourceId: resource_id } = ctx.request.body;
 
     const articleRepo = getRepository(Article);
-    const { id: userId } = ctx.state.user;
+    const { id: user_id } = ctx.state.user;
     const article = articleRepo.create({
       category,
-      resourceId,
+      resource_id,
       title,
       content,
-      userId,
+      user_id,
       tags: tags.map(id => {
         const tag = new Tag();
         tag.id = id;

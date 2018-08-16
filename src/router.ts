@@ -4,7 +4,7 @@ import { tagController } from './controller/tag';
 import { userController } from './controller/user';
 import { articleController } from 'controller/article';
 import { movieController } from 'controller/movie';
-import { bookController } from 'controller';
+import { bookController, collectionController } from 'controller';
 
 const router = new Router();
 
@@ -31,5 +31,7 @@ router.post('/books', bookController.create);
 router.get('/books/search', bookController.search);
 router.get('/books/collect', bookController.collect);
 router.get('/books/:id', bookController.findOne);
+
+router.post('/collection', collectionController.add);
 
 export { router };

@@ -5,7 +5,7 @@ export abstract class Post {
   id: number;
 
   @Column()
-  userId: number;
+  user_id: number;
   // // TODO
   // @Column()
   // Comment;

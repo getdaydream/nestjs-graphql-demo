@@ -3,17 +3,16 @@ import _ from 'lodash';
 import { MovieParser } from '../util/movie-parser';
 import { getRepository, getManager } from 'typeorm';
 import { Movie, MOVIE_SOURCE } from 'entity/movie';
-import { Collection } from 'entity/collection';
+import { Collection } from 'entity';
 
 const MOVIE_KEYS = [
   'id',
   'title',
-  'originalTitle',
+  'original_title',
   'year',
   'cover',
-  'ratingValue',
-  'ratingCount',
-  'ratingOnWeight',
+  'rating_value',
+  'rating_count',
 ];
 
 const doubanMovieBaseUrl = 'https://movie.douban.com/subject/';
@@ -43,15 +42,9 @@ export const movieController = {
   async findOne(ctx) {
     const { id } = ctx.params;
     const movie = await getRepository(Movie).findOne({ id });
-    ctx.body = {
-      id: movie.id,
-      title: movie.title,
-      originalTitle: movie.original_title,
-      year: movie.year,
-      cover: movie.cover,
-      ratingCount: movie.rating_count,
-      ratingValue: movie.rating_value,
-    };
+    const a = _.mapKeys(_.pick(movie, MOVIE_KEYS), (v, k) => _.camelCase(k));
+    console.log(a);
+    ctx.body = a;
   },
   async search(ctx) {
     const { q } = ctx.request.query;
@@ -64,14 +57,14 @@ export const movieController = {
   },
   async collect(ctx) {
     const { id, status, comment } = ctx.params;
-    const { id: userId } = ctx.state.user;
+    const { id: user_id } = ctx.state.user;
     let collection: Collection;
     const collectionRepo = getRepository(Collection);
     // TODO 判断该电影是否存在
     collection = await collectionRepo.findOne({
       category: 'movie',
-      targetId: id,
-      userId,
+      target_id: id,
+      user_id,
     });
     if (collection) {
       collection.status = status;
@@ -79,8 +72,8 @@ export const movieController = {
     } else {
       collection = collectionRepo.create({
         category: 'movie',
-        targetId: id,
-        userId,
+        target_id: id,
+        user_id,
         status,
         comment,
       });
