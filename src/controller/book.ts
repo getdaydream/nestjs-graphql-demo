@@ -65,14 +65,14 @@ export const bookController = {
   },
   async collect(ctx) {
     const { id, status, comment } = ctx.params;
-    const { id: userId } = ctx.state.user;
+    const { id: user_id } = ctx.state.user;
     let collection: Collection;
     const collectionRepo = getRepository(Collection);
     // TODO 判断该书是否存在
     collection = await collectionRepo.findOne({
       category: 'book',
-      targetId: id,
-      userId,
+      target_id: id,
+      user_id,
     });
     if (collection) {
       collection.status = status;
@@ -80,8 +80,8 @@ export const bookController = {
     } else {
       collection = collectionRepo.create({
         category: 'book',
-        targetId: id,
-        userId,
+        target_id: id,
+        user_id,
         status,
         comment,
       });
