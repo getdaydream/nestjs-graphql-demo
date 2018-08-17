@@ -1,10 +1,15 @@
 import Router from 'koa-router';
 
-import { tagController } from './controller/tag';
-import { userController } from './controller/user';
-import { articleController } from 'controller/article';
-import { movieController } from 'controller/movie';
-import { bookController, collectionController } from 'controller';
+import {
+  bookController,
+  collectionController,
+  tagController,
+  userController,
+  articleController,
+  movieController,
+  fileController,
+  annotationController,
+} from 'controller';
 
 const router = new Router();
 
@@ -32,6 +37,10 @@ router.get('/books/search', bookController.search);
 router.get('/books/collect', bookController.collect);
 router.get('/books/:id', bookController.findOne);
 
-router.post('/collection', collectionController.add);
+router.post('/collections', collectionController.add);
+
+router.get('/files/uploadToken', fileController.certificate);
+
+router.post('/annotation', annotationController.create);
 
 export { router };

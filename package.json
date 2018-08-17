@@ -21,6 +21,7 @@
     "koa2-cors": "^2.0.6",
     "lodash": "^4.17.10",
     "mysql": "^2.15.0",
+    "qiniu": "^7.2.1",
     "reflect-metadata": "^0.1.12",
     "typeorm": "^0.2.7",
     "validator": "^10.5.0",
