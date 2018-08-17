@@ -43,7 +43,6 @@ export const movieController = {
     const { id } = ctx.params;
     const movie = await getRepository(Movie).findOne({ id });
     const a = _.mapKeys(_.pick(movie, MOVIE_KEYS), (v, k) => _.camelCase(k));
-    console.log(a);
     ctx.body = a;
   },
   async search(ctx) {
