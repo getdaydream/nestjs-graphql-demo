@@ -4,7 +4,9 @@ import {
   Column,
   UpdateDateColumn,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Annotation } from './annotation';
 
 export enum BOOK_SOURCE {
   DOUBAN,
@@ -12,30 +14,45 @@ export enum BOOK_SOURCE {
 
 @Entity()
 export class Book {
-  @PrimaryColumn() id: string;
+  @PrimaryColumn()
+  id: string;
 
   @Column({ type: 'int' })
   source: number = BOOK_SOURCE.DOUBAN;
 
-  @Column() title: string;
+  @Column()
+  title: string;
 
-  @Column() original_title: string;
+  @Column()
+  original_title: string;
 
-  @Column() subtitle: string;
+  @Column()
+  subtitle: string;
 
-  @Column() year: number;
+  @Column()
+  year: number;
 
-  @Column() pubdate: string;
+  @Column()
+  pubdate: string;
 
-  @Column() cover: string;
+  @Column()
+  cover: string;
 
-  @Column({ type: 'decimal', precision: 2, scale: 1 }) rating_value: number;
+  @Column({ type: 'decimal', precision: 2, scale: 1 })
+  rating_value: number;
 
-  @Column() rating_count: number;
+  @Column()
+  rating_count: number;
 
-  @Column() rating_on_weight: string;
+  @Column()
+  rating_on_weight: string;
 
-  @UpdateDateColumn() update_at: Date;
+  @OneToMany(type => Annotation, annotation => annotation.book)
+  annotation: Annotation[];
 
-  @CreateDateColumn() create_at: Date;
+  @UpdateDateColumn()
+  update_at: Date;
+
+  @CreateDateColumn()
+  create_at: Date;
 }

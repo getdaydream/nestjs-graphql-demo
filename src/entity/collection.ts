@@ -3,19 +3,22 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Max, Min } from 'class-validator';
 
 @Entity()
 export class Collection {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
   user_id: number;
 
-  @PrimaryColumn()
+  @Column()
   category: string;
 
-  @PrimaryColumn()
+  @Column()
   target_id: string;
 
   @Column()

@@ -38,6 +38,7 @@ router.get('/books/collect', bookController.collect);
 router.get('/books/:id', bookController.findOne);
 
 router.post('/collections', collectionController.add);
+router.delete('/collections/:id', collectionController.delete);
 
 router.get('/files/uploadToken', fileController.certificate);
 
