@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { Annotation, Book } from 'entity';
+import { Annotation } from 'entity';
 
 export const annotationController = {
   async create(ctx) {
@@ -12,11 +12,7 @@ export const annotationController = {
       content,
       comment,
     });
-    try {
-      await repo.save(annotation);
-    } catch (e) {
-      console.log(e.sql);
-    }
+    await repo.save(annotation);
     ctx.body = annotation;
   },
 };
