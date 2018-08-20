@@ -1,16 +1,20 @@
 import {
   Entity,
-  PrimaryGeneratedColumn,
   Column,
   ManyToMany,
   JoinTable,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Tag } from './tag';
 
 @Entity()
+// @Unique(['hash', 'size'])
 export class Image {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  key: string;
 
   @Column()
   user_id: number;
@@ -21,13 +25,20 @@ export class Image {
   @Column()
   description: string = '';
 
-  // hash ?
+  @Column()
+  mime_type: string;
 
   @Column()
-  url: string;
+  hash: string;
 
   @Column({ type: 'int' })
   size: number;
+
+  @Column()
+  height: number;
+
+  @Column()
+  width: number;
 
   @ManyToMany(type => Tag)
   @JoinTable()

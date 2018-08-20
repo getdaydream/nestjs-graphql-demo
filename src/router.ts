@@ -41,6 +41,7 @@ router.post('/collections', collectionController.add);
 router.delete('/collections/:id', collectionController.delete);
 
 router.get('/files/uploadToken', fileController.certificate);
+router.post('/files', fileController.publish);
 
 router.post('/annotation', annotationController.create);
 

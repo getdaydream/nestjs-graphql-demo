@@ -3,11 +3,14 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Annotation } from './annotation';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn() id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({ type: 'varchar', length: 10 })
   name: string;
@@ -15,7 +18,12 @@ export class User {
   @Column({ type: 'varchar', length: 100, unique: true })
   email: string;
 
-  @Column() password: string;
+  @Column({ select: false })
+  password: string;
 
-  @CreateDateColumn() creat_at: Date;
+  @OneToMany(type => Annotation, annotation => annotation.user)
+  annotations: Annotation[];
+
+  @CreateDateColumn()
+  creat_at: Date;
 }

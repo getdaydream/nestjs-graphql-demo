@@ -13,7 +13,6 @@ export const articleController = {
     // TODO: 参数验证
     const title = validator.trim(ctx.request.body.title || '');
     const content = validator.trim(ctx.request.body.content || '');
-    const tags: number[] = ctx.request.body.tags || [];
     const { category, resourceId: resource_id } = ctx.request.body;
 
     const articleRepo = getRepository(Article);
@@ -24,18 +23,14 @@ export const articleController = {
       title,
       content,
       user_id,
-      tags: tags.map(id => {
-        const tag = new Tag();
-        tag.id = id;
-        return tag;
-      }),
     });
-    try {
-      await articleRepo.save(article);
-      ctx.body = article;
-    } catch (e) {
-      ctx.body = e;
-    }
+    await getConnection()
+      .createQueryBuilder()
+      .insert()
+      .into(Article)
+      .values([article])
+      .execute();
+    ctx.body = article;
   },
   async publish(ctx) {
     const { id } = ctx.request.body;
@@ -48,19 +43,18 @@ export const articleController = {
   async update(ctx) {
     // 只能本人修改
     const { id: userId } = ctx.state.user;
-    const { id, content, title } = ctx.request.body;
+    const { content, title } = ctx.request.body;
+    const { id } = ctx.params;
     const tags: number[] = ctx.request.body.tags || [];
 
     const articleRepo = getRepository(Article);
     const article = await articleRepo.findOne({ id });
-    Object.assign(article, {
-      content,
-      title,
-      tags: tags.map(tagId => {
-        const tag = new Tag();
-        tag.id = tagId;
-        return tag;
-      }),
+    const newArticle = { content, title };
+    Object.assign(article, newArticle);
+    article.tags = tags.map(v => {
+      const tag = new Tag();
+      tag.id = v;
+      return tag;
     });
     await articleRepo.save(article);
     ctx.body = article;
