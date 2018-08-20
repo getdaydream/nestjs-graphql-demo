@@ -48,7 +48,7 @@ export class Book {
   rating_on_weight: string;
 
   @OneToMany(type => Annotation, annotation => annotation.book)
-  annotation: Annotation[];
+  annotations: Annotation[];
 
   @UpdateDateColumn()
   update_at: Date;

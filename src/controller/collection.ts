@@ -4,7 +4,7 @@ import { Collection } from 'entity';
 export const collectionController = {
   async add(ctx) {
     const { category, targetId: target_id, status, comment } = ctx.request.body;
-    const { id: user_id } = ctx.state.user;
+    const {id: user_id} = ctx.state.user;
     const collectionRepo = getRepository(Collection);
     const collection = collectionRepo.create({
       user_id,
