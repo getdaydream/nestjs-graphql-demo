@@ -6,6 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Annotation } from './annotation';
+import { Image } from './image';
 
 @Entity()
 export class User {
@@ -20,6 +21,9 @@ export class User {
 
   @Column({ select: false })
   password: string;
+
+  @OneToMany(type => Image, image => image.user)
+  images: Image[];
 
   @OneToMany(type => Annotation, annotation => annotation.user)
   annotations: Annotation[];

@@ -4,8 +4,13 @@ import {
   ManyToMany,
   JoinTable,
   PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Tag } from './tag';
+import { User } from './user';
 
 @Entity()
 // @Unique(['hash', 'size'])
@@ -14,10 +19,14 @@ export class Image {
   id: number;
 
   @Column()
-  key: string;
+  category: string = 'default';
 
   @Column()
-  user_id: number;
+  resource_id: number = 0;
+
+  // 七牛云文件名
+  @Column()
+  key: string;
 
   @Column()
   title: string;
@@ -40,7 +49,20 @@ export class Image {
   @Column()
   width: number;
 
+  @ManyToOne(type => User, user => user.images)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
+
+  @Column()
+  user_id: number;
+
   @ManyToMany(type => Tag)
   @JoinTable()
   tags: Tag[];
+
+  @UpdateDateColumn()
+  update_at: Date;
+
+  @CreateDateColumn()
+  create_at: Date;
 }
