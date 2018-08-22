@@ -4,6 +4,7 @@ import {
   UpdateDateColumn,
   Column,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { User } from './user';
 
@@ -12,9 +13,10 @@ export abstract class Post {
   id: number;
 
   @ManyToOne(type => User, user => user.annotations)
+  @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @Column()
+  @Column({ select: false })
   user_id: number;
   // // TODO
   // @Column()
