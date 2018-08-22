@@ -43,6 +43,7 @@ export class BookParser {
     return '';
   }
 
+  // BUG 副标题解析错误 1024810
   // 副标题
   get subtitle() {
     const title = this.attrs.get('副标题');

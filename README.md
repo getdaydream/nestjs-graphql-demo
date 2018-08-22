@@ -1,6 +1,5 @@
 ## Roadmap
 
-* 图片关联资源
 * 图片关联标签
 * 部署
 * 添加到collection

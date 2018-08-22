@@ -1,5 +1,5 @@
 import qiniu from 'qiniu';
-import { getConnection } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
 import { Image } from 'entity';
 import { keysSnakeCase } from 'util/tools';
 
@@ -40,12 +40,14 @@ export const fileController = {
       f.user_id = user_id;
       return keysSnakeCase(f);
     });
-    const result = await getConnection()
+    const repo = getRepository(Image);
+    const images = files.map(f => repo.create(f));
+    await getConnection()
       .createQueryBuilder()
       .insert()
       .into(Image)
-      .values(files)
+      .values(images)
       .execute();
-    ctx.body = result;
+    ctx.body = images;
   },
 };

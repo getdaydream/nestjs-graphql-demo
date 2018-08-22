@@ -28,13 +28,12 @@ router.put('/articles/:id/update', articleController.update);
 router.put('/articles/:id/publish', articleController.publish);
 
 router.post('/movies', movieController.create);
+// TODO 将search的接口合并
 router.get('/movies/search', movieController.search);
-router.get('/movies/collect', movieController.collect);
 router.get('/movies/:id', movieController.findOne);
 
 router.post('/books', bookController.create);
 router.get('/books/search', bookController.search);
-router.get('/books/collect', bookController.collect);
 router.get('/books/:id', bookController.findOne);
 
 router.post('/collections', collectionController.add);
@@ -44,5 +43,6 @@ router.get('/files/uploadToken', fileController.certificate);
 router.post('/files', fileController.publish);
 
 router.post('/annotation', annotationController.create);
+router.get('/annotation/:id', annotationController.findOne);
 
 export { router };
