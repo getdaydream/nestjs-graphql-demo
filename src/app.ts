@@ -42,9 +42,3 @@ export const server = app.listen(3001);
 app.on('error', err => {
   logger.error(err);
 });
-
-// CTRL + C 退出后，仍然占用端口
-process.on('uncaughtException', () => {
-  console.log('closing server...');
-  server.close();
-});

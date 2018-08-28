@@ -69,4 +69,7 @@ export const articleController = {
       .getOne();
     ctx.body = article;
   },
+  async find(ctx) {
+    const { offset, limit } = ctx.request.query;
+  },
 };

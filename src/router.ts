@@ -22,6 +22,7 @@ router.get('/tags', tagController.find);
 router.get('/tags/:id', tagController.findById);
 router.post('/tags', tagController.create);
 
+router.get('/articles', articleController.find);
 router.get('/articles/:id', articleController.findOneById);
 router.post('/articles', articleController.create);
 router.put('/articles/:id/update', articleController.update);
