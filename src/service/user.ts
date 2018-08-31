@@ -6,7 +6,6 @@ export const userService = {
     const userRepo = getRepository(User);
     const user = userRepo.create({ email, password, name });
     try {
-      console.log(user);
       return await userRepo.save(user);
     } catch (e) {
       throw e;

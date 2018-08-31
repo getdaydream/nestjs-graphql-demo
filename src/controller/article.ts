@@ -1,6 +1,7 @@
 import validator from 'validator';
 import { getRepository, getConnection } from 'typeorm';
 import { Article, Tag } from 'entity';
+import { keysCamelCase } from 'util/tools';
 
 interface ArticleCreateDto {
   content: string;
@@ -70,6 +71,9 @@ export const articleController = {
     ctx.body = article;
   },
   async find(ctx) {
-    const { offset, limit } = ctx.request.query;
+    const articles = await getRepository(Article)
+      .createQueryBuilder('article')
+      .getMany();
+    ctx.body = articles.map(item => keysCamelCase(item));
   },
 };

@@ -23,7 +23,7 @@ export abstract class Post {
   // Comment;
 
   @CreateDateColumn()
-  creat_at: Date;
+  create_at: Date;
 
   @UpdateDateColumn()
   update_at: Date;
