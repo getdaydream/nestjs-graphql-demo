@@ -3,12 +3,6 @@ import { getRepository, getConnection } from 'typeorm';
 import { Article, Tag } from 'entity';
 import { keysCamelCase } from 'util/tools';
 
-interface ArticleCreateDto {
-  content: string;
-  tagIds: number[];
-  published?: boolean;
-}
-
 export const articleController = {
   async create(ctx) {
     // TODO: 参数验证
@@ -42,16 +36,30 @@ export const articleController = {
     ctx.body = article;
   },
   async update(ctx) {
-    // 只能本人修改
-    const { id: userId } = ctx.state.user;
-    const { content, title } = ctx.request.body;
     const { id } = ctx.params;
-    const tags: number[] = ctx.request.body.tags || [];
-
     const articleRepo = getRepository(Article);
     const article = await articleRepo.findOne({ id });
-    const newArticle = { content, title };
-    Object.assign(article, newArticle);
+    if (!article) {
+      ctx.body = {
+        error: `不存在id为${id}的文章`,
+      };
+      return;
+    }
+
+    const { id: userId } = ctx.state.user;
+    if (String(article.user_id) !== String(userId)) {
+      ctx.body = {
+        error: '抱歉，你无权修改该文章',
+      };
+      return;
+    }
+
+    const tags: number[] = ctx.request.body.tags || [];
+
+    const { content, title } = ctx.request.body;
+
+    const newData = { content, title };
+    Object.assign(article, newData);
     article.tags = tags.map(v => {
       const tag = new Tag();
       tag.id = v;
@@ -68,6 +76,12 @@ export const articleController = {
       .where('article.id = :id', { id })
       .leftJoinAndSelect('article.tags', 'tags')
       .getOne();
+    if (!article) {
+      ctx.body = {
+        error: `不存在id为${id}的文章`,
+      };
+      return;
+    }
     ctx.body = article;
   },
   async find(ctx) {
