@@ -1,14 +1,10 @@
-import validator from 'validator';
 import { getRepository, getConnection } from 'typeorm';
 import { Article, Tag } from 'entity';
 import { keysCamelCase } from 'util/tools';
 
 export const articleController = {
   async create(ctx) {
-    // TODO: 参数验证
-    const title = validator.trim(ctx.request.body.title || '');
-    const content = validator.trim(ctx.request.body.content || '');
-    const { category, resourceId: resource_id } = ctx.request.body;
+    const { category, resourceId: resource_id, title, content } = ctx.request.body;
 
     const articleRepo = getRepository(Article);
     const { id: user_id } = ctx.state.user;

@@ -20,3 +20,5 @@
 
 
 ## 依赖
+* [joi](https://github.com/hapijs/joi): 参数验证
+

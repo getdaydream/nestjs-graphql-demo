@@ -30,6 +30,12 @@ export const annotationController = {
   },
   async findOne(ctx) {
     const { id } = ctx.params;
+    if (!id) {
+      ctx.body = {
+        error: '',
+      };
+      return;
+    }
     const repo = getRepository(Annotation);
     const annotation = await repo.findOne({ id });
     ctx.body = annotation;
