@@ -1,8 +1,8 @@
 import got from 'got';
 import _ from 'lodash';
 import { getRepository, getManager } from 'typeorm';
-import { Book, Collection } from 'entity';
-import { BookParser } from 'util/book-parser';
+import { Book, Collection } from '../entity';
+import { BookParser } from '../util/book-parser';
 
 const BOOK_KEYS = [
   'id',
@@ -38,7 +38,7 @@ export const bookController = {
     } catch (e) {
       ctx.status = 500;
       ctx.body = e;
-      throw(e);
+      throw e;
     }
   },
   async findOne(ctx) {

@@ -1,5 +1,5 @@
 import got from 'got';
-import { Book } from 'entity';
+import { Book } from '../entity';
 import { getRepository } from 'typeorm';
 
 let count = 0;

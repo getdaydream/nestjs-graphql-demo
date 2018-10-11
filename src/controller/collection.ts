@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { Collection } from 'entity';
+import { Collection } from '../entity';
 
 export const collectionController = {
   async add(ctx) {

@@ -2,8 +2,8 @@ import got from 'got';
 import _ from 'lodash';
 import { MovieParser } from '../util/movie-parser';
 import { getRepository, getManager } from 'typeorm';
-import { Movie, MOVIE_SOURCE } from 'entity/movie';
-import { Collection } from 'entity';
+import { Movie, MOVIE_SOURCE } from '../entity/movie';
+import { Collection } from '../entity';
 
 const MOVIE_KEYS = [
   'id',

@@ -1,5 +1,5 @@
 import { getRepository } from 'typeorm';
-import { Annotation, Book } from 'entity';
+import { Annotation, Book } from '../entity';
 
 export const annotationController = {
   async create(ctx) {

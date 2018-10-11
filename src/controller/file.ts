@@ -1,7 +1,7 @@
 import qiniu from 'qiniu';
 import { getConnection, getRepository } from 'typeorm';
-import { Image } from 'entity';
-import { keysSnakeCase } from 'util/tools';
+import { Image } from '../entity';
+import { keysSnakeCase } from '../util/tools';
 
 const mac = new qiniu.auth.digest.Mac(
   process.env.QINIU_ACCESS_KEY,

@@ -1,5 +1,5 @@
 import got from 'got';
-import { MOVIE_SUBTYPE, Movie } from 'entity';
+import { MOVIE_SUBTYPE, Movie } from '../entity';
 import { getRepository } from 'typeorm';
 
 let count = 0;
@@ -7,7 +7,9 @@ let count = 0;
 // $and: [{ ratingValue: { $gte: 8 } },
 //   { ratingCount: { $gte: 2000 } }],
 export const importMovies = async () => {
-  const { body } = await got.get('http://127.0.0.1:3000/api/v1/movies/transfer');
+  const { body } = await got.get(
+    'http://127.0.0.1:3000/api/v1/movies/transfer',
+  );
   const data = JSON.parse(body);
   if (data.message) {
     return;

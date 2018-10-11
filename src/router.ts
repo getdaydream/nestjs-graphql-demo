@@ -9,7 +9,7 @@ import {
   movieController,
   fileController,
   annotationController,
-} from 'controller';
+} from './controller';
 
 const router = new Router();
 

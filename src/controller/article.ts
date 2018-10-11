@@ -1,10 +1,15 @@
 import { getRepository, getConnection } from 'typeorm';
-import { Article, Tag } from 'entity';
-import { keysCamelCase } from 'util/tools';
+import { Article, Tag } from '../entity';
+import { keysCamelCase } from '../util/tools';
 
 export const articleController = {
   async create(ctx) {
-    const { category, resourceId: resource_id, title, content } = ctx.request.body;
+    const {
+      category,
+      resourceId: resource_id,
+      title,
+      content,
+    } = ctx.request.body;
 
     const articleRepo = getRepository(Article);
     const { id: user_id } = ctx.state.user;
