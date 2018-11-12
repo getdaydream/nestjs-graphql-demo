@@ -1,5 +1,6 @@
 {
     "compilerOptions": {
+      "baseUrl": ".",
       "module": "commonjs",
       "esModuleInterop": true,
       "declaration": false,
@@ -12,7 +13,6 @@
       "target": "es6",
       "sourceMap": true,
       "allowJs": true,
-      "outDir": "./dist",
     },
     "include": [
       "src/**/*"
