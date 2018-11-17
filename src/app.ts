@@ -21,7 +21,8 @@ app.use(bodyParser());
 app.use(koaLogger());
 app.use(
   cors({
-    origin: 'http://127.0.0.1:3000',
+    // origin: 'http://127.0.0.1:3000',
+    origin: '*',
     credentials: true,
   }),
 );
@@ -30,14 +31,14 @@ app.use(
   jwt({
     secret: process.env.TOKEN_SECRET,
     cookie: 'token',
-  })
-  .unless({
+  }).unless({
     path: [/^\/api\/users/, /^\/api\/auth/],
   }),
 );
 app.use(router.routes());
 
-export const server = app.listen(3001);
+// for test
+export const server = app.listen(3000);
 
 app.on('error', err => {
   logger.error(err);

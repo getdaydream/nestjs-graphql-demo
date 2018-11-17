@@ -9,9 +9,13 @@ export const userController = {
       });
     }
     try {
-      await userService.createUser(ctx.request.body);
+      const user = await userService.createUser(ctx.request.body);
       return (ctx.body = {
         message: 'create user success',
+        success: true,
+        data: {
+          user,
+        },
       });
     } catch (e) {
       ctx.body = {
@@ -25,13 +29,11 @@ export const userController = {
     if (user) {
       const token = authService.createToken(user.id);
       ctx.cookies.set('token', token);
-      ctx.body = {
-        message: 'success',
-      };
+      ctx.body = user;
     } else {
-        ctx.body = {
-            error: 'wrong email or password',
-        };
+      ctx.body = {
+        error: 'wrong email or password',
+      };
     }
   },
 };
