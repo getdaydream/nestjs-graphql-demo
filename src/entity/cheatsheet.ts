@@ -2,7 +2,7 @@ import { Entity, Column } from 'typeorm';
 import { Post } from './post';
 
 @Entity()
-export class CheatSheet extends Post {
+export class Cheatsheet extends Post {
   @Column()
   language: string;
 }

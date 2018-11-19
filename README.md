@@ -22,3 +22,7 @@
 ## 依赖
 
 - [joi](https://github.com/hapijs/joi): 参数验证
+
+##　 TOUSE
+
+- [node-schedule](https://github.com/node-schedule/node-schedule)
