@@ -9,6 +9,7 @@ import {
   movieController,
   fileController,
   annotationController,
+  cheatsheetController,
 } from './controller';
 
 const router = new Router();
@@ -45,5 +46,9 @@ router.post('/files', fileController.publish);
 
 router.post('/annotation', annotationController.create);
 router.get('/annotation/:id', annotationController.findOne);
+
+router.get('/cheatsheet/:id', cheatsheetController.findOne);
+router.post('/cheatsheet', cheatsheetController.create);
+router.put('/cheatsheet', cheatsheetController.update);
 
 export { router };

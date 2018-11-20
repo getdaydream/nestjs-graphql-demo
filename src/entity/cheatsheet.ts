@@ -3,6 +3,6 @@ import { Post } from './post';
 
 @Entity()
 export class Cheatsheet extends Post {
-  @Column()
-  language: string;
+  @Column({ type: 'text' })
+  project: string;
 }
