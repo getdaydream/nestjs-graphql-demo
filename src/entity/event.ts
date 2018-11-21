@@ -1,4 +1,0 @@
-// time
-// position
-// people
-// content
