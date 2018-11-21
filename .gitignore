@@ -17,7 +17,7 @@ yarn-error.log
 coverage/
 
 # env
-.env.dev
+.env
 
 # log
 log/*.log
