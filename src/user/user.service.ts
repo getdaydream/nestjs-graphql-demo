@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './user.dto';
+import { createHmac } from 'crypto';
 
 @Injectable()
 export class UserService {
@@ -14,7 +15,7 @@ export class UserService {
     return await this.userRepository.findOne(id);
   }
 
-  async getByEmail(email: string) {
+  async getOneByEmail(email: string) {
     return await this.userRepository
       .createQueryBuilder('user')
       .where('user.email = :email')
@@ -22,10 +23,24 @@ export class UserService {
       .getOne();
   }
 
+  async getOneByEmailAndPassword(email: string, password: string) {
+    const passwordHash = createHmac('sha256', password).digest('hex');
+    return await this.userRepository
+      .createQueryBuilder('user')
+      .where('user.email = :email and user.password = :password')
+      .setParameter('email', email)
+      .setParameter('password', passwordHash)
+      .getOne();
+  }
+
+  async getOneByName(name: string) {
+    return await this.userRepository.findOne({ name });
+  }
+
   async create(createUserDto: CreateUserDto) {
     const { userRepository } = this;
 
-    const user = await this.getByEmail(createUserDto.email);
+    const user = await this.getOneByEmail(createUserDto.email);
 
     if (user) {
       throw new NotAcceptableException(
