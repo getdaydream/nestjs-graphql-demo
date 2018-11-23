@@ -24,20 +24,6 @@ export class UsersController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
-    const { name, password, email } = createUserDto;
-
-    if (!name) {
-      throw new HttpException('Username is required', HttpStatus.BAD_REQUEST);
-    }
-
-    if (!password) {
-      throw new HttpException('Password is required', HttpStatus.BAD_REQUEST);
-    }
-
-    if (!email) {
-      throw new HttpException('Email is required', HttpStatus.BAD_REQUEST);
-    }
-
     const user = await this.userService.create(createUserDto);
     delete user.password;
     const token = this.authService.createToken({ email: user.email });

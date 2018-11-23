@@ -45,3 +45,11 @@ $ npm run test:cov
 ## UNKONOWN
 
 - cookie 过期处理
+
+## TODO
+
+- [config module](https://github.com/Vivify-Ideas/nestjs-boilerplate/blob/master/src/modules/config/config.module.ts)
+
+## 备忘
+
+- `nodemon.json`中`exec`添加`--file`参数，否则不会加载本地声明文件
