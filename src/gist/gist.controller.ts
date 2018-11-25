@@ -12,7 +12,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
 import { CreateGistDto, FindGistByIdDto } from './gist.dto';
 import { GistService } from './gist.service';
-import { async } from 'rxjs/internal/scheduler/async';
 
 @Controller('gists')
 export class GistController {

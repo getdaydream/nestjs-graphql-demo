@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import Gist from './gist.entity';
+import { Gist } from './gist.entity';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 
