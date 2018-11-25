@@ -3,8 +3,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtPayload } from './interface';
 import { UserService } from 'src/user/user.service';
+import { Request } from 'express';
 
-const cookieExtractor = req => {
+const cookieExtractor = (req: Request) => {
   let token = null;
   if (req && req.cookies) {
     token = req.cookies.token;

@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export default class Gist {
+export class Gist {
   @PrimaryGeneratedColumn()
   id: number;
 
