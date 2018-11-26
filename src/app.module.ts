@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { GistModule } from './gist/gist.module';
+import { TagModule } from './tag/tag.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { GistModule } from './gist/gist.module';
       charset: 'utf8mb4',
       synchronize: true,
     }),
+    TagModule,
     GistModule,
     AuthModule,
     UserModule,
