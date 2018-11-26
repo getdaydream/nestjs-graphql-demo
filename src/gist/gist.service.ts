@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Gist } from './gist.entity';
-import { Repository } from 'typeorm';
+import { Repository, DeepPartial } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class GistService {
     return await this.gistRespository.findOne(id);
   }
 
-  async create(gist) {
+  async create(gist: DeepPartial<Gist>) {
     return await this.gistRespository.save(this.gistRespository.create(gist));
   }
 }

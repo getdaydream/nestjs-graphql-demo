@@ -1,8 +1,7 @@
 import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { Repository } from 'typeorm';
-import { CreateUserDto } from './user.dto';
+import { Repository, DeepPartial } from 'typeorm';
 import { createHmac } from 'crypto';
 
 @Injectable()
@@ -37,7 +36,7 @@ export class UserService {
     return await this.userRepository.findOne({ name });
   }
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: DeepPartial<User>) {
     const { userRepository } = this;
 
     const user = await this.getOneByEmail(createUserDto.email);

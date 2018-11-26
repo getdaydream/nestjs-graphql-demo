@@ -7,10 +7,11 @@ import {
   Get,
   Param,
   Put,
+  Query,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import { CreateGistDto, FindGistByIdDto } from './gist.dto';
+import { CreateGistDto, FindGistByIdDto, QueryGistDto } from './gist.dto';
 import { GistService } from './gist.service';
 
 @Controller('gists')
@@ -22,10 +23,17 @@ export class GistController {
   async create(@Body() createGistDto: CreateGistDto, @Req() req: Request) {
     const { user } = req;
     const gist = await this.gistService.create({
-      ...createGistDto,
       user_id: user.id,
+      ...createGistDto,
     });
     return gist;
+  }
+
+  @Get()
+  @UseGuards(AuthGuard())
+  async queryGist(@Query() query: QueryGistDto) {
+    //
+    query;
   }
 
   @Get(':id')
