@@ -17,4 +17,6 @@ export class UpdateGistDto {
   language: string;
 }
 
-export class QueryGistDto {}
+export class QueryGistDto {
+  tags: string;
+}
