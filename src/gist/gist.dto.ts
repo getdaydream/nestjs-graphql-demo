@@ -1,19 +1,28 @@
-import { IsNumberString } from 'class-validator';
+import { IsNumberString, IsOptional, IsNumber } from 'class-validator';
 
 export class CreateGistDto {
   files: string;
-  tags: string;
+  @IsOptional()
+  @IsNumber({}, { each: true })
+  tagIds: number[];
   language: string;
 }
 
 export class FindGistByIdDto {
   @IsNumberString()
-  id: number;
+  id: string;
 }
 
 export class UpdateGistDto {
+  @IsNumber()
+  id: number;
+
   files: string;
-  tags: string;
+
+  @IsOptional()
+  @IsNumber({}, { each: true })
+  tagIds: number[];
+
   language: string;
 }
 
