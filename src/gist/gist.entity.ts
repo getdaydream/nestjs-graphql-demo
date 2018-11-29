@@ -7,7 +7,7 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
-import { Tag } from 'src/tag/tag.entity';
+import { Tag } from '@/tag/tag.entity';
 
 @Entity()
 export class Gist {
@@ -17,14 +17,20 @@ export class Gist {
   @Column()
   user_id: number;
 
-  @Column()
+  @Column({ length: 140 })
   title: string;
+
+  @Column({ type: 'text' })
+  description: string;
 
   @Column()
   files: string;
 
   @Column()
   language: string;
+
+  @Column()
+  isPrivate: boolean;
 
   @UpdateDateColumn()
   update_at: Date;

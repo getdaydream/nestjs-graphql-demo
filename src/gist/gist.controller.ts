@@ -8,6 +8,8 @@ import {
   Param,
   Put,
   HttpCode,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
@@ -32,6 +34,9 @@ export class GistController {
           createGistDto.tagIds.map(id => this.tagService.get(id)),
         )
       : [];
+    if (tags.some(tag => !tag)) {
+      throw new HttpException('Tag do not exist.', HttpStatus.BAD_REQUEST);
+    }
     delete createGistDto.tagIds;
     const gist = await this.gistService.create({
       user_id: user.id,
@@ -40,13 +45,6 @@ export class GistController {
     });
     return gist;
   }
-
-  // @Get()
-  // @UseGuards(AuthGuard())
-  // async queryGist(@Query() query: QueryGistDto) {
-  //   //
-  //   query;
-  // }
 
   @Get(':id')
   @UseGuards(AuthGuard())
