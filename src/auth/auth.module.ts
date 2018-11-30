@@ -13,7 +13,7 @@ import { UserService } from 'src/user/user.service';
     JwtModule.register({
       secretOrPrivateKey: process.env.JWT_SECRET_KEY,
       signOptions: {
-        expiresIn: 10 * 60 * 60,
+        expiresIn: '10h',
       },
     }),
     UserModule,

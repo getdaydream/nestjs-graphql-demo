@@ -24,10 +24,7 @@ export class Gist {
   description: string;
 
   @Column()
-  files: string;
-
-  @Column()
-  language: string;
+  fileIds: string;
 
   @Column()
   isPrivate: boolean;
