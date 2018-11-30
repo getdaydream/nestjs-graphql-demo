@@ -16,12 +16,16 @@ import { Request } from 'express';
 import { CreateGistDto, FindGistByIdDto, UpdateGistDto } from './gist.dto';
 import { GistService } from './gist.service';
 import { TagService } from '@/tag/tag.service';
+import { Gist } from './gist.entity';
+import { DeepPartial } from 'typeorm';
+import { FileService } from '@/file/file.service';
 
 @Controller('gists')
 export class GistController {
   constructor(
     private readonly gistService: GistService,
     private readonly tagService: TagService,
+    private readonly fileService: FileService,
   ) {}
 
   @Post()
@@ -29,6 +33,7 @@ export class GistController {
   @UseGuards(AuthGuard())
   async create(@Body() createGistDto: CreateGistDto, @Req() req: Request) {
     const { user } = req;
+
     const tags = createGistDto.tagIds
       ? await Promise.all(
           createGistDto.tagIds.map(id => this.tagService.get(id)),
@@ -37,20 +42,33 @@ export class GistController {
     if (tags.some(tag => !tag)) {
       throw new HttpException('Tag do not exist.', HttpStatus.BAD_REQUEST);
     }
-    delete createGistDto.tagIds;
-    const gist = await this.gistService.create({
+
+    const files = await Promise.all(
+      createGistDto.files.map(file => this.fileService.create(file)),
+    );
+
+    let gist: DeepPartial<Gist> = {
       user_id: user.id,
-      ...createGistDto,
+      title: createGistDto.title,
+      description: createGistDto.description,
+      isPrivate: createGistDto.isPrivate,
+      fileIds: files.map(f => f.id).join(','),
       tags,
-    });
-    return gist;
+    };
+    gist = await this.gistService.create(gist);
+    delete gist.fileIds;
+    return { ...gist, files };
   }
 
   @Get(':id')
   @UseGuards(AuthGuard())
   async findGistById(@Param() params: FindGistByIdDto) {
     const { id } = params;
-    return await this.gistService.get(Number(id));
+    const gist = await this.gistService.get(Number(id));
+    if (!gist) {
+      throw new HttpException('Gist not found.', HttpStatus.NOT_FOUND);
+    }
+    return gist;
   }
 
   @Put()
