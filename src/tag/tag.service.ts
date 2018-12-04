@@ -13,11 +13,15 @@ export class TagService {
     return await this.tagRepository.findOne(id);
   }
 
+  async getOne(condition: DeepPartial<Tag>) {
+    return await this.tagRepository.findOne(condition);
+  }
+
   async getByName(name: string) {
     return await this.tagRepository.findOne({ name });
   }
 
-  async create(tag: DeepPartial<Tag>) {
+  async save(tag: DeepPartial<Tag>) {
     return await this.tagRepository.save(tag);
   }
 }
