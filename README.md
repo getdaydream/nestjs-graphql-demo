@@ -1,3 +1,5 @@
+# README
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
@@ -5,7 +7,7 @@
 ## Installation
 
 ```bash
-$ npm install
+npm install
 ```
 
 ## Running the app
@@ -42,6 +44,10 @@ $ npm run test:cov
 
 - [nestjs-boilerplate](https://github.com/Vivify-Ideas/nestjs-boilerplate)
 
+## DEP
+
+- [express-rate-limit](https://github.com/nfriedly/express-rate-limit): 限制请求速率
+
 ## UNKONOWN
 
 - cookie 过期处理
@@ -53,3 +59,4 @@ $ npm run test:cov
 ## 备忘
 
 - `nodemon.json`中`exec`添加`--file`参数，否则不会加载本地声明文件
+- 跨域 cookie 设置不能使用 127.0.0.1 或者 localhost，前后端都是
