@@ -53,9 +53,7 @@ export class UsersController {
       );
     }
     const token = this.authService.createToken({ email: userLoginDto.email });
-    res.cookie('token', token, {
-      expires: new Date(Date.now() + 900000),
-    });
+    res.cookie('token', token, { maxAge: 1000 * 60 * 10, httpOnly: false });
     res.status(HttpStatus.OK).json(user);
   }
 }
