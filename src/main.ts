@@ -9,11 +9,13 @@ import * as cookieParser from 'cookie-parser';
 import * as rateLimit from 'express-rate-limit';
 
 async function bootstrap() {
+  configProcessEnv();
+
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   // TODO:
   app.enableCors({
-    origin: 'http://192.168.100.39:8080',
+    origin: process.env.ALLOW_ORIGIN,
     credentials: true,
   });
   app.use(
