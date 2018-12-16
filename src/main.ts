@@ -1,7 +1,3 @@
-import { config as configProcessEnv } from 'dotenv';
-// .env
-configProcessEnv();
-
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
@@ -9,11 +5,8 @@ import * as cookieParser from 'cookie-parser';
 import * as rateLimit from 'express-rate-limit';
 
 async function bootstrap() {
-  configProcessEnv();
-
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
-  // TODO:
   app.enableCors({
     origin: process.env.ALLOW_ORIGIN,
     credentials: true,

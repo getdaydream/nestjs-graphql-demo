@@ -71,6 +71,13 @@ export class GistController {
     return gist;
   }
 
+  @Get()
+  @UseGuards(AuthGuard())
+  async findAll() {
+    const gists = await this.gistService.getMany();
+    return gists;
+  }
+
   @Put()
   @UseGuards(AuthGuard())
   async updateGist(@Body() updateGistDto: UpdateGistDto) {
