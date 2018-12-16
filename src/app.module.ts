@@ -6,9 +6,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { GistModule } from './gist/gist.module';
 import { TagModule } from './tag/tag.module';
+import { ConfigModule } from './config';
 
 @Module({
   imports: [
+    ConfigModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.MYSQL_HOST,
@@ -22,8 +24,8 @@ import { TagModule } from './tag/tag.module';
     }),
     TagModule,
     GistModule,
-    AuthModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

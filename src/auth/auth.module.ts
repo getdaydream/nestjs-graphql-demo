@@ -11,10 +11,8 @@ import { UserService } from '@/user/user.service';
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secretOrPrivateKey: process.env.JWT_SECRET_KEY,
-      signOptions: {
-        expiresIn: '10h',
-      },
+      // TODO:
+      secretOrPrivateKey: 'dddddddddddddddd',
     }),
     UserModule,
   ],

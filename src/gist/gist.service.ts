@@ -32,6 +32,28 @@ export class GistService {
       .getOne();
   }
 
+  async getMany() {
+    return await this.gistRespository
+      .createQueryBuilder('gist')
+      .select([
+        'gist.id',
+        'gist.title',
+        'gist.description',
+        'gist.isPrivate',
+        'gist.creat_at',
+        'gist.update_at',
+      ])
+      .where({})
+      .leftJoinAndMapOne(
+        'gist.files',
+        File,
+        'file',
+        'file.id IN (gist.fileIds)',
+      )
+      .leftJoinAndSelect('gist.tags', 'tags')
+      .getMany();
+  }
+
   async create(gist: DeepPartial<Gist>) {
     return await this.gistRespository.save(gist);
   }
