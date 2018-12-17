@@ -15,6 +15,7 @@ export class GistService {
       .createQueryBuilder('gist')
       .select([
         'gist.id',
+        'gist.user_id',
         'gist.title',
         'gist.description',
         'gist.isPrivate',
@@ -60,5 +61,9 @@ export class GistService {
 
   async update(gist: Gist) {
     return await this.gistRespository.save(gist);
+  }
+
+  async delete(criteria: Partial<Gist>) {
+    return await this.gistRespository.delete(criteria);
   }
 }

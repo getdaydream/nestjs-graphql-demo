@@ -10,6 +10,7 @@ import {
   HttpCode,
   HttpException,
   HttpStatus,
+  Delete,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
@@ -69,6 +70,33 @@ export class GistController {
       throw new HttpException('Gist not found.', HttpStatus.NOT_FOUND);
     }
     return gist;
+  }
+
+  @Delete(':id')
+  @UseGuards(AuthGuard())
+  async deleteGistById(@Param() params: FindGistByIdDto, @Req() req: Request) {
+    const { id } = params;
+    const { user } = req;
+    const gist = await this.gistService.get(Number(id));
+    if (!gist) {
+      throw new HttpException('Gist not found.', HttpStatus.NOT_FOUND);
+    }
+    // TODO: operatorId  string or number ?
+    if (gist.user_id !== Number(user.id)) {
+      throw new HttpException(
+        'You are not delete this gist',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    try {
+      await this.gistService.delete({ id: gist.id });
+      return gist;
+    } catch (e) {
+      return new HttpException(
+        'Delete gist failed.',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Get()
