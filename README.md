@@ -54,7 +54,11 @@ $ npm run test:cov
 
 ## TODO
 
-- [config module](https://github.com/Vivify-Ideas/nestjs-boilerplate/blob/master/src/modules/config/config.module.ts)
+- 在 `.module.ts` 中引用环境变量
+- websocket 聊天
+- 装饰器
+- OpenAPI (Swagger)
+- 测试
 
 ## 备忘
 
