@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
-class GistFile {
+class PostFile {
   @MinLength(1)
   @MaxLength(100)
   filename: string;
@@ -24,7 +24,7 @@ class GistFile {
   content: string;
 }
 
-export class CreateGistDto {
+export class CreatePostDto {
   @MinLength(1)
   @MaxLength(140)
   title: string;
@@ -34,8 +34,8 @@ export class CreateGistDto {
 
   @ArrayNotEmpty()
   @ValidateNested()
-  @Type(() => GistFile)
-  files: GistFile[];
+  @Type(() => PostFile)
+  files: PostFile[];
 
   @IsBoolean()
   isPrivate: boolean;
@@ -45,12 +45,12 @@ export class CreateGistDto {
   tagIds: number[];
 }
 
-export class FindGistByIdDto {
+export class FindPostByIdDto {
   @IsNumberString()
   id: string;
 }
 
-export class UpdateGistDto {
+export class UpdatePostDto {
   @IsNumber()
   id: number;
 
@@ -63,6 +63,6 @@ export class UpdateGistDto {
   language: string;
 }
 
-export class QueryGistDto {
+export class QueryPostDto {
   tags: string;
 }
