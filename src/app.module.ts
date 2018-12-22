@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
-import { GistModule } from './gist/gist.module';
+import { PostModule } from './post/post.module';
 import { TagModule } from './tag/tag.module';
 import { ConfigModule } from './config';
 
@@ -23,7 +23,7 @@ import { ConfigModule } from './config';
       synchronize: true,
     }),
     TagModule,
-    GistModule,
+    PostModule,
     UserModule,
     AuthModule,
   ],

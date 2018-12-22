@@ -10,17 +10,23 @@ import {
 import { Tag } from '@/tag/tag.entity';
 
 @Entity()
-export class Gist {
+export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   user_id: number;
 
+  @Column({ type: 'enum', enum: ['snippet', 'article'] })
+  type: number;
+
+  @Column({ length: 50 })
+  folder: string;
+
   @Column({ length: 140 })
   title: string;
 
-  @Column({ type: 'text' })
+  @Column({ length: 255 })
   description: string;
 
   @Column()
@@ -29,10 +35,10 @@ export class Gist {
   @Column()
   isPrivate: boolean;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ type: 'timestamp' })
   update_at: Date;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   creat_at: Date;
 
   @ManyToMany(() => Tag)
