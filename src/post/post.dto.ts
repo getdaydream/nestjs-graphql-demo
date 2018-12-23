@@ -8,6 +8,7 @@ import {
   IsString,
   IsBoolean,
   ArrayNotEmpty,
+  IsIn,
 } from 'class-validator';
 import { Type } from 'class-transformer';
 
@@ -25,6 +26,13 @@ class PostFile {
 }
 
 export class CreatePostDto {
+  @IsIn(['snippet', 'article'])
+  type: string;
+
+  @MinLength(1)
+  @MaxLength(50)
+  folder: string;
+
   @MinLength(1)
   @MaxLength(140)
   title: string;

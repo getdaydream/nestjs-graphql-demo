@@ -50,6 +50,8 @@ export class PostController {
 
     let post: DeepPartial<Post> = {
       user_id: user.id,
+      type: createPostDto.type,
+      folder: createPostDto.folder,
       title: createPostDto.title,
       description: createPostDto.description,
       isPrivate: createPostDto.isPrivate,

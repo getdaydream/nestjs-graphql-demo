@@ -15,6 +15,8 @@ export class PostService {
       .createQueryBuilder('post')
       .select([
         'post.id',
+        'post.type',
+        'post.folder',
         'post.user_id',
         'post.title',
         'post.description',
@@ -38,6 +40,8 @@ export class PostService {
       .createQueryBuilder('post')
       .select([
         'post.id',
+        'post.type',
+        'post.folder',
         'post.title',
         'post.description',
         'post.isPrivate',
