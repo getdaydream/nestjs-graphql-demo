@@ -17,8 +17,8 @@ export class Post {
   @Column()
   user_id: number;
 
-  @Column({ type: 'enum', enum: ['snippet', 'article'] })
-  type: number;
+  @Column({ type: 'enum', enum: ['snippet', 'article'], readonly: true })
+  type: string;
 
   @Column({ length: 50 })
   folder: string;
