@@ -17,7 +17,12 @@ export class Post {
   @Column()
   user_id: number;
 
-  @Column({ type: 'enum', enum: ['snippet', 'article'], readonly: true })
+  @Column({
+    type: 'enum',
+    // TODO: jsplayground
+    enum: ['snippet', 'article'],
+    readonly: true,
+  })
   type: string;
 
   @Column()

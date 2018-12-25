@@ -79,11 +79,11 @@ export class PostController {
   async deletePostById(@Param() params: FindPostByIdDto, @Req() req: Request) {
     const { id } = params;
     const { user } = req;
+    // TODO: query by id & user_id
     const post = await this.postService.get(Number(id));
     if (!post) {
       throw new HttpException('Post not found.', HttpStatus.NOT_FOUND);
     }
-    // TODO: operatorId  string or number ?
     if (post.user_id !== Number(user.id)) {
       throw new HttpException(
         'You are not delete this post',

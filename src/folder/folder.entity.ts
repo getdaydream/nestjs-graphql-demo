@@ -13,7 +13,7 @@ export class Folder {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ readonly: true })
   user_id: number;
 
   @Column()
