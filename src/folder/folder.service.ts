@@ -10,11 +10,15 @@ export class FolderService {
     private readonly folderRespository: Repository<Folder>,
   ) {}
 
-  async create(folder: Partial<Folder>) {
-    return await this.folderRespository.create(folder);
+  async save(folder: Partial<Folder>) {
+    return await this.folderRespository.save(folder);
   }
 
   async getOne(conditions: Partial<Folder>) {
     return await this.folderRespository.findOne(conditions);
+  }
+
+  async delete(conditions: Partial<Folder>) {
+    return await this.folderRespository.delete(conditions);
   }
 }
