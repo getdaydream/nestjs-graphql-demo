@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth/auth.module';
-import { PostModule } from './post/post.module';
-import { TagModule } from './tag/tag.module';
 import { ConfigModule } from './config';
+import { FolderModule } from './folder';
+import { TagModule } from './tag';
+import { PostModule } from './post';
+import { UserModule } from './user';
+import { AuthModule } from './auth';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { ConfigModule } from './config';
       charset: 'utf8mb4',
       synchronize: true,
     }),
+    FolderModule,
     TagModule,
     PostModule,
     UserModule,
