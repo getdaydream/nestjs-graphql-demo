@@ -20,8 +20,8 @@ export class Post {
   @Column({ type: 'enum', enum: ['snippet', 'article'], readonly: true })
   type: string;
 
-  @Column({ length: 50 })
-  folder: string;
+  @Column()
+  folder_id: number;
 
   @Column({ length: 140 })
   title: string;

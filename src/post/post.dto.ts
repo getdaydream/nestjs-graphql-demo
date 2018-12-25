@@ -29,9 +29,8 @@ export class CreatePostDto {
   @IsIn(['snippet', 'article'])
   type: string;
 
-  @MinLength(1)
-  @MaxLength(50)
-  folder: string;
+  @IsNumber()
+  folderId: number;
 
   @MinLength(1)
   @MaxLength(140)
