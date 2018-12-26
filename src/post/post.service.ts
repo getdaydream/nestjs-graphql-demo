@@ -35,16 +35,20 @@ export class PostService {
       .getOne();
   }
 
+  async getOne(conditions: Partial<Post>) {
+    return await this.postRespository.findOne(conditions);
+  }
+
   async getMany() {
     return await this.postRespository
       .createQueryBuilder('post')
       .select([
         'post.id',
         'post.type',
-        'post.folder',
+        'post.folder_id',
         'post.title',
         'post.description',
-        'post.isPrivate',
+        'post.is_private',
         'post.creat_at',
         'post.update_at',
       ])
@@ -53,7 +57,7 @@ export class PostService {
         'post.files',
         File,
         'file',
-        'file.id IN (post.fileIds)',
+        'file.id IN (post.file_ids)',
       )
       .leftJoinAndSelect('post.tags', 'tags')
       .getMany();

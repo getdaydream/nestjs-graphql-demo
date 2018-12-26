@@ -5,6 +5,7 @@ import {
   Min,
   Max,
   IsNumberString,
+  IsOptional,
 } from 'class-validator';
 
 export class CreateFolderDto {
@@ -36,4 +37,14 @@ export class ModifyFolderDto {
 export class DeleteFolderDto {
   @IsNumberString()
   id: string;
+}
+
+export class GetFoldersDto {
+  @IsOptional()
+  @IsNumberString()
+  depth: string;
+
+  @IsOptional()
+  @IsNumberString()
+  parentId: string;
 }

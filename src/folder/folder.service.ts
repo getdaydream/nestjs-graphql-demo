@@ -14,11 +14,15 @@ export class FolderService {
     return await this.folderRespository.save(folder);
   }
 
+  async delete(conditions: Partial<Folder>) {
+    return await this.folderRespository.delete(conditions);
+  }
+
   async getOne(conditions: Partial<Folder>) {
     return await this.folderRespository.findOne(conditions);
   }
 
-  async delete(conditions: Partial<Folder>) {
-    return await this.folderRespository.delete(conditions);
+  async getMany(conditions: Partial<Folder>) {
+    return await this.folderRespository.find(conditions);
   }
 }
