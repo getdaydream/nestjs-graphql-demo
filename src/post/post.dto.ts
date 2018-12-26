@@ -26,7 +26,7 @@ class PostFile {
 }
 
 export class CreatePostDto {
-  @IsIn(['snippet', 'article'])
+  @IsIn(['snippet', 'markdown'])
   type: string;
 
   @IsNumber()

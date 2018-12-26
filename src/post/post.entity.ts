@@ -19,8 +19,8 @@ export class Post {
 
   @Column({
     type: 'enum',
-    // TODO: jsplayground
-    enum: ['snippet', 'article'],
+    // TODO: jsplayground link image dynamic todo
+    enum: ['snippet', 'markdown'],
     readonly: true,
   })
   type: string;
@@ -35,11 +35,12 @@ export class Post {
   description: string;
 
   @Column()
-  fileIds: string;
+  file_ids: string;
 
   @Column()
-  isPrivate: boolean;
+  is_private: boolean;
 
+  // TODO: use timestamp
   @UpdateDateColumn({ type: 'timestamp' })
   update_at: Date;
 

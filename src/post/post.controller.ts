@@ -54,12 +54,12 @@ export class PostController {
       folder_id: createPostDto.folderId,
       title: createPostDto.title,
       description: createPostDto.description,
-      isPrivate: createPostDto.isPrivate,
-      fileIds: files.map(f => f.id).join(','),
+      is_private: createPostDto.isPrivate,
+      file_ids: files.map(f => f.id).join(','),
       tags,
     };
     post = await this.postService.create(post);
-    delete post.fileIds;
+    delete post.file_ids;
     return { ...post, files };
   }
 
@@ -79,16 +79,12 @@ export class PostController {
   async deletePostById(@Param() params: FindPostByIdDto, @Req() req: Request) {
     const { id } = params;
     const { user } = req;
-    // TODO: query by id & user_id
-    const post = await this.postService.get(Number(id));
+    const post = await this.postService.getOne({
+      id: Number(id),
+      user_id: user.id,
+    });
     if (!post) {
-      throw new HttpException('Post not found.', HttpStatus.NOT_FOUND);
-    }
-    if (post.user_id !== Number(user.id)) {
-      throw new HttpException(
-        'You are not delete this post',
-        HttpStatus.FORBIDDEN,
-      );
+      throw new HttpException('Post not exist.', HttpStatus.BAD_REQUEST);
     }
     try {
       await this.postService.delete({ id: post.id });
@@ -104,8 +100,8 @@ export class PostController {
   @Get()
   @UseGuards(AuthGuard())
   async findAll() {
-    const gists = await this.postService.getMany();
-    return gists;
+    const posts = await this.postService.getMany();
+    return posts;
   }
 
   @Put()

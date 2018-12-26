@@ -10,6 +10,8 @@ import {
   Put,
   Delete,
   Param,
+  Get,
+  Query,
 } from '@nestjs/common';
 import { FolderService } from './folder.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -18,6 +20,7 @@ import {
   CreateFolderDto,
   ModifyFolderDto,
   DeleteFolderDto,
+  GetFoldersDto,
 } from './folder.dto';
 import { Folder } from '.';
 
@@ -35,7 +38,7 @@ export class FolderController {
     const { user } = req;
     let folder = {
       user_id: user.id,
-      name: createFolderDto.name,
+      name: createFolderDto.name.trim(),
       parent_id: createFolderDto.parentId,
       depth: createFolderDto.depth,
     } as Partial<Folder>;
@@ -88,5 +91,23 @@ export class FolderController {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  @Get()
+  @UseGuards(AuthGuard())
+  async getFolders(@Query() query: GetFoldersDto, @Req() req: Request) {
+    const { depth, parentId } = query;
+    const { user } = req;
+    const conditions = {
+      user_id: user.id,
+    };
+    if (depth !== undefined) {
+      Object.assign(conditions, { depth: Number(depth) });
+    }
+    if (parentId !== undefined) {
+      Object.assign(conditions, { parent_id: Number(parentId) });
+    }
+    const folders = await this.folderService.getMany(conditions);
+    return folders;
   }
 }
