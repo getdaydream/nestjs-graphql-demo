@@ -51,14 +51,9 @@ export class PostService {
         'post.is_private',
         'post.creat_at',
         'post.update_at',
+        'post.file_ids',
       ])
       .where({})
-      .leftJoinAndMapOne(
-        'post.files',
-        File,
-        'file',
-        'file.id IN (post.file_ids)',
-      )
       .leftJoinAndSelect('post.tags', 'tags')
       .getMany();
   }

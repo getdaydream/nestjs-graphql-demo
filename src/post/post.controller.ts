@@ -97,6 +97,12 @@ export class PostController {
     }
   }
 
+  /**
+   * TODO: method: listRecent | listPostByParentId
+   * offset limit
+   * http response link
+   * https://developer.github.com/v3/gists/
+   */
   @Get()
   @UseGuards(AuthGuard())
   async findAll() {
