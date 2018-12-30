@@ -2,28 +2,26 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  Unique,
   CreateDateColumn,
   UpdateDateColumn,
+  Unique,
 } from 'typeorm';
 
 @Entity()
-@Unique(['user_id', 'parent_id', 'name'])
+@Unique(['user_id', 'name', 'parent_id'])
 export class Folder {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ readonly: true })
-  user_id: number;
-
   @Column()
-  parent_id: number;
+  user_id: number;
 
   @Column({ length: 80 })
   name: string;
 
+  // if root folder, parent_id = 0
   @Column()
-  depth: number;
+  parent_id: number;
 
   @CreateDateColumn()
   create_at: Date;

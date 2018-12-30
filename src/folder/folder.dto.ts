@@ -2,10 +2,10 @@ import {
   MinLength,
   MaxLength,
   IsNumber,
-  Min,
-  Max,
   IsNumberString,
   IsOptional,
+  IsInt,
+  Min,
 } from 'class-validator';
 
 export class CreateFolderDto {
@@ -13,21 +13,15 @@ export class CreateFolderDto {
   @MaxLength(80)
   name: string;
 
-  @IsNumber()
-  parentId: number;
-
-  @IsNumber()
+  @IsOptional()
+  @IsInt()
   @Min(0)
-  @Max(5)
-  depth: number;
+  parentId: number;
 }
 
 export class ModifyFolderDto {
   @IsNumber()
   id: number;
-
-  @IsNumber()
-  parentId: number;
 
   @MinLength(1)
   @MaxLength(80)
@@ -37,14 +31,4 @@ export class ModifyFolderDto {
 export class DeleteFolderDto {
   @IsNumberString()
   id: string;
-}
-
-export class GetFoldersDto {
-  @IsOptional()
-  @IsNumberString()
-  depth: string;
-
-  @IsOptional()
-  @IsNumberString()
-  parentId: string;
 }

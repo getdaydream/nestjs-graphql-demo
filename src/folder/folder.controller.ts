@@ -11,7 +11,6 @@ import {
   Delete,
   Param,
   Get,
-  Query,
 } from '@nestjs/common';
 import { FolderService } from './folder.service';
 import { AuthGuard } from '@nestjs/passport';
@@ -20,34 +19,47 @@ import {
   CreateFolderDto,
   ModifyFolderDto,
   DeleteFolderDto,
-  GetFoldersDto,
 } from './folder.dto';
-import { Folder } from '.';
 
 @Controller('folders')
 export class FolderController {
   constructor(private readonly folderService: FolderService) {}
 
+  @Get()
+  @UseGuards(AuthGuard())
+  async getFolders(@Req() req: Request) {
+    const { user } = req;
+    const folders = await this.folderService.getMany({ user_id: user.id });
+    return folders;
+  }
+
   @Post()
   @HttpCode(201)
   @UseGuards(AuthGuard())
-  async createFolder(
-    @Body() createFolderDto: CreateFolderDto,
-    @Req() req: Request,
-  ) {
+  async createFolder(@Body() params: CreateFolderDto, @Req() req: Request) {
     const { user } = req;
-    let folder = {
+    if (params.parentId) {
+      const parentFolder = await this.folderService.getOne({
+        id: params.parentId,
+        user_id: user.id,
+      });
+      if (!parentFolder) {
+        throw new HttpException(
+          'Parent folder not exist.',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+    }
+    const folder = {
       user_id: user.id,
-      name: createFolderDto.name.trim(),
-      parent_id: createFolderDto.parentId,
-      depth: createFolderDto.depth,
-    } as Partial<Folder>;
+      name: params.name.trim(),
+      parent_id: params.parentId,
+    };
     if (await this.folderService.getOne(folder)) {
       throw new HttpException('Duplicate folder', HttpStatus.BAD_REQUEST);
     }
     try {
-      folder = await this.folderService.save(folder);
-      return folder;
+      return this.folderService.save(folder);
     } catch (e) {
       return new HttpException(
         'Create folder failed.',
@@ -91,23 +103,5 @@ export class FolderController {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-  }
-
-  @Get()
-  @UseGuards(AuthGuard())
-  async getFolders(@Query() query: GetFoldersDto, @Req() req: Request) {
-    const { depth, parentId } = query;
-    const { user } = req;
-    const conditions = {
-      user_id: user.id,
-    };
-    if (depth !== undefined) {
-      Object.assign(conditions, { depth: Number(depth) });
-    }
-    if (parentId !== undefined) {
-      Object.assign(conditions, { parent_id: Number(parentId) });
-    }
-    const folders = await this.folderService.getMany(conditions);
-    return folders;
   }
 }
