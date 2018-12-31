@@ -28,7 +28,7 @@ export class ModifyFolderDto {
   name: string;
 }
 
-export class DeleteFolderDto {
+export class EntityIdDto {
   @IsNumberString()
   id: string;
 }

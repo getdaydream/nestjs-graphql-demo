@@ -4,7 +4,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Column,
+  ManyToOne,
 } from 'typeorm';
+import { Post } from '@/post';
 
 @Entity()
 export class File {
@@ -19,6 +21,9 @@ export class File {
 
   @Column({ type: 'text' })
   content: string;
+
+  @ManyToOne(() => Post, post => post.files)
+  post: Post;
 
   @CreateDateColumn()
   create_at: Date;

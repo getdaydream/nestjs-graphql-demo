@@ -15,11 +15,7 @@ import {
 import { FolderService } from './folder.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import {
-  CreateFolderDto,
-  ModifyFolderDto,
-  DeleteFolderDto,
-} from './folder.dto';
+import { CreateFolderDto, ModifyFolderDto, EntityIdDto } from './folder.dto';
 
 @Controller('folders')
 export class FolderController {
@@ -31,6 +27,25 @@ export class FolderController {
     const { user } = req;
     const folders = await this.folderService.getMany({ user_id: user.id });
     return folders;
+  }
+
+  @Get('/:id/posts')
+  @UseGuards(AuthGuard())
+  async getPostsUnderFolder(@Param() params: EntityIdDto, @Req() req: Request) {
+    const { user } = req;
+    if (
+      !(await this.folderService.getOne({
+        id: Number(params.id),
+        user_id: user.id,
+      }))
+    ) {
+      throw new HttpException('Folder not exist', HttpStatus.BAD_REQUEST);
+    }
+    return {};
+    // return this.postService.getMany({
+    //   user_id: user.id,
+    //   folder_id: Number(params.id),
+    // });
   }
 
   @Post()
@@ -84,7 +99,7 @@ export class FolderController {
 
   @Delete(':id')
   @UseGuards(AuthGuard())
-  async delete(@Param() params: DeleteFolderDto, @Req() req: Request) {
+  async delete(@Param() params: EntityIdDto, @Req() req: Request) {
     const { id } = params;
     const { user } = req;
     const folder = await this.folderService.getOne({
