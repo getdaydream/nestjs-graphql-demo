@@ -2,54 +2,32 @@ import {
   IsNumberString,
   IsOptional,
   IsNumber,
-  ValidateNested,
-  MinLength,
-  MaxLength,
-  IsString,
-  IsBoolean,
-  ArrayNotEmpty,
   IsIn,
+  IsInt,
+  Min,
 } from 'class-validator';
-import { Type } from 'class-transformer';
+import { PostType } from './post.interface';
 
-class PostFile {
-  @MinLength(1)
-  @MaxLength(100)
-  filename: string;
+// class PostFile {
+//   @MinLength(1)
+//   @MaxLength(100)
+//   filename: string;
 
-  @MinLength(1)
-  @MaxLength(50)
-  filetype: string;
+//   @MinLength(1)
+//   @MaxLength(50)
+//   filetype: string;
 
-  @IsString()
-  content: string;
-}
+//   @IsString()
+//   content: string;
+// }
 
 export class CreatePostDto {
   @IsIn(['snippet', 'markdown'])
-  type: string;
+  type: PostType;
 
-  @IsNumber()
+  @IsInt()
+  @Min(0)
   folderId: number;
-
-  @MinLength(1)
-  @MaxLength(140)
-  title: string;
-
-  @IsString()
-  description: string;
-
-  @ArrayNotEmpty()
-  @ValidateNested()
-  @Type(() => PostFile)
-  files: PostFile[];
-
-  @IsBoolean()
-  isPrivate: boolean;
-
-  @IsOptional()
-  @IsNumber({}, { each: true })
-  tagIds: number[];
 }
 
 export class FindPostByIdDto {
@@ -70,6 +48,16 @@ export class UpdatePostDto {
   language: string;
 }
 
+export enum QueryPostMethod {
+  listRecent = 'listRecent',
+  listPostByFolderId = 'listPostByFolderId',
+}
+
 export class QueryPostDto {
-  tags: string;
+  @IsIn(Object.keys(QueryPostMethod))
+  method: QueryPostMethod;
+
+  @IsOptional()
+  @IsNumberString()
+  folderId: number;
 }

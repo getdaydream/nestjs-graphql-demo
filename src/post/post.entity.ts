@@ -6,8 +6,11 @@ import {
   UpdateDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { Tag } from '@/tag/tag.entity';
+import { File } from '@/file/file.index';
 
 @Entity()
 export class Post {
@@ -33,6 +36,10 @@ export class Post {
 
   @Column({ length: 255 })
   description: string;
+
+  @OneToMany(() => File, file => file.post, { cascade: true })
+  @JoinColumn({ name: 'file_ids' })
+  files: File[];
 
   @Column()
   file_ids: string;

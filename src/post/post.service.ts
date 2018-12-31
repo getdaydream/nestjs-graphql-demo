@@ -39,7 +39,7 @@ export class PostService {
     return await this.postRespository.findOne(conditions);
   }
 
-  async getMany() {
+  async getMany(conditions: Partial<Post>) {
     return await this.postRespository
       .createQueryBuilder('post')
       .select([
@@ -53,12 +53,12 @@ export class PostService {
         'post.update_at',
         'post.file_ids',
       ])
-      .where({})
+      .where(conditions)
       .leftJoinAndSelect('post.tags', 'tags')
       .getMany();
   }
 
-  async create(post: DeepPartial<Post>) {
+  async createNew(post: DeepPartial<Post>) {
     return await this.postRespository.save(post);
   }
 

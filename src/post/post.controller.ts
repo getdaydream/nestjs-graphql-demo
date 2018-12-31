@@ -11,14 +11,22 @@ import {
   HttpException,
   HttpStatus,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
-import { CreatePostDto, FindPostByIdDto, UpdatePostDto } from './post.dto';
+import {
+  CreatePostDto,
+  FindPostByIdDto,
+  UpdatePostDto,
+  QueryPostDto,
+  QueryPostMethod,
+} from './post.dto';
 import { PostService } from './post.service';
 import { TagService } from '@/tag/tag.service';
 import { Post } from './post.entity';
 import { DeepPartial } from 'typeorm';
+import { FolderService } from '@/folder/folder.service';
 import { FileService } from '@/file/file.service';
 
 @Controller('posts')
@@ -27,6 +35,7 @@ export class PostController {
     private readonly postService: PostService,
     private readonly tagService: TagService,
     private readonly fileService: FileService,
+    private readonly folderService: FolderService,
   ) {}
 
   @PostDecorator()
@@ -35,32 +44,29 @@ export class PostController {
   async create(@Body() createPostDto: CreatePostDto, @Req() req: Request) {
     const { user } = req;
 
-    const tags = createPostDto.tagIds
-      ? await Promise.all(
-          createPostDto.tagIds.map(id => this.tagService.get(id)),
-        )
-      : [];
-    if (tags.some(tag => !tag)) {
-      throw new HttpException('Tag do not exist.', HttpStatus.BAD_REQUEST);
+    if (
+      createPostDto.folderId &&
+      !(await this.folderService.getOne({ id: createPostDto.folderId }))
+    ) {
+      throw new HttpException('Folder not exist.', HttpStatus.BAD_REQUEST);
     }
 
-    const files = await Promise.all(
-      createPostDto.files.map(file => this.fileService.create(file)),
+    const defaultFile = await this.fileService.createDefaultFileForPost(
+      createPostDto.type,
     );
 
     let post: DeepPartial<Post> = {
       user_id: user.id,
       type: createPostDto.type,
       folder_id: createPostDto.folderId,
-      title: createPostDto.title,
-      description: createPostDto.description,
-      is_private: createPostDto.isPrivate,
-      file_ids: files.map(f => f.id).join(','),
-      tags,
+      title: new Date().toLocaleDateString(),
+      description: '',
+      is_private: true,
+      files: [defaultFile],
     };
-    post = await this.postService.create(post);
+    post = await this.postService.createNew(post);
     delete post.file_ids;
-    return { ...post, files };
+    return { ...post };
   }
 
   @Get(':id')
@@ -105,9 +111,16 @@ export class PostController {
    */
   @Get()
   @UseGuards(AuthGuard())
-  async findAll() {
-    const posts = await this.postService.getMany();
-    return posts;
+  async queryPost(@Query() params: QueryPostDto, @Req() req: Request) {
+    const { user } = req;
+    if (params.method === QueryPostMethod.listPostByFolderId) {
+      if (params.folderId !== undefined) {
+        return await this.postService.getMany({
+          user_id: user.id,
+          folder_id: params.folderId,
+        });
+      }
+    }
   }
 
   @Put()
