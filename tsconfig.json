@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {
-      "@/*": ["./src/*"] // will enable -> import { ... } from '@/modules'
-    },
+    // "paths": {
+    //   "@app/*": ["./src/*"] // will enable -> import { ... } from '@app/modules'
+    // },
     "module": "commonjs",
+    "moduleResolution": "node",
     "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,

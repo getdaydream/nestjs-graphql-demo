@@ -23,11 +23,11 @@ import {
   QueryPostMethod,
 } from './post.dto';
 import { PostService } from './post.service';
-import { TagService } from '@/tag/tag.service';
+import { TagService } from '../tag';
 import { Post } from './post.entity';
 import { DeepPartial } from 'typeorm';
-import { FolderService } from '@/folder/folder.service';
-import { FileService } from '@/file/file.service';
+import { FolderService } from '../folder/folder.service';
+import { FileService } from '../file/file.service';
 
 @Controller('posts')
 export class PostController {

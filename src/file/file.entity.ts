@@ -6,7 +6,7 @@ import {
   Column,
   ManyToOne,
 } from 'typeorm';
-import { Post } from '@/post';
+import { Post } from '../post';
 
 @Entity()
 export class File {
