@@ -12,7 +12,7 @@ import {
 import { CreateUserDto, UserLoginDto, FindUserByIdDto } from './user.dto';
 import { UserService } from './user.service';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from '@/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { Response } from 'express';
 
 @Controller('users')

@@ -9,8 +9,8 @@ import {
   OneToMany,
   JoinColumn,
 } from 'typeorm';
-import { Tag } from '@/tag/tag.entity';
-import { File } from '@/file/file.index';
+import { Tag } from '../tag';
+import { File } from '../file/file.entity';
 
 @Entity()
 export class Post {

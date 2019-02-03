@@ -48,6 +48,8 @@ class CustomNamingStrategy extends DefaultNamingStrategy
   }
 }
 
+console.log(process.env);
+
 @Module({
   imports: [
     ConfigModule,

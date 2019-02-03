@@ -2,7 +2,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from './post.entity';
 import { Repository, DeepPartial } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { File } from '@/file/file.entity';
+import { File } from '../file/file.entity';
 
 @Injectable()
 export class PostService {

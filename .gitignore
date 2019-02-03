@@ -25,3 +25,6 @@ log/*.log
 # docker
 /Dockerfile
 /docker-compose.yml
+
+# build
+dist/
