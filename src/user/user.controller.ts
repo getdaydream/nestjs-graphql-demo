@@ -56,7 +56,7 @@ export class UsersController {
     res.cookie('token', token, {
       // maxAge : 10h
       maxAge: 1000 * 60 * 60 * 10,
-      httpOnly: false,
+      httpOnly: true,
     });
     res.status(HttpStatus.OK).json(user);
   }
