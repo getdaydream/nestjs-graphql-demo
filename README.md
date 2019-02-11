@@ -43,10 +43,12 @@ $ npm run test:cov
 ## REFFERENCE
 
 - [nestjs-boilerplate](https://github.com/Vivify-Ideas/nestjs-boilerplate)
+- [Node.js 最佳实践](https://github.com/i0natan/nodebestpractices/blob/master/README.chinese.md#1-project-structure-practices)
+- [node-interview](https://elemefe.github.io/node-interview/#/sections/zh-cn/)
 
 ## DEP
 
-- [express-rate-limit](https://github.com/nfriedly/express-rate-limit): 限制请求速率
+- [express-rate-limit](https://github.com/nfriedly/express-rate-limit): Use to limit repeated requests to public APIs and/or endpoints such as password reset.
 
 ## UNKONOWN
 
@@ -59,6 +61,8 @@ $ npm run test:cov
 - 装饰器
 - OpenAPI (Swagger)
 - 测试
+- 微服务
+- 热重载
 
 ## 备忘
 
