@@ -3,19 +3,20 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import * as rateLimit from 'express-rate-limit';
-import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as morgan from 'morgan';
+// import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const options = new DocumentBuilder()
-    .setTitle('example')
-    .setDescription('API description')
-    .setVersion('1.0')
-    .addTag('cats')
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('api', app, document);
+  // const options = new DocumentBuilder()
+  //   .setTitle('example')
+  //   .setDescription('API description')
+  //   .setVersion('1.0')
+  //   .addTag('cats')
+  //   .build();
+  // const document = SwaggerModule.createDocument(app, options);
+  // SwaggerModule.setup('api', app, document);
 
   app.setGlobalPrefix('api');
   app.enableCors({
@@ -28,6 +29,7 @@ async function bootstrap() {
       max: 100, // limit each IP to 100 requests per windowMs
     }),
   );
+  app.use(morgan('dev'));
   // Parse Cookie header and populate req.cookies with an object keyed by the cookie names
   app.use(cookieParser());
   // 自动验证参数

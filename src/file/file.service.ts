@@ -18,7 +18,7 @@ export class FileService {
     return await this.fileRepository.save(file);
   }
 
-  async createDefaultFileForPost(postType: PostType) {
+  async createEmptyFileForPost(postType: PostType) {
     if (postType === PostType.snippet) {
       return await this.fileRepository.create({
         filename: 'index',

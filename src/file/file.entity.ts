@@ -25,6 +25,9 @@ export class File {
   @ManyToOne(() => Post, post => post.files)
   post: Post;
 
+  @Column()
+  post_id: number;
+
   @CreateDateColumn()
   create_at: Date;
 
