@@ -51,10 +51,9 @@ export class PostService {
         'post.is_private',
         'post.creat_at',
         'post.update_at',
-        'post.file_ids',
       ])
       .where(conditions)
-      .leftJoinAndSelect('post.tags', 'tags')
+      .leftJoinAndSelect('post.files', 'files')
       .getMany();
   }
 

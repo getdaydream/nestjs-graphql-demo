@@ -51,7 +51,7 @@ export class PostController {
       throw new HttpException('Folder not exist.', HttpStatus.BAD_REQUEST);
     }
 
-    const defaultFile = await this.fileService.createDefaultFileForPost(
+    const defaultFile = await this.fileService.createEmptyFileForPost(
       createPostDto.type,
     );
 
@@ -65,7 +65,6 @@ export class PostController {
       files: [defaultFile],
     };
     post = await this.postService.createNew(post);
-    delete post.file_ids;
     return { ...post };
   }
 

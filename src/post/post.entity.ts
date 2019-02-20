@@ -7,7 +7,6 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
-  JoinColumn,
 } from 'typeorm';
 import { Tag } from '../tag';
 import { File } from '../file/file.entity';
@@ -38,11 +37,7 @@ export class Post {
   description: string;
 
   @OneToMany(() => File, file => file.post, { cascade: true })
-  @JoinColumn({ name: 'file_ids' })
   files: File[];
-
-  @Column()
-  file_ids: string;
 
   @Column()
   is_private: boolean;
