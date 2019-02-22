@@ -54,6 +54,7 @@ export class PostController {
     const defaultFile = await this.fileService.createEmptyFileForPost(
       createPostDto.type,
     );
+    console.log(defaultFile);
 
     let post: DeepPartial<Post> = {
       user_id: user.id,
@@ -62,21 +63,10 @@ export class PostController {
       title: new Date().toLocaleDateString(),
       description: '',
       is_private: true,
-      files: [defaultFile],
+      // files: [defaultFile],
     };
     post = await this.postService.createNew(post);
     return { ...post };
-  }
-
-  @Get(':id')
-  @UseGuards(AuthGuard())
-  async findPostById(@Param() params: FindPostByIdDto) {
-    const { id } = params;
-    const post = await this.postService.get(Number(id));
-    if (!post) {
-      throw new HttpException('Post not found.', HttpStatus.NOT_FOUND);
-    }
-    return post;
   }
 
   @Delete(':id')
@@ -95,11 +85,23 @@ export class PostController {
       await this.postService.delete({ id: post.id });
       return post;
     } catch (e) {
-      return new HttpException(
+      console.log(e);
+      throw new HttpException(
         'Delete post failed.',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  @Get(':id')
+  @UseGuards(AuthGuard())
+  async findPostById(@Param() params: FindPostByIdDto) {
+    const { id } = params;
+    const post = await this.postService.get(Number(id));
+    if (!post) {
+      throw new HttpException('Post not found.', HttpStatus.NOT_FOUND);
+    }
+    return post;
   }
 
   /**
@@ -126,7 +128,6 @@ export class PostController {
   @UseGuards(AuthGuard())
   async updatePost(@Body() updatePostDto: UpdatePostDto) {
     const post = await this.postService.get(updatePostDto.id);
-    delete updatePostDto.id;
     const tags = updatePostDto.tagIds
       ? await Promise.all(
           updatePostDto.tagIds.map(id => this.tagService.get(id)),

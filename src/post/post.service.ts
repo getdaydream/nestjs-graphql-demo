@@ -2,7 +2,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Post } from './post.entity';
 import { Repository, DeepPartial } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { File } from '../file/file.entity';
 
 @Injectable()
 export class PostService {
@@ -16,21 +15,15 @@ export class PostService {
       .select([
         'post.id',
         'post.type',
-        'post.folder',
-        'post.user_id',
+        'post.folder_id',
         'post.title',
         'post.description',
-        'post.isPrivate',
+        'post.is_private',
         'post.creat_at',
         'post.update_at',
       ])
       .where('post.id = :id', { id })
-      .leftJoinAndMapOne(
-        'post.files',
-        File,
-        'file',
-        'file.id IN (post.fileIds)',
-      )
+      .leftJoinAndSelect('post.files', 'files')
       .leftJoinAndSelect('post.tags', 'tags')
       .getOne();
   }
@@ -54,6 +47,7 @@ export class PostService {
       ])
       .where(conditions)
       .leftJoinAndSelect('post.files', 'files')
+      .leftJoinAndSelect('post.tags', 'tags')
       .getMany();
   }
 

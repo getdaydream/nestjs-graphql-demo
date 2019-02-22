@@ -6,10 +6,8 @@ import {
   UpdateDateColumn,
   ManyToMany,
   JoinTable,
-  OneToMany,
 } from 'typeorm';
 import { Tag } from '../tag';
-import { File } from '../file/file.entity';
 
 @Entity()
 export class Post {
@@ -36,17 +34,16 @@ export class Post {
   @Column({ length: 255 })
   description: string;
 
-  @OneToMany(() => File, file => file.post, { cascade: true })
-  files: File[];
+  @Column()
+  file_ids: string;
 
   @Column()
   is_private: boolean;
 
-  // TODO: use timestamp
-  @UpdateDateColumn({ type: 'timestamp' })
+  @UpdateDateColumn()
   update_at: Date;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @CreateDateColumn()
   creat_at: Date;
 
   @ManyToMany(() => Tag)
