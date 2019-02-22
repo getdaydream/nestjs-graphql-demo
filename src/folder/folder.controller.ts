@@ -111,7 +111,7 @@ export class FolderController {
     }
     try {
       await this.folderService.delete({ id: folder.id });
-      return folder;
+      return { error: null };
     } catch (e) {
       return new HttpException(
         'Delete folder failed.',
