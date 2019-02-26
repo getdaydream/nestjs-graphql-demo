@@ -22,7 +22,7 @@ import { PostType } from './post.interface';
 // }
 
 export class CreatePostDto {
-  @IsIn(['snippet', 'markdown'])
+  @IsIn(Object.keys(PostType))
   type: PostType;
 
   @IsInt()
@@ -30,22 +30,27 @@ export class CreatePostDto {
   folderId: number;
 }
 
-export class FindPostByIdDto {
+export class EntityIdDto {
   @IsNumberString()
   id: string;
 }
 
 export class UpdatePostDto {
-  @IsNumber()
-  id: number;
-
-  files: string;
+  files: any[];
 
   @IsOptional()
   @IsNumber({}, { each: true })
   tagIds: number[];
 
   language: string;
+}
+
+export class CreatePostFileDto {
+  @IsInt()
+  postId: number;
+
+  @IsIn(Object.keys(PostType))
+  type: PostType;
 }
 
 export enum QueryPostMethod {

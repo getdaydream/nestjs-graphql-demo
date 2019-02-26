@@ -46,6 +46,7 @@ export class Post {
   @CreateDateColumn()
   creat_at: Date;
 
+  // TODO: 存 tag name
   @ManyToMany(() => Tag)
   @JoinTable()
   tags: Tag[];
