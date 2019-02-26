@@ -14,20 +14,20 @@ export class FileService {
     return await this.fileRepository.findOne(id);
   }
 
-  async create(file: DeepPartial<File>) {
+  async save(file: DeepPartial<File>) {
     return await this.fileRepository.save(file);
   }
 
-  async createEmptyFileForPost(postType: PostType) {
+  async createDefaultFileForPost(postType: PostType) {
     if (postType === PostType.snippet) {
-      return await this.fileRepository.create({
+      return await this.fileRepository.save({
         filename: 'index',
         filetype: 'typescript',
         content: '',
       });
     }
     if (postType === PostType.markdown) {
-      return await this.fileRepository.create({
+      return await this.fileRepository.save({
         filename: 'index',
         filetype: 'markdown',
         content: '',
