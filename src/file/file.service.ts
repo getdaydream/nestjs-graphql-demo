@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { File } from './file.entity';
 import { Repository, DeepPartial } from 'typeorm';
-import { PostType } from '../post/post.interface';
+import { Filetype } from './file.interface';
 
 @Injectable()
 export class FileService {
@@ -14,24 +14,27 @@ export class FileService {
     return await this.fileRepository.findOne(id);
   }
 
-  async save(file: DeepPartial<File>) {
-    return await this.fileRepository.save(file);
+  async save(condition: DeepPartial<File>) {
+    return await this.fileRepository.save(condition);
   }
 
-  async createDefaultFileForPost(postType: PostType) {
-    if (postType === PostType.snippet) {
-      return await this.fileRepository.save({
-        filename: 'index',
-        filetype: 'typescript',
-        content: '',
-      });
-    }
-    if (postType === PostType.markdown) {
-      return await this.fileRepository.save({
-        filename: 'index',
-        filetype: 'markdown',
-        content: '',
-      });
-    }
+  async delete(condition: DeepPartial<File>) {
+    return await this.fileRepository.delete(condition);
+  }
+
+  async saveDefaultFileForPost(filetype: Filetype) {
+    return await this.fileRepository.save({
+      filename: '',
+      content: '',
+      filetype,
+    });
+  }
+
+  createDefaultFileForPost(filetype: Filetype) {
+    return this.fileRepository.create({
+      filename: '',
+      content: '',
+      filetype,
+    });
   }
 }

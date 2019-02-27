@@ -21,7 +21,6 @@ export function snakeCase(str: string) {
     .toLowerCase();
 }
 
-// TODO: naming strategy for CONSTRAINT FK
 class CustomNamingStrategy extends DefaultNamingStrategy
   implements NamingStrategyInterface {
   columnName(
