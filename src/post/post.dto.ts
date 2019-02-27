@@ -5,8 +5,11 @@ import {
   IsIn,
   IsInt,
   Min,
+  MaxLength,
+  IsString,
 } from 'class-validator';
 import { PostType } from './post.interface';
+import { Filetype } from '../file';
 
 // class PostFile {
 //   @MinLength(1)
@@ -45,14 +48,6 @@ export class UpdatePostDto {
   language: string;
 }
 
-export class CreatePostFileDto {
-  @IsInt()
-  postId: number;
-
-  @IsIn(Object.keys(PostType))
-  type: PostType;
-}
-
 export enum QueryPostMethod {
   listRecent = 'listRecent',
   listPostByFolderId = 'listPostByFolderId',
@@ -65,4 +60,34 @@ export class QueryPostDto {
   @IsOptional()
   @IsNumberString()
   folderId: number;
+}
+
+export class DeletePostFileParams {
+  @IsNumberString()
+  postId: string;
+
+  @IsNumberString()
+  fileId: string;
+}
+
+export class UpdatePostFileParams {
+  @IsNumberString()
+  postId: string;
+
+  @IsNumberString()
+  fileId: string;
+}
+
+export class UpdatePostFileDto {
+  @IsOptional()
+  @MaxLength(100)
+  filename: string;
+
+  @IsOptional()
+  @IsIn(Object.keys(Filetype))
+  filetype: string;
+
+  @IsOptional()
+  @IsString()
+  content: string;
 }

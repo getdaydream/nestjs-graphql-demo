@@ -12,7 +12,7 @@ export class PostService {
   ) {}
 
   async get(conditions: Partial<Post>) {
-    return await this.postRespository
+    return (await this.postRespository
       .createQueryBuilder('post')
       .select([
         'post.id',
@@ -31,7 +31,7 @@ export class PostService {
         `FIND_IN_SET(file.id, post.file_ids)`,
       )
       .where(conditions)
-      .getOne();
+      .getOne()) as Partial<Post> & { files: File[] };
   }
 
   async getOne(conditions: Partial<Post>) {
@@ -67,6 +67,7 @@ export class PostService {
         `FIND_IN_SET(file.id, post.file_ids)`,
       )
       .where(conditions)
+      .orderBy('post.update_at', 'DESC')
       .getMany();
   }
 
@@ -86,7 +87,14 @@ export class PostService {
     if (post) {
       return await this.fileRespository
         .createQueryBuilder('file')
-        .select(['file.id', 'file.filename'])
+        .select([
+          'file.id',
+          'file.filename',
+          'file.filetype',
+          'file.content',
+          'file.create_at',
+          'file.update_at',
+        ])
         .whereInIds(post.file_ids.split(','))
         .getMany();
     }
