@@ -72,7 +72,7 @@ export class PostController {
     };
     post = await this.postService.save(post);
     delete post.file_ids;
-    return { ...post, files: [defaultFile] };
+    return { post, files: [defaultFile] };
   }
 
   @Delete(':id')
@@ -253,7 +253,7 @@ export class PostController {
     }
 
     if (
-      post.type === PostType.markdown &&
+      post.type === PostType.article &&
       body.filetype &&
       body.filetype !== Filetype.markdown
     ) {
