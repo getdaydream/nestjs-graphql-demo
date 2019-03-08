@@ -56,6 +56,7 @@ $ npm run test:cov
 
 ## TODO
 
+- [passport](https://github.com/jaredhanson/passport)
 - 在 `.module.ts` 中引用环境变量
 - websocket 聊天
 - 装饰器

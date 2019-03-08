@@ -9,6 +9,8 @@ import { PostModule } from './post';
 import { UserModule } from './user';
 import { AuthModule } from './auth';
 import { NamingStrategyInterface, DefaultNamingStrategy } from 'typeorm';
+import { RenderModule } from 'nest-next';
+import { ViewsModule } from './views/views.module';
 
 /**
  * Converts string into snake-case.
@@ -51,6 +53,7 @@ class CustomNamingStrategy extends DefaultNamingStrategy
 @Module({
   imports: [
     ConfigModule,
+    RenderModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.MYSQL_HOST,
@@ -63,6 +66,7 @@ class CustomNamingStrategy extends DefaultNamingStrategy
       synchronize: true,
       namingStrategy: new CustomNamingStrategy(),
     }),
+    ViewsModule,
     TagModule,
     PostModule,
     UserModule,

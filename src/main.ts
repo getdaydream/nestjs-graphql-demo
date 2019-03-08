@@ -4,38 +4,40 @@ import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import * as rateLimit from 'express-rate-limit';
 import * as morgan from 'morgan';
-// import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import * as Next from 'next';
+import { RenderModule } from 'nest-next';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const dev = process.env.NODE_ENV !== 'production';
+  const nextApp = Next({ dev });
 
-  // const options = new DocumentBuilder()
-  //   .setTitle('example')
-  //   .setDescription('API description')
-  //   .setVersion('1.0')
-  //   .addTag('cats')
-  //   .build();
-  // const document = SwaggerModule.createDocument(app, options);
-  // SwaggerModule.setup('api', app, document);
+  await nextApp.prepare();
 
-  app.setGlobalPrefix('api');
-  app.enableCors({
+  const server = await NestFactory.create(AppModule);
+
+  const renderer = server.get(RenderModule);
+  renderer.register(server, nextApp);
+
+  // TODO: @nestjs/swagger
+
+  // server.setGlobalPrefix('api');
+  server.enableCors({
     // origin: process.env.ALLOW_ORIGIN,
     origin: true,
     credentials: true,
   });
-  app.use(
+  server.use(
     rateLimit({
       windowMs: 15 * 60 * 1000, // 15 minutes
       max: 100, // limit each IP to 100 requests per windowMs
     }),
   );
-  app.use(morgan('dev'));
+  server.use(morgan('dev'));
   // Parse Cookie header and populate req.cookies with an object keyed by the cookie names
-  app.use(cookieParser());
+  server.use(cookieParser());
   // 自动验证参数
-  app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000);
+  server.useGlobalPipes(new ValidationPipe());
+  await server.listen(3000);
 }
 
 bootstrap();
