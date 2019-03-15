@@ -8,10 +8,10 @@ import {
 import { createHmac } from 'crypto';
 
 class PasswordTransformer implements ValueTransformer {
-  to(value) {
+  to(value: string) {
     return createHmac('sha256', value).digest('hex');
   }
-  from(value) {
+  from(value: string) {
     return value;
   }
 }
