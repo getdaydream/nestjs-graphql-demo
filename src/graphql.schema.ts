@@ -5,4 +5,5 @@ export abstract class IQuery {
 
 export class User {
     id: number;
+    name?: string;
 }
