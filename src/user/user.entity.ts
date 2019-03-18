@@ -22,9 +22,9 @@ export class User {
   id: number;
 
   @Column({ length: 30, unique: true })
-  name: string;
+  nickname: string;
 
-  @Column({ type: 'varchar', length: 100, unique: true })
+  @Column({ length: 100, unique: true })
   email: string;
 
   @Column({
