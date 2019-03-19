@@ -64,6 +64,7 @@ $ npm run test:cov
 - 测试
 - 微服务
 - 热重载
+- [type-graphql](https://typegraphql.ml/)
 
 ## 备忘
 

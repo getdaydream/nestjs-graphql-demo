@@ -82,9 +82,9 @@ class CustomNamingStrategy extends DefaultNamingStrategy
     //   }),
     //   inject: [ConfigService],
     // })
+    UserModule,
     TagModule,
     PostModule,
-    UserModule,
     FolderModule,
     AuthModule,
   ],
