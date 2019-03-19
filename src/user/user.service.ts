@@ -32,8 +32,8 @@ export class UserService {
       .getOne();
   }
 
-  async getOneByName(name: string) {
-    return await this.userRepository.findOne({ name });
+  async getOneByName(nickname: string) {
+    return await this.userRepository.findOne({ nickname });
   }
 
   async create(createUserDto: DeepPartial<User>) {
