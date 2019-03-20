@@ -8,8 +8,6 @@ import * as morgan from 'morgan';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // TODO: @nestjs/swagger
-
   app.setGlobalPrefix('api');
   app.enableCors({
     // origin: process.env.ALLOW_ORIGIN,
