@@ -5,6 +5,11 @@ export class CreateUserInput {
     nickname: string;
 }
 
+export class LoginResult {
+    user: User;
+    token: string;
+}
+
 export abstract class IMutation {
     abstract createUser(createUserInput?: CreateUserInput): User | Promise<User>;
 }
@@ -14,7 +19,7 @@ export abstract class IQuery {
 
     abstract user(id: number): User | Promise<User>;
 
-    abstract login(email: string, password: string): User | Promise<User>;
+    abstract login(email: string, password: string): LoginResult | Promise<LoginResult>;
 
     abstract temp__(): boolean | Promise<boolean>;
 }
