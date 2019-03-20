@@ -3,10 +3,15 @@ type User {
   nickname: String!
 }
 
+type LoginResult {
+  user: User!
+  token: String!
+}
+
 type Query {
   me: User
   user(id: Int!): User
-  login(email: String!, password: String!): User
+  login(email: String!, password: String!): LoginResult
 }
 
 type Mutation {

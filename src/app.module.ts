@@ -66,6 +66,8 @@ class CustomNamingStrategy extends DefaultNamingStrategy
       namingStrategy: new CustomNamingStrategy(),
     }),
     GraphQLModule.forRoot({
+      // pass express `req` as a part of the context value
+      context: ({ req }) => ({ req }),
       typePaths: ['./**/*.graphql'],
       // TODO: load env before start app; add types for env
       debug: true,

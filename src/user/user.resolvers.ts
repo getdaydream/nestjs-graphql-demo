@@ -1,12 +1,19 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UserService } from './user.service';
-import { Req, HttpException, HttpStatus } from '@nestjs/common';
-import { Request } from 'express';
+import { UseGuards } from '@nestjs/common';
 import { CreateUserInput } from 'src/graphql.schema';
+import { GqlAuthGuard } from 'src/auth/auth.guard';
+import { User } from 'src/shared/decorators';
+import { UserEntity } from './user.entity';
+import { AuthenticationError } from 'apollo-server-core';
+import { AuthService } from 'src/auth/auth.service';
 
 @Resolver('User')
 export class UserResolver {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Query()
   async login(
@@ -18,27 +25,19 @@ export class UserResolver {
       password,
     );
     if (!user) {
-      throw new HttpException(
-        'Wrong email or password',
-        HttpStatus.UNAUTHORIZED,
-      );
+      throw new AuthenticationError('Wrong email or password');
     }
-    return user;
-    // const token = this.auth.createToken({ email });
-    // res.cookie('token', token, {
-    //   // maxAge : 10h
-    //   maxAge: 1000 * 60 * 60 * 10,
-    //   httpOnly: true,
-    // });
-    // res.status(HttpStatus.OK).json(user);
+    return {
+      user,
+      token: this.authService.createToken({ email }),
+    };
   }
 
   @Query('me')
-  async getMe(@Req() req: Request) {
-    const {
-      user: { id },
-    } = req;
-    return await this.userService.get(id);
+  @UseGuards(new GqlAuthGuard())
+  async getMe(@User() user: UserEntity) {
+    const { email } = user;
+    return await this.userService.getOneByEmail(email);
   }
 
   @Query()

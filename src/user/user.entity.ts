@@ -17,7 +17,7 @@ class PasswordTransformer implements ValueTransformer {
 }
 
 @Entity()
-export class User {
+export class UserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

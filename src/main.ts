@@ -23,7 +23,7 @@ async function bootstrap() {
   app.use(morgan('dev'));
   // Parse Cookie header and populate req.cookies with an object keyed by the cookie names
   app.use(cookieParser());
-  // 自动验证参数
+  // auto validate params
   app.useGlobalPipes(new ValidationPipe());
   await app.listen(3000);
 }
