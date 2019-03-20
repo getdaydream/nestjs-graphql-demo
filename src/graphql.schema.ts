@@ -12,6 +12,10 @@ export abstract class IMutation {
 export abstract class IQuery {
     abstract me(): User | Promise<User>;
 
+    abstract user(id: number): User | Promise<User>;
+
+    abstract login(email: string, password: string): User | Promise<User>;
+
     abstract temp__(): boolean | Promise<boolean>;
 }
 

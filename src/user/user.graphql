@@ -5,10 +5,12 @@ type User {
 
 type Query {
   me: User
+  user(id: Int!): User
+  login(email: String!, password: String!): User
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput): User
+  createUser(createUserInput: CreateUserInput): User!
 }
 
 input CreateUserInput {
