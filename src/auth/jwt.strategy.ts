@@ -1,10 +1,11 @@
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtPayload } from './auth.interface';
 import { UserService } from '../user';
 // import { Request } from 'express';
 import { ConfigService } from 'src/config';
+import { AuthenticationError } from 'apollo-server-core';
 
 // const cookieExtractor = (req: Request) => {
 //   let token = null;
@@ -29,9 +30,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(jwtPayload: JwtPayload) {
+    console.log('validate');
     const user = await this.userService.getOneByEmail(jwtPayload.email);
     if (!user) {
-      throw new UnauthorizedException();
+      throw new AuthenticationError(
+        'Could not log-in with the provided credentials',
+      );
     }
     return user;
   }
