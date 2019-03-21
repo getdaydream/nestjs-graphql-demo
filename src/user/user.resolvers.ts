@@ -34,7 +34,7 @@ export class UserResolver {
   }
 
   @Query('me')
-  @UseGuards(new GqlAuthGuard())
+  @UseGuards(GqlAuthGuard)
   async getMe(@User() user: UserEntity) {
     const { email } = user;
     return await this.userService.getOneByEmail(email);
