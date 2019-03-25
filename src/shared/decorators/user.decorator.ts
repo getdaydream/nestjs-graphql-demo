@@ -5,7 +5,7 @@
  */
 import { createParamDecorator } from '@nestjs/common';
 
-export const User = createParamDecorator(
+export const UserDecorator = createParamDecorator(
   (_data, [_root, _args, ctx, _info]) => {
     // inject to ctx.req by jwt.strategy.ts ?
     return ctx.req.user;
