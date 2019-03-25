@@ -2,8 +2,8 @@ import { ObjectType, Field } from 'type-graphql';
 import { UserEntity } from '..';
 
 @ObjectType()
-export class LoginOutput {
-  @Field()
+export class LoginResult {
+  @Field(() => UserEntity)
   user: UserEntity;
 
   @Field()
