@@ -10,21 +10,21 @@ input CreateUserInput {
 }
 
 type LoginResult {
-  user: UserEntity!
+  user: User!
   token: String!
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): UserEntity!
+  createUser(createUserInput: CreateUserInput!): User!
 }
 
 type Query {
   login(email: String!, password: String!): LoginResult!
-  me: UserEntity!
-  user(id: Float!): UserEntity!
+  me: User!
+  user(id: Float!): User!
 }
 
-type UserEntity {
+type User {
   id: ID!
   nickname: String!
   email: String!
