@@ -1,10 +1,10 @@
 import { ObjectType, Field } from 'type-graphql';
-import { UserEntity } from '..';
+import { User } from '..';
 
 @ObjectType()
 export class LoginResult {
-  @Field(() => UserEntity)
-  user: UserEntity;
+  @Field(() => User)
+  user: User;
 
   @Field()
   token: string;

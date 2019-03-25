@@ -3,14 +3,14 @@ import { UserService } from './user.service';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/auth/auth.guard';
 import { UserDecorator } from 'src/shared/decorators';
-import { UserEntity } from './user.entity';
+import { User } from './user.entity';
 import { AuthenticationError } from 'apollo-server-core';
 import { AuthService } from 'src/auth/auth.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginArgs } from './dto/login.args';
 import { LoginResult } from './dto/login.output';
 
-@Resolver(UserEntity)
+@Resolver(User)
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
@@ -34,14 +34,14 @@ export class UserResolver {
     };
   }
 
-  @Query(() => UserEntity, { name: 'me' })
+  @Query(() => User, { name: 'me' })
   @UseGuards(GqlAuthGuard)
-  async getMe(@UserDecorator() user: UserEntity) {
+  async getMe(@UserDecorator() user: User) {
     const { email } = user;
     return await this.userService.getOneByEmail(email);
   }
 
-  @Query(() => UserEntity)
+  @Query(() => User)
   async user(@Args('id') id: number) {
     return await this.userService.get(id);
   }
@@ -51,7 +51,7 @@ export class UserResolver {
   //     id
   //   }
   // }
-  @Mutation(() => UserEntity)
+  @Mutation(() => User)
   async createUser(@Args('createUserInput') input: CreateUserInput) {
     const user = await this.userService.create(input);
     return user;
