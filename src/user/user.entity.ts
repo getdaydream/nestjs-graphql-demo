@@ -6,6 +6,7 @@ import {
   ValueTransformer,
 } from 'typeorm';
 import { createHmac } from 'crypto';
+import { ObjectType, Field, ID } from 'type-graphql';
 
 class PasswordTransformer implements ValueTransformer {
   to(value: string) {
@@ -16,16 +17,20 @@ class PasswordTransformer implements ValueTransformer {
   }
 }
 
+@ObjectType()
 @Entity({
   name: 'user',
 })
 export class UserEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Field()
   @Column({ length: 30, unique: true })
   nickname: string;
 
+  @Field()
   @Column({ length: 100, unique: true })
   email: string;
 

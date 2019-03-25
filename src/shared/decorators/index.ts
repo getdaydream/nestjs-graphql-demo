@@ -1,1 +1,1 @@
-export { User } from './user.decorator';
+export { UserDecorator } from './user.decorator';

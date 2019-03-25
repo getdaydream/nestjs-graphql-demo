@@ -350,7 +350,16 @@
     "@types/express-serve-static-core" "*"
     "@types/serve-static" "*"
 
-"@types/graphql@14.0.7":
+"@types/glob@^7.1.1":
+  version "7.1.1"
+  resolved "http://registry.npm.taobao.org/@types/glob/download/@types/glob-7.1.1.tgz#aa59a1c6e3fbc421e07ccd31a944c30eba521575"
+  integrity sha1-qlmhxuP7xCHgfM0xqUTDDrpSFXU=
+  dependencies:
+    "@types/events" "*"
+    "@types/minimatch" "*"
+    "@types/node" "*"
+
+"@types/graphql@14.0.7", "@types/graphql@^14.0.7":
   version "14.0.7"
   resolved "http://registry.npm.taobao.org/@types/graphql/download/@types/graphql-14.0.7.tgz#daa09397220a68ce1cbb3f76a315ff3cd92312f6"
   integrity sha1-2qCTlyIKaM4cuz92oxX/PNkjEvY=
@@ -382,6 +391,11 @@
   resolved "http://registry.npm.taobao.org/@types/mime/download/@types/mime-2.0.1.tgz#dc488842312a7f075149312905b5e3c0b054c79d"
   integrity sha1-3EiIQjEqfwdRSTEpBbXjwLBUx50=
 
+"@types/minimatch@*":
+  version "3.0.3"
+  resolved "http://registry.npm.taobao.org/@types/minimatch/download/@types/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
+  integrity sha1-PcoOPzOyAPx9ETnAzZbBJoyt/Z0=
+
 "@types/morgan@^1.7.35":
   version "1.7.35"
   resolved "http://registry.npm.taobao.org/@types/morgan/download/@types/morgan-1.7.35.tgz#6358f502931cc2583d7a94248c41518baa688494"
@@ -389,7 +403,7 @@
   dependencies:
     "@types/express" "*"
 
-"@types/node@*":
+"@types/node@*", "@types/node@^11.9.4":
   version "11.11.6"
   resolved "http://registry.npm.taobao.org/@types/node/download/@types/node-11.11.6.tgz#df929d1bb2eee5afdda598a41930fe50b43eaa6a"
   integrity sha1-35KdG7Lu5a/dpZikGTD+ULQ+qmo=
@@ -403,6 +417,11 @@
   version "1.2.3"
   resolved "http://registry.npm.taobao.org/@types/range-parser/download/@types/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha1-fuMwunyq+5gJC+zoal7kQRWQTCw=
+
+"@types/semver@^5.5.0":
+  version "5.5.0"
+  resolved "http://registry.npm.taobao.org/@types/semver/download/@types/semver-5.5.0.tgz#146c2a29ee7d3bae4bf2fcb274636e264c813c45"
+  integrity sha1-FGwqKe59O65L8vyydGNuJkyBPEU=
 
 "@types/serve-static@*":
   version "1.13.2"
@@ -1660,7 +1679,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-class-validator@^0.9.1:
+class-validator@>=0.9.1, class-validator@^0.9.1:
   version "0.9.1"
   resolved "http://registry.npm.taobao.org/class-validator/download/class-validator-0.9.1.tgz#d60e58c5d14abca0a41bce38cf792ad4c46d1531"
   integrity sha1-1g5YxdFKvKCkG844z3kq1MRtFTE=
@@ -3057,6 +3076,13 @@ graphql-extensions@0.5.7:
   dependencies:
     "@apollographql/apollo-tools" "^0.3.3"
 
+graphql-query-complexity@^0.2.3:
+  version "0.2.3"
+  resolved "http://registry.npm.taobao.org/graphql-query-complexity/download/graphql-query-complexity-0.2.3.tgz#ca26790fd5d22cb3d4ca8f43d19605929d8cf27f"
+  integrity sha1-yiZ5D9XSLLPUyo9D0ZYFkp2M8n8=
+  dependencies:
+    lodash.get "^4.4.2"
+
 graphql-subscriptions@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/graphql-subscriptions/download/graphql-subscriptions-1.0.0.tgz#475267694b3bd465af6477dbab4263a3f62702b8"
@@ -4400,6 +4426,11 @@ locate-path@^3.0.0:
   dependencies:
     p-locate "^3.0.0"
     path-exists "^3.0.0"
+
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "http://registry.npm.taobao.org/lodash.get/download/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
 lodash.includes@^4.3.0:
   version "4.3.0"
@@ -6855,6 +6886,21 @@ type-check@~0.3.2:
   integrity sha1-WITKtRLPHTVeP7eE8wgEsrUg23I=
   dependencies:
     prelude-ls "~1.1.2"
+
+type-graphql@^0.17.0:
+  version "0.17.0"
+  resolved "http://registry.npm.taobao.org/type-graphql/download/type-graphql-0.17.0.tgz#7a9b1cd91f84064b8150dacbbb232d2dbdbdcba2"
+  integrity sha1-epsc2R+EBkuBUNrLuyMtLb29y6I=
+  dependencies:
+    "@types/glob" "^7.1.1"
+    "@types/node" "^11.9.4"
+    "@types/semver" "^5.5.0"
+    class-validator ">=0.9.1"
+    glob "^7.1.3"
+    graphql-query-complexity "^0.2.3"
+    graphql-subscriptions "^1.0.0"
+    semver "^5.6.0"
+    tslib "^1.9.3"
 
 type-is@^1.6.16, type-is@^1.6.4, type-is@~1.6.16:
   version "1.6.16"

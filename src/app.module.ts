@@ -72,18 +72,8 @@ class CustomNamingStrategy extends DefaultNamingStrategy
       // TODO: load env before start app; add types for env
       debug: true,
       playground: true,
-      definitions: {
-        path: join(process.cwd(), 'src/graphql.schema.ts'),
-        outputAs: 'class',
-      },
+      autoSchemaFile: 'schema.gql',
     }),
-    // GraphQLModule.forRootAsync({
-    //   imports: [ConfigModule],
-    //   useFactory: async (configService: ConfigService) => ({
-    //     typePaths: configService.getString('GRAPHQL_TYPE_PATHS'),
-    //   }),
-    //   inject: [ConfigService],
-    // })
     UserModule,
     TagModule,
     PostModule,
