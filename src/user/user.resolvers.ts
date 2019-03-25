@@ -8,7 +8,7 @@ import { AuthenticationError } from 'apollo-server-core';
 import { AuthService } from 'src/auth/auth.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginArgs } from './dto/login.args';
-import { LoginOutput } from './dto/login.output';
+import { LoginResult } from './dto/login.output';
 
 @Resolver(UserEntity)
 export class UserResolver {
@@ -17,7 +17,7 @@ export class UserResolver {
     private readonly authService: AuthService,
   ) {}
 
-  @Query(() => LoginOutput)
+  @Query(() => LoginResult)
   async login(@Args() args: LoginArgs) {
     const { email, password } = args;
 
@@ -34,12 +34,12 @@ export class UserResolver {
     };
   }
 
-  // @Query('me')
-  // @UseGuards(new GqlAuthGuard())
-  // async getMe(@User() user: UserEntity) {
-  //   const { email } = user;
-  //   return await this.userService.getOneByEmail(email);
-  // }
+  @Query(() => UserEntity, { name: 'me' })
+  @UseGuards(GqlAuthGuard)
+  async getMe(@UserDecorator() user: UserEntity) {
+    const { email } = user;
+    return await this.userService.getOneByEmail(email);
+  }
 
   @Query(() => UserEntity)
   async user(@Args('id') id: number) {

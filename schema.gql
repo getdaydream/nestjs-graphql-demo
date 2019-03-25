@@ -9,11 +9,18 @@ input CreateUserInput {
   password: String!
 }
 
+type LoginResult {
+  user: UserEntity!
+  token: String!
+}
+
 type Mutation {
   createUser(createUserInput: CreateUserInput!): UserEntity!
 }
 
 type Query {
+  login(email: String!, password: String!): LoginResult!
+  me: UserEntity!
   user(id: Float!): UserEntity!
 }
 
