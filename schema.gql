@@ -28,4 +28,5 @@ type User {
   id: ID!
   nickname: String!
   email: String!
+  avatar_url: String!
 }

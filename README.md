@@ -55,6 +55,7 @@ $ npm run test:cov
 
 ## TODO
 
+- [Query complexity](https://typegraphql.ml/docs/complexity.html)
 - [dataloader](https://github.com/facebook/dataloader)
 - [passport](https://github.com/jaredhanson/passport)
 - [nestjs-config](https://github.com/nestjs-community/nestjs-config)
