@@ -34,6 +34,10 @@ export class User {
   @Column({ length: 100, unique: true })
   email: string;
 
+  @Field()
+  @Column()
+  avatar_url: string;
+
   @Column({
     length: 255,
     select: false,

@@ -9,6 +9,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginArgs } from './dto/login.args';
 import { LoginResult } from './dto/login.output';
+import { ID, Int } from 'type-graphql';
 
 @Resolver(User)
 export class UserResolver {
@@ -46,11 +47,6 @@ export class UserResolver {
     return await this.userService.get(id);
   }
 
-  // mutation User {
-  //   createUser(createUserInput:{email:"88888888@qq.com", password: "12345678", nickname:"test"}) {
-  //     id
-  //   }
-  // }
   @Mutation(() => User)
   async createUser(@Args('createUserInput') input: CreateUserInput) {
     const user = await this.userService.create(input);
