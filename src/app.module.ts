@@ -23,6 +23,7 @@ export function snakeCase(str: string) {
     .toLowerCase();
 }
 
+// TODO: columnname camelcase
 class CustomNamingStrategy extends DefaultNamingStrategy
   implements NamingStrategyInterface {
   columnName(
