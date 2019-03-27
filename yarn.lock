@@ -877,9 +877,9 @@ apollo-utilities@^1.0.1, apollo-utilities@^1.2.1:
     tslib "^1.9.3"
 
 app-root-path@^2.0.1:
-  version "2.2.0"
-  resolved "http://registry.npm.taobao.org/app-root-path/download/app-root-path-2.2.0.tgz#4583e2f2095563b10a737b8bbd03a640fca5c0cc"
-  integrity sha1-RYPi8glVY7EKc3uLvQOmQPylwMw=
+  version "2.2.1"
+  resolved "http://registry.npm.taobao.org/app-root-path/download/app-root-path-2.2.1.tgz#d0df4a682ee408273583d43f6f79e9892624bc9a"
+  integrity sha1-0N9KaC7kCCc1g9Q/b3npiSYkvJo=
 
 append-field@^1.0.0:
   version "1.0.0"
@@ -2521,7 +2521,7 @@ execa@^0.7.0:
 
 execa@^1.0.0:
   version "1.0.0"
-  resolved "http://registry.npm.taobao.org/execa/download/execa-1.0.0.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2Fexeca%2Fdownload%2Fexeca-1.0.0.tgz#c6236a5bb4df6d6f15e88e7f017798216749ddd8"
+  resolved "http://registry.npm.taobao.org/execa/download/execa-1.0.0.tgz#c6236a5bb4df6d6f15e88e7f017798216749ddd8"
   integrity sha1-xiNqW7TfbW8V6I5/AXeYIWdJ3dg=
   dependencies:
     cross-spawn "^6.0.0"
@@ -6915,10 +6915,10 @@ typedarray@^0.0.6:
   resolved "http://registry.npm.taobao.org/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typeorm@^0.2.9:
-  version "0.2.15"
-  resolved "http://registry.npm.taobao.org/typeorm/download/typeorm-0.2.15.tgz#b0cdb4fdc6c38671350135ed72d91d1242e6ea30"
-  integrity sha1-sM20/cbDhnE1ATXtctkdEkLm6jA=
+typeorm@^0.2.16:
+  version "0.2.16"
+  resolved "http://registry.npm.taobao.org/typeorm/download/typeorm-0.2.16.tgz#cfc119254e21f37410a60616a726cad97a8d95f6"
+  integrity sha1-z8EZJU4h83QQpgYWpybK2XqNlfY=
   dependencies:
     app-root-path "^2.0.1"
     buffer "^5.1.0"

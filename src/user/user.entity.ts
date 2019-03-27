@@ -36,7 +36,7 @@ export class User {
 
   @Field()
   @Column()
-  avatar_url: string;
+  avatarUrl: string;
 
   @Column({
     length: 255,
@@ -45,6 +45,7 @@ export class User {
   })
   password: string;
 
-  @CreateDateColumn()
-  creat_at: Date;
+  @Field()
+  @CreateDateColumn({ readonly: true })
+  creatAt: Date;
 }
