@@ -9,7 +9,6 @@ import { AuthService } from 'src/auth/auth.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginArgs } from './dto/login.args';
 import { LoginResult } from './dto/login.output';
-import { ID, Int } from 'type-graphql';
 
 @Resolver(User)
 export class UserResolver {
@@ -43,6 +42,7 @@ export class UserResolver {
   }
 
   @Query(() => User)
+  @UseGuards(GqlAuthGuard)
   async user(@Args('id') id: number) {
     return await this.userService.get(id);
   }
