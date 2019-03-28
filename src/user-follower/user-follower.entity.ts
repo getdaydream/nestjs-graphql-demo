@@ -1,10 +1,10 @@
 import { Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class UserFollowing {
+export class UserFollower {
   @PrimaryColumn()
   userId: number;
 
   @PrimaryColumn()
-  followingId: number;
+  followerId: number;
 }

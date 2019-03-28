@@ -1,9 +1,9 @@
 import { Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class BoardSubscribers {
+export class CircleMember {
   @PrimaryColumn()
-  boardId: number;
+  circleId: number;
 
   @PrimaryColumn()
   userId: number;
