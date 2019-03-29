@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from './config';
 import { FolderModule } from './folder';
-import { TagModule } from './tag';
 import { PostModule } from './post';
 import { UserModule } from './user';
 import { AuthModule } from './auth';
@@ -36,7 +35,6 @@ import { CustomNamingStrategy } from './shared/utils';
       autoSchemaFile: 'schema.gql',
     }),
     UserModule,
-    TagModule,
     PostModule,
     FolderModule,
     AuthModule,

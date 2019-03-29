@@ -87,15 +87,6 @@ export class PostService {
     if (post) {
       return await this.fileRespository
         .createQueryBuilder('file')
-        .select([
-          'file.id',
-          'file.filename',
-          'file.filetype',
-          'file.content',
-          'file.create_at',
-          'file.update_at',
-        ])
-        .whereInIds(post.file_ids.split(','))
         .getMany();
     }
     return null;

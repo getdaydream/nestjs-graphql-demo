@@ -1,4 +1,4 @@
-# README
+\*\*\*\*# README
 
 ## Description
 
@@ -42,7 +42,7 @@ $ npm run test:cov
 
 ## REFFERENCE
 
-- [nestjs-boilerplate](https://github.com/Vivify-Ideas/nestjs-boilerplate)
+- [notadd](https://github.com/notadd/notadd/blob/master/README_zh.md)
 - [Node.js 最佳实践](https://github.com/i0natan/nodebestpractices/blob/master/README.chinese.md#1-project-structure-practices)
 - [node-interview](https://elemefe.github.io/node-interview/#/sections/zh-cn/)
 - [nest-user-auth](https://github.com/EricKit/nest-user-auth)
