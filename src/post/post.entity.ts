@@ -4,10 +4,7 @@ import {
   CreateDateColumn,
   Column,
   UpdateDateColumn,
-  ManyToMany,
-  JoinTable,
 } from 'typeorm';
-import { Tag } from '../tag';
 
 @Entity()
 export class Post {
@@ -17,37 +14,28 @@ export class Post {
   @Column()
   user_id: number;
 
-  @Column({
-    type: 'enum',
-    // TODO: jsplayground link image dynamic todo
-    enum: ['snippet', 'markdown'],
-    readonly: true,
-  })
+  // TODO: jsplayground link image dynamic todo
+  @Column()
   type: string;
 
-  @Column()
-  folder_id: number;
-
-  @Column({ length: 140 })
+  @Column({ length: 120, nullable: true })
   title: string;
 
-  @Column({ length: 255 })
-  description: string;
+  @Column({ length: 140 })
+  digest: string;
+
+  @Column({
+    default: 0,
+    comment: '访问量',
+  })
+  views: number;
 
   @Column()
-  file_ids: string;
-
-  @Column()
-  is_private: boolean;
+  isPrivate: boolean;
 
   @UpdateDateColumn()
-  update_at: Date;
+  updateAt: Date;
 
   @CreateDateColumn()
-  creat_at: Date;
-
-  // TODO: 存 tag name
-  @ManyToMany(() => Tag)
-  @JoinTable()
-  tags: Tag[];
+  creatAt: Date;
 }
