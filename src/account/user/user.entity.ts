@@ -31,21 +31,21 @@ export class User {
   nickname: string;
 
   @Field()
-  @Column({ length: 100, unique: true })
+  @Column({ unique: true })
   email: string;
 
   @Field()
-  @Column()
-  avatarUrl: string;
+  @Column({ default: '' })
+  // TODO: generated avatar
+  avatar: string;
 
   @Column({
-    length: 255,
     select: false,
     transformer: new PasswordTransformer(),
   })
   password: string;
 
   @Field()
-  @CreateDateColumn({ readonly: true })
-  creatAt: Date;
+  @CreateDateColumn()
+  creatTime: Date;
 }

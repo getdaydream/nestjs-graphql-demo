@@ -1,11 +1,11 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from 'src/auth/auth.guard';
+import { GqlAuthGuard } from '../auth/auth.guard';
 import { UserDecorator } from 'src/shared/decorators';
 import { User } from './user.entity';
 import { AuthenticationError } from 'apollo-server-core';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginArgs } from './dto/login.args';
 import { LoginResult } from './dto/login.output';
@@ -47,9 +47,12 @@ export class UserResolver {
     return await this.userService.get(id);
   }
 
-  @Mutation(() => User)
+  @Mutation(() => LoginResult)
   async createUser(@Args('createUserInput') input: CreateUserInput) {
     const user = await this.userService.create(input);
-    return user;
+    return {
+      user,
+      token: this.authService.createToken({ email: input.email }),
+    };
   }
 }
