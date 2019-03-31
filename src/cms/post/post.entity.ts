@@ -12,30 +12,30 @@ export class Post {
   id: number;
 
   @Column()
-  user_id: number;
+  userId: number;
 
   // TODO: jsplayground link image dynamic todo
   @Column()
   type: string;
 
-  @Column({ length: 120, nullable: true })
+  @Column({ length: 120 })
   title: string;
 
-  @Column({ length: 140 })
-  digest: string;
+  @Column()
+  cover: string;
+
+  @Column({ length: 140, comment: '摘要', nullable: false })
+  abstract: string;
 
   @Column({
     default: 0,
-    comment: '访问量',
+    comment: '访问量(点击数)',
   })
   views: number;
 
-  @Column()
-  isPrivate: boolean;
-
   @UpdateDateColumn()
-  updateAt: Date;
+  updateTime: Date;
 
   @CreateDateColumn()
-  creatAt: Date;
+  creatTime: Date;
 }

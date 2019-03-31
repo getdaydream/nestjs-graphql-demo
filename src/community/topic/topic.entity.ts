@@ -17,8 +17,8 @@ export class Topic {
   // Send me post reply notifications ?
 
   @UpdateDateColumn()
-  updateAt: Date;
+  updateTime: Date;
 
   @CreateDateColumn()
-  createAt: Date;
+  createTime: Date;
 }

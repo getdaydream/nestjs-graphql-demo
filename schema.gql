@@ -20,7 +20,7 @@ type LoginResult {
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): User!
+  createUser(createUserInput: CreateUserInput!): LoginResult!
 }
 
 type Query {
@@ -33,6 +33,6 @@ type User {
   id: ID!
   nickname: String!
   email: String!
-  avatarUrl: String!
-  creatAt: DateTime!
+  avatar: String!
+  creatTime: DateTime!
 }

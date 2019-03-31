@@ -3,12 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from './config';
-import { FolderModule } from './folder';
-import { PostModule } from './post';
-import { UserModule } from './user';
-import { AuthModule } from './auth';
 import { GraphQLModule } from '@nestjs/graphql';
 import { CustomNamingStrategy } from './shared/utils';
+import { AccountModule } from './account';
 
 @Module({
   imports: [
@@ -34,10 +31,7 @@ import { CustomNamingStrategy } from './shared/utils';
       playground: true,
       autoSchemaFile: 'schema.gql',
     }),
-    UserModule,
-    PostModule,
-    FolderModule,
-    AuthModule,
+    AccountModule,
   ],
   controllers: [AppController],
   providers: [AppService],

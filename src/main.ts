@@ -4,10 +4,21 @@ import { ValidationPipe } from '@nestjs/common';
 import * as cookieParser from 'cookie-parser';
 import * as rateLimit from 'express-rate-limit';
 import * as morgan from 'morgan';
+import * as helmet from 'helmet';
 import { NestExpressApplication } from '@nestjs/platform-express';
+// import * as csurf from 'csurf';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.use(helmet());
+  // app.use(csurf());
+  app.use(
+    rateLimit({
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      max: 100, // limit each IP to 100 requests per windowMs
+    }),
+  );
 
   app.setGlobalPrefix('api');
   app.enableCors({
@@ -15,12 +26,6 @@ async function bootstrap() {
     origin: true,
     credentials: true,
   });
-  app.use(
-    rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 100, // limit each IP to 100 requests per windowMs
-    }),
-  );
   app.use(morgan('dev'));
   // Parse Cookie header and populate req.cookies with an object keyed by the cookie names
   app.use(cookieParser());
