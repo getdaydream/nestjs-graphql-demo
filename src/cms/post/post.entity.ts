@@ -4,10 +4,12 @@ import {
   CreateDateColumn,
   Column,
   UpdateDateColumn,
+  TableInheritance,
 } from 'typeorm';
 
 @Entity()
-export class Post {
+@TableInheritance({ column: { type: 'varchar', name: 'type' } })
+export abstract class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -15,14 +17,8 @@ export class Post {
   userId: number;
 
   // TODO: jsplayground link image dynamic todo
-  @Column()
-  type: string;
-
   @Column({ length: 120 })
   title: string;
-
-  @Column()
-  cover: string;
 
   @Column({ length: 140, comment: '摘要', nullable: false })
   abstract: string;
