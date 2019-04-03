@@ -3,6 +3,22 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
+type Article {
+  id: ID!
+  userId: Int!
+  title: String!
+
+  """访问量(点击数)"""
+  views: Int!
+  updateTime: DateTime!
+  creatTime: DateTime!
+
+  """摘要"""
+  abstract: String!
+  cover: String!
+  contentFormat: String!
+}
+
 input CreateUserInput {
   email: String!
   nickname: String!
@@ -27,6 +43,18 @@ type Query {
   login(email: String!, password: String!): LoginResult!
   me: User!
   user(id: Float!): User!
+}
+
+type Topic {
+  id: ID!
+  userId: Int!
+  title: String!
+
+  """访问量(点击数)"""
+  views: Int!
+  updateTime: DateTime!
+  creatTime: DateTime!
+  description: String!
 }
 
 type User {
