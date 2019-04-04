@@ -1,11 +1,23 @@
-import { ClassType, Resolver } from 'type-graphql';
+import { ClassType } from 'type-graphql';
+import { Query, Resolver, Args } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
+import { PostService } from './post.service';
+import { GqlAuthGuard } from 'src/account/auth/auth.guard';
 
 export const createPostBaseResolver = <T extends ClassType>(
   suffix: string,
   objectTypeCls: T,
 ) => {
-  @Resolver({ isAbstract: true })
-  abstract class PostBaseResolver {}
+  @Resolver(() => objectTypeCls, { isAbstract: true })
+  abstract class PostBaseResolver {
+    constructor(private readonly postService: PostService) {}
+
+    @Query(() => objectTypeCls, { name: `${suffix}` })
+    @UseGuards(GqlAuthGuard)
+    async getPostById(@Args('id') id: number) {
+      return await this.postService.get(id);
+    }
+  }
 
   // Be aware that with some tsconfig.json settings (like declarations: true),
   // we might receive a [ts] Return type of exported function has or is using private name 'BaseResolver' error,
