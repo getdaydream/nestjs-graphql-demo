@@ -6,6 +6,7 @@ import { ConfigModule } from './config';
 import { GraphQLModule } from '@nestjs/graphql';
 import { CustomNamingStrategy } from './shared/utils';
 import { AccountModule } from './account';
+import { CMSModule } from './cms';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { AccountModule } from './account';
       autoSchemaFile: 'schema.gql',
     }),
     AccountModule,
+    CMSModule,
   ],
   controllers: [AppController],
   providers: [AppService],

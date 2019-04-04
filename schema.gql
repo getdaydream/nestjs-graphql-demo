@@ -19,6 +19,11 @@ type Article {
   contentFormat: String!
 }
 
+input CreateArticleInput {
+  title: String!
+  abstract: String!
+}
+
 input CreateUserInput {
   email: String!
   nickname: String!
@@ -37,9 +42,11 @@ type LoginResult {
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): LoginResult!
+  createArticle(createArticleInput: CreateArticleInput!): Article!
 }
 
 type Query {
+  article(id: Float!): Article!
   login(email: String!, password: String!): LoginResult!
   me: User!
   user(id: Float!): User!
