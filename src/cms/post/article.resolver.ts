@@ -13,7 +13,7 @@ export const ArticleBaseResolver = createPostBaseResolver('article', Article);
 @Resolver(() => Article)
 export class ArticleResolver extends ArticleBaseResolver {
   constructor(private readonly postServie: PostService) {
-    super();
+    super(postServie);
   }
 
   @Mutation(() => Article)
