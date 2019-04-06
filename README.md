@@ -52,6 +52,7 @@ $ npm run test:cov
 
 ## TODO
 
+- 热重载
 - [Query complexity](https://typegraphql.ml/docs/complexity.html)
 - [dataloader](https://github.com/facebook/dataloader)
 - [passport](https://github.com/jaredhanson/passport)
@@ -62,7 +63,6 @@ $ npm run test:cov
 - OpenAPI (Swagger)
 - 测试
 - 微服务
-- 热重载
 - [type-graphql](https://typegraphql.ml/)
 - 热搜
 
