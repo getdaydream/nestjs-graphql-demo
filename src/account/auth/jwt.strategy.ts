@@ -3,19 +3,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import { JwtPayload } from './auth.interface';
 import { UserService } from '../user';
-// import { Request } from 'express';
 import { ConfigService } from 'src/config';
 import { AuthenticationError } from 'apollo-server-core';
 
-// const cookieExtractor = (req: Request) => {
-//   let token = null;
-//   if (req && req.cookies && req.cookies.token) {
-//     token = req.cookies.token;
-//   }
-//   return token;
-// };
-
-// TODO: use cookie to store token
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(

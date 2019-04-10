@@ -52,6 +52,7 @@ $ npm run test:cov
 
 ## TODO
 
+- crud mixin
 - 热重载
 - [Query complexity](https://typegraphql.ml/docs/complexity.html)
 - [dataloader](https://github.com/facebook/dataloader)
