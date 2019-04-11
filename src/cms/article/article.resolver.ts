@@ -1,10 +1,10 @@
-import { createPostBaseResolver } from './post.base.resolver';
+import { createPostBaseResolver } from '../post';
 import { Article } from './article.entity';
 import { Resolver, Args, Mutation } from '@nestjs/graphql';
 import { UserDecorator } from 'src/shared/decorators';
 import { User } from 'src/account/user';
 import { CreateArticleInput } from './dto/create-article.input';
-import { PostService } from './post.service';
+import { PostService } from '../post';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/account/auth/auth.guard';
 
