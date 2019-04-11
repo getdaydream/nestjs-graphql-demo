@@ -18,6 +18,7 @@ coverage/
 
 # env
 .env.dev
+.env
 
 # log
 log/*.log
