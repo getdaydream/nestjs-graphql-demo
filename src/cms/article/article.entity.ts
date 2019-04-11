@@ -1,5 +1,5 @@
 import { ChildEntity, Column } from 'typeorm';
-import { Post } from './post.entity';
+import { Post } from '../post';
 import { ObjectType, Field } from 'type-graphql';
 
 @ChildEntity()
