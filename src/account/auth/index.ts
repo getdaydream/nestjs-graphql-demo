@@ -1,3 +1,2 @@
-import { AuthModule } from './auth.module';
-
-export { AuthModule };
+export { AuthModule } from './auth.module';
+export { AuthService } from './auth.service';

@@ -2,7 +2,7 @@ import { ClassType } from 'type-graphql';
 import { Query, Resolver, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { PostService } from './post.service';
-import { GqlAuthGuard } from 'src/account/auth/auth.guard';
+import { GqlAuthGuard } from '@/shared/guards';
 
 export const createPostBaseResolver = <T extends ClassType>(
   suffix: string,
