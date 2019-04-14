@@ -14,6 +14,9 @@ export class TextContent {
   @Column()
   userId: number;
 
+  @Column()
+  ref: string;
+
   @Column({ type: 'text' })
   content: string;
 
