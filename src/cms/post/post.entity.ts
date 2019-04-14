@@ -25,7 +25,7 @@ export abstract class Post {
   userId: number;
 
   // TODO: jsplayground link image dynamic todo
-  // TODO: repost 转发
+  // TODO: repost 转发 annotation 书摘
   @Field()
   @Column({ length: 120 })
   title: string;
