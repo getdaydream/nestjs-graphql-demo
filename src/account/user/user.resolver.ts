@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveProperty,
+  Root,
+} from '@nestjs/graphql';
 import { UserService } from './user.service';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '@/shared/guards';
@@ -9,12 +16,16 @@ import { AuthService } from '@/account/auth/auth.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginArgs } from './dto/login.args';
 import { LoginResult } from './dto/login.output';
+import { PostService } from '@/cms/post';
+import { Article } from '@/cms/article';
+import { FieldResolver } from 'type-graphql';
 
 @Resolver(User)
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
+    private readonly postService: PostService,
   ) {}
 
   @Query(() => LoginResult)
@@ -54,5 +65,12 @@ export class UserResolver {
       user,
       token: this.authService.createToken({ email: input.email }),
     };
+  }
+
+  @ResolveProperty()
+  @FieldResolver(() => [Article])
+  async articles(@Root() author: User) {
+    const { id } = author;
+    return await this.postService.find({ userId: id });
   }
 }
