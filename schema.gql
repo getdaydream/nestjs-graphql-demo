@@ -41,8 +41,8 @@ type LoginResult {
 }
 
 type Mutation {
-  createUser(createUserInput: CreateUserInput!): LoginResult!
   createArticle(createArticleInput: CreateArticleInput!): Article!
+  createUser(createUserInput: CreateUserInput!): LoginResult!
 }
 
 type Query {
@@ -70,4 +70,5 @@ type User {
   email: String!
   avatar: String!
   creatTime: DateTime!
+  articles: [Article!]!
 }

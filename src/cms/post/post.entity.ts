@@ -21,13 +21,13 @@ export abstract class Post {
   id: number;
 
   @Field(() => Int)
-  @Column()
+  @Column({ nullable: true })
   userId: number;
 
   // TODO: jsplayground link image dynamic todo
   // TODO: repost 转发 annotation 书摘
   @Field()
-  @Column({ length: 120 })
+  @Column({ length: 120, nullable: true })
   title: string;
 
   @Field(() => Int, { description: '访问量(点击数)' })

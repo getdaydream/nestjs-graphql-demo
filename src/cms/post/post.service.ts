@@ -13,6 +13,10 @@ export class PostService {
     return await this.postRespository.findOne(id);
   }
 
+  async find(conditions: Partial<Post>) {
+    return await this.postRespository.find(conditions);
+  }
+
   async save(post: Partial<Post>) {
     return await this.postRespository.save(post);
   }
