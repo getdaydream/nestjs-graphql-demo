@@ -6,6 +6,7 @@ import * as rateLimit from 'express-rate-limit';
 import * as morgan from 'morgan';
 import * as helmet from 'helmet';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { express as voyagerMiddleware } from 'graphql-voyager/middleware';
 // import * as csurf from 'csurf';
 
 async function bootstrap() {
@@ -31,6 +32,8 @@ async function bootstrap() {
   app.use(cookieParser());
   // auto validate params
   app.useGlobalPipes(new ValidationPipe());
+  // https://github.com/APIs-guru/graphql-voyager
+  app.use('/model-graph', voyagerMiddleware({ endpointUrl: '/graphql' }));
   await app.listen(3000);
 }
 
