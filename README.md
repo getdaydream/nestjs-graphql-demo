@@ -53,7 +53,6 @@ $ npm run test:cov
 ## TODO
 
 - crud mixin
-- 热重载
 - [Query complexity](https://typegraphql.ml/docs/complexity.html)
 - [dataloader](https://github.com/facebook/dataloader)
 - [passport](https://github.com/jaredhanson/passport)
@@ -61,11 +60,10 @@ $ npm run test:cov
 - 在 `.module.ts` 中引用环境变量
 - websocket 聊天
 - 装饰器
-- OpenAPI (Swagger)
 - 测试
 - 微服务
-- [type-graphql](https://typegraphql.ml/)
 - 热搜
+- 热重载
 
 ## 备忘
 
