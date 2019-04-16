@@ -16,16 +16,17 @@ import { AuthService } from '@/account/auth/auth.service';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginArgs } from './dto/login.args';
 import { LoginResult } from './dto/login.output';
-import { PostService } from '@/cms/post';
 import { Article } from '@/cms/article';
 import { FieldResolver } from 'type-graphql';
+import { IDArgs } from '@/shared/args';
+import { ArticleService } from '@/cms/article';
 
 @Resolver(User)
 export class UserResolver {
   constructor(
     private readonly userService: UserService,
     private readonly authService: AuthService,
-    private readonly postService: PostService,
+    private readonly articleService: ArticleService,
   ) {}
 
   @Query(() => LoginResult)
@@ -54,7 +55,7 @@ export class UserResolver {
 
   @Query(() => User)
   @UseGuards(GqlAuthGuard)
-  async user(@Args('id') id: number) {
+  async user(@Args() { id }: IDArgs) {
     return await this.userService.get(id);
   }
 
@@ -71,6 +72,6 @@ export class UserResolver {
   @FieldResolver(() => [Article])
   async articles(@Root() author: User) {
     const { id } = author;
-    return await this.postService.find({ userId: id });
+    return await this.articleService.find({ userId: id });
   }
 }

@@ -46,22 +46,10 @@ type Mutation {
 }
 
 type Query {
-  article(id: Float!): Article!
+  article(id: Int!): Article
   login(email: String!, password: String!): LoginResult!
   me: User!
-  user(id: Float!): User!
-}
-
-type Topic {
-  id: ID!
-  userId: Int!
-  title: String!
-
-  """访问量(点击数)"""
-  views: Int!
-  updateTime: DateTime!
-  creatTime: DateTime!
-  description: String!
+  user(id: Int!): User!
 }
 
 type User {
