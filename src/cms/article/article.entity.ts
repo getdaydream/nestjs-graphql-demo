@@ -1,6 +1,6 @@
 import { ChildEntity, Column } from 'typeorm';
-import { Post } from '@/cms/post';
 import { ObjectType, Field } from 'type-graphql';
+import { Post } from '@/shared/abstract/post.entity';
 
 @ChildEntity()
 @ObjectType()
@@ -9,12 +9,12 @@ export class Article extends Post {
   @Column({ length: 140 })
   abstract: string;
 
-  @Column()
   @Field()
+  @Column({ default: '' })
   cover: string;
 
-  @Column()
   @Field()
+  @Column()
   // TODO: enum: markdown html string
   contentFormat: string;
 }
