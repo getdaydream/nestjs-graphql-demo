@@ -25,6 +25,6 @@ export class BaseService<Entity extends ObjectLiteral> {
   }
 
   async save(entity: Partial<Entity>, options?: SaveOptions) {
-    return await this.repo.save(entity);
+    return await this.repo.save(entity, options);
   }
 }
