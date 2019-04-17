@@ -1,12 +1,12 @@
+import { createHmac } from 'crypto';
+import { Field, ID, ObjectType } from 'type-graphql';
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
   ValueTransformer,
 } from 'typeorm';
-import { createHmac } from 'crypto';
-import { ObjectType, Field, ID } from 'type-graphql';
 
 class PasswordTransformer implements ValueTransformer {
   to(value: string) {

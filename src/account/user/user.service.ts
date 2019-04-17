@@ -1,25 +1,20 @@
+import { BaseService } from '@/shared/base';
 import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './user.entity';
-import { Repository, DeepPartial } from 'typeorm';
 import { createHmac } from 'crypto';
+import { DeepPartial, Repository } from 'typeorm';
+import { User } from './user.entity';
 
 @Injectable()
-export class UserService {
+export class UserService extends BaseService<User> {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
-  ) {}
+  ) {
+    super(userRepository);
+  }
 
   async get(id: number) {
     return await this.userRepository.findOne(id);
-  }
-
-  async getOneByEmail(email: string) {
-    return await this.userRepository
-      .createQueryBuilder('user')
-      .where('user.email = :email')
-      .setParameter('email', email)
-      .getOne();
   }
 
   async getOneByEmailAndPassword(email: string, password: string) {
@@ -32,14 +27,10 @@ export class UserService {
       .getOne();
   }
 
-  async getOneByName(nickname: string) {
-    return await this.userRepository.findOne({ nickname });
-  }
-
   async create(createUserDto: DeepPartial<User>) {
     const { userRepository } = this;
 
-    const user = await this.getOneByEmail(createUserDto.email);
+    const user = await this.findOne({ email: createUserDto.email });
 
     if (user) {
       throw new NotAcceptableException(

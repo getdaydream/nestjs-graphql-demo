@@ -1,4 +1,4 @@
-import { parse, config } from 'dotenv';
+import { config, parse } from 'dotenv';
 import { readFileSync } from 'fs';
 
 export class ConfigService {

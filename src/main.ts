@@ -1,12 +1,12 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cookieParser from 'cookie-parser';
 import * as rateLimit from 'express-rate-limit';
-import * as morgan from 'morgan';
-import * as helmet from 'helmet';
-import { NestExpressApplication } from '@nestjs/platform-express';
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware';
+import * as helmet from 'helmet';
+import * as morgan from 'morgan';
+import { AppModule } from './app.module';
 // TODO:
 // import * as csurf from 'csurf';
 

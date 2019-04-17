@@ -1,14 +1,12 @@
-import { Resolver, Args, Mutation, Query } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
-
-import { GqlAuthGuard } from '@/shared/guards';
-import { UserDecorator } from '@/shared/decorators';
 import { User } from '@/account/user';
-
-import { CreateArticleInput } from './dto/create-article.input';
+import { IDArgs } from '@/shared/args';
+import { UserDecorator } from '@/shared/decorators';
+import { GqlAuthGuard } from '@/shared/guards';
+import { UseGuards } from '@nestjs/common';
+import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { Article } from './article.entity';
 import { ArticleService } from './article.service';
-import { IDArgs } from '@/shared/args';
+import { CreateArticleInput } from './dto/create-article.input';
 
 @Resolver(() => Article)
 export class ArticleResolver {

@@ -1,5 +1,3 @@
-import { UserModule } from './user.module';
-import { User } from './user.entity';
-import { UserService } from './user.service';
-
-export { UserModule, User, UserService };
+export { User } from './user.entity';
+export { UserModule } from './user.module';
+export { UserService } from './user.service';

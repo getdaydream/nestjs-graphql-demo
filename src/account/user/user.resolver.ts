@@ -1,25 +1,25 @@
+import { AuthService } from '@/account/auth/auth.service';
+import { ArticleService } from '@/cms/article';
+import { Article } from '@/cms/article';
+import { IDArgs } from '@/shared/args';
+import { UserDecorator } from '@/shared/decorators';
+import { GqlAuthGuard } from '@/shared/guards';
+import { UseGuards } from '@nestjs/common';
 import {
-  Resolver,
-  Query,
-  Mutation,
   Args,
+  Mutation,
+  Query,
   ResolveProperty,
+  Resolver,
   Root,
 } from '@nestjs/graphql';
-import { UserService } from './user.service';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from '@/shared/guards';
-import { UserDecorator } from '@/shared/decorators';
-import { User } from './user.entity';
 import { AuthenticationError } from 'apollo-server-core';
-import { AuthService } from '@/account/auth/auth.service';
+import { FieldResolver } from 'type-graphql';
 import { CreateUserInput } from './dto/create-user.input';
 import { LoginArgs } from './dto/login.args';
 import { LoginResult } from './dto/login.output';
-import { Article } from '@/cms/article';
-import { FieldResolver } from 'type-graphql';
-import { IDArgs } from '@/shared/args';
-import { ArticleService } from '@/cms/article';
+import { User } from './user.entity';
+import { UserService } from './user.service';
 
 @Resolver(User)
 export class UserResolver {
@@ -50,7 +50,7 @@ export class UserResolver {
   @UseGuards(GqlAuthGuard)
   async getMe(@UserDecorator() user: User) {
     const { email } = user;
-    return await this.userService.getOneByEmail(email);
+    return await this.userService.findOne({ email });
   }
 
   @Query(() => User)

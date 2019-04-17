@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AccountModule } from './account';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from './config';
-import { GraphQLModule } from '@nestjs/graphql';
-import { CustomNamingStrategy } from './shared/utils';
-import { AccountModule } from './account';
 import { CMSModule } from './cms';
+import { ConfigModule } from './config';
+import { CustomNamingStrategy } from './shared/utils';
 
 @Module({
   imports: [
