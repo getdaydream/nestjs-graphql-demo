@@ -1,5 +1,5 @@
-import { Field, Int, ArgsType } from 'type-graphql';
 import { Min } from 'class-validator';
+import { ArgsType, Field, Int } from 'type-graphql';
 
 @ArgsType()
 export class IDArgs {

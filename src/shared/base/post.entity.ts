@@ -1,12 +1,12 @@
+import { Field, ID, Int, ObjectType } from 'type-graphql';
 import {
+  Column,
+  CreateDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  CreateDateColumn,
-  Column,
-  UpdateDateColumn,
   TableInheritance,
+  UpdateDateColumn,
 } from 'typeorm';
-import { ID, Field, ObjectType, Int } from 'type-graphql';
 
 @ObjectType({
   // prevent TYPE-GRAPHQL generate type schema for Post,
@@ -20,15 +20,9 @@ export abstract class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field(() => Int)
+  @Field(() => Int, { description: '作者ID' })
   @Column({ nullable: true })
   userId: number;
-
-  // TODO: jsplayground link image dynamic todo
-  // TODO: repost 转发 annotation 书摘
-  @Field()
-  @Column({ length: 120, nullable: true })
-  title: string;
 
   @Field(() => Int, { description: '访问量(点击数)' })
   @Column({ default: 0 })

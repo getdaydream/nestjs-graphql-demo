@@ -1,10 +1,16 @@
+import { Post } from '@/shared/base/post.entity';
+import { Field, ObjectType } from 'type-graphql';
 import { ChildEntity, Column } from 'typeorm';
-import { ObjectType, Field } from 'type-graphql';
-import { Post } from '@/shared/abstract/post.entity';
 
-@ChildEntity()
 @ObjectType()
+@ChildEntity()
 export class Article extends Post {
+  // TODO: jsplayground link image dynamic todo
+  // TODO: repost 转发 annotation 书摘
+  @Field()
+  @Column({ length: 120, nullable: true })
+  title: string;
+
   @Field({ description: '摘要' })
   @Column({ length: 140 })
   abstract: string;

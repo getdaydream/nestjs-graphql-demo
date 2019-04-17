@@ -5,13 +5,15 @@
 
 type Article {
   id: ID!
+
+  """作者ID"""
   userId: Int!
-  title: String!
 
   """访问量(点击数)"""
   views: Int!
   updateTime: DateTime!
   creatTime: DateTime!
+  title: String!
 
   """摘要"""
   abstract: String!
@@ -43,6 +45,13 @@ type LoginResult {
 type Mutation {
   createArticle(createArticleInput: CreateArticleInput!): Article!
   createUser(createUserInput: CreateUserInput!): LoginResult!
+}
+
+type PostStats {
+  postId: Int!
+  commentCount: Int!
+  voteUpCount: Int!
+  voteDownCount: Int!
 }
 
 type Query {
