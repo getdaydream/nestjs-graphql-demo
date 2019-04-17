@@ -47,6 +47,7 @@ type Mutation {
   createUser(createUserInput: CreateUserInput!): LoginResult!
 }
 
+"""stats about published post"""
 type PostStats {
   postId: Int!
   commentCount: Int!

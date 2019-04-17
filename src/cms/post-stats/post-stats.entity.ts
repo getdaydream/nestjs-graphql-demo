@@ -1,7 +1,7 @@
 import { Field, Int, ObjectType } from 'type-graphql';
 import { Column, Entity, PrimaryColumn } from 'typeorm';
 
-@ObjectType()
+@ObjectType({ description: 'stats about published post' })
 @Entity()
 export class PostStats {
   @Field(() => Int)
