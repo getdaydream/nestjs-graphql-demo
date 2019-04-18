@@ -13,6 +13,7 @@ type Article {
   views: Int!
   updateTime: DateTime!
   creatTime: DateTime!
+  status: ArticleStatus!
   title: String!
 
   """摘要"""
@@ -21,9 +22,14 @@ type Article {
   contentFormat: String!
 }
 
+enum ArticleStatus {
+  Draft
+  Published
+}
+
 input CreateArticleInput {
   title: String!
-  abstract: String!
+  content: String!
 }
 
 input CreateUserInput {
@@ -44,6 +50,7 @@ type LoginResult {
 
 type Mutation {
   createArticle(createArticleInput: CreateArticleInput!): Article!
+  updateArticle(updateArticleInput: UpdateArticleInput!): Article!
   createUser(createUserInput: CreateUserInput!): LoginResult!
 }
 
@@ -60,6 +67,13 @@ type Query {
   login(email: String!, password: String!): LoginResult!
   me: User!
   user(id: Int!): User!
+}
+
+input UpdateArticleInput {
+  id: Int!
+  status: String
+  title: String
+  content: String
 }
 
 type User {

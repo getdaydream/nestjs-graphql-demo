@@ -2,26 +2,20 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
 export class TextContent {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  postId: number;
 
   @Column()
   userId: number;
 
-  @Column()
-  ref: string;
-
   @Column({ type: 'text' })
   content: string;
-
-  @Column()
-  type: string;
 
   @CreateDateColumn()
   createTime: Date;
