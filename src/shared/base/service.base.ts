@@ -1,4 +1,5 @@
 import {
+  DeepPartial,
   FindConditions,
   FindOneOptions,
   ObjectLiteral,
@@ -26,5 +27,9 @@ export class BaseService<Entity extends ObjectLiteral> {
 
   async save(entity: Partial<Entity>, options?: SaveOptions) {
     return await this.repo.save(entity, options);
+  }
+
+  merge(mergeIntoEntity: Entity, ...entityLikes: Array<DeepPartial<Entity>>) {
+    return this.repo.merge(mergeIntoEntity, ...entityLikes);
   }
 }

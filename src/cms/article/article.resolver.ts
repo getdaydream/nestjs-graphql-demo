@@ -4,9 +4,12 @@ import { UserDecorator } from '@/shared/decorators';
 import { GqlAuthGuard } from '@/shared/guards';
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { UserInputError } from 'apollo-server-core';
 import { Article } from './article.entity';
+import { ArticleStatus } from './article.interface';
 import { ArticleService } from './article.service';
 import { CreateArticleInput } from './dto/create-article.input';
+import { UpdateArticleInput } from './dto/update-article.input';
 
 @Resolver(() => Article)
 export class ArticleResolver {
@@ -23,6 +26,46 @@ export class ArticleResolver {
     @UserDecorator() user: User,
     @Args('createArticleInput') input: CreateArticleInput,
   ) {
-    return await this.articleService.save({ userId: user.id, ...input });
+    const { article } = await this.articleService.createArticle(
+      {
+        userId: user.id,
+        title: input.title,
+        abstract: input.content,
+      },
+      input.content,
+    );
+    return article;
+  }
+
+  @Mutation(() => Article)
+  @UseGuards(GqlAuthGuard)
+  async updateArticle(
+    @UserDecorator() user: User,
+    @Args('updateArticleInput') input: UpdateArticleInput,
+  ) {
+    const article = await this.articleService.findOne({
+      id: input.id,
+      userId: user.id,
+    });
+
+    if (!article) {
+      throw new UserInputError(`Can't find the article you request.`);
+    }
+
+    if (input.status) {
+      if (article.status === ArticleStatus.Published) {
+        throw new UserInputError(
+          `Can't publish Article ${
+            article.id
+          } that has been published already.`,
+        );
+      } else {
+        await this.articleService.updateArticle({ ...input });
+        return { ...article, status: ArticleStatus.Published };
+      }
+    }
+
+    const newArticle = this.articleService.merge(article, input);
+    return await this.articleService.save(newArticle);
   }
 }
