@@ -6,7 +6,7 @@ import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UserInputError } from 'apollo-server-core';
 import { Article } from './article.entity';
-import { ArticleStatus } from './article.interface';
+import { ArticleStatusEnum } from './article.interface';
 import { ArticleService } from './article.service';
 import { CreateArticleInput } from './dto/create-article.input';
 import { UpdateArticleInput } from './dto/update-article.input';
@@ -52,20 +52,19 @@ export class ArticleResolver {
       throw new UserInputError(`Can't find the article you request.`);
     }
 
-    if (input.status) {
-      if (article.status === ArticleStatus.Published) {
-        throw new UserInputError(
-          `Can't publish Article ${
-            article.id
-          } that has been published already.`,
-        );
-      } else {
-        await this.articleService.updateArticle({ ...input });
-        return { ...article, status: ArticleStatus.Published };
-      }
+    if (input.status && article.status === ArticleStatusEnum.Published) {
+      throw new UserInputError(
+        `Can't publish Article ${article.id} that has been published already.`,
+      );
     }
 
-    const newArticle = this.articleService.merge(article, input);
-    return await this.articleService.save(newArticle);
+    const { article: newArticle } = await this.articleService.updateArticle(
+      article,
+      {
+        ...input,
+      },
+    );
+
+    return newArticle;
   }
 }

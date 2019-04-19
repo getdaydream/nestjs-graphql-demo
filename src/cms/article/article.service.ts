@@ -5,7 +5,7 @@ import { getConnection, Repository } from 'typeorm';
 import { PostStats } from '../post-stats';
 import { TextContent } from '../text-content';
 import { Article } from './article.entity';
-import { ArticleStatus } from './article.interface';
+import { ArticleStatusEnum } from './article.interface';
 
 @Injectable()
 export class ArticleService extends BaseService<Article> {
@@ -28,13 +28,21 @@ export class ArticleService extends BaseService<Article> {
     });
   }
 
-  // TODO: can modify after publish ?
-  async updateArticle(params: Partial<Article> & { id: number }) {
-    const { id } = params;
+  async updateArticle(article: Article, params: Partial<Article>) {
     return await getConnection().transaction(async manager => {
-      const article = await manager.save(Article, params);
-      const postStats = await manager.save(PostStats, { postId: id });
-      return { article, postStats };
+      let postStats: PostStats;
+      if (params.status) {
+        postStats = await manager.save(
+          PostStats,
+          manager.create(PostStats, { postId: article.id }),
+        );
+      }
+
+      const newArticle = await manager.save(
+        Article,
+        manager.merge(Article, article, params),
+      );
+      return { article: newArticle, postStats };
     });
   }
 }

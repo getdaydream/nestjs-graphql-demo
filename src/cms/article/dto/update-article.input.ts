@@ -1,6 +1,6 @@
 import { Equals, IsEnum, IsInt, IsOptional, IsString } from 'class-validator';
 import { Field, InputType, Int } from 'type-graphql';
-import { ArticleStatus } from '../article.interface';
+import { ArticleStatusEnum } from '../article.interface';
 
 @InputType()
 export class UpdateArticleInput {
@@ -10,8 +10,8 @@ export class UpdateArticleInput {
 
   @Field({ nullable: true })
   @IsOptional()
-  @Equals(ArticleStatus.Published)
-  status: ArticleStatus.Published;
+  @Equals(ArticleStatusEnum.Published)
+  status: ArticleStatusEnum.Published;
 
   @Field({ nullable: true })
   @IsOptional()
