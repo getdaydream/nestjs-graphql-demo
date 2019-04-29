@@ -12,7 +12,7 @@ type Article {
   """访问量(点击数)"""
   views: Int!
   updateTime: DateTime!
-  creatTime: DateTime!
+  createTime: DateTime!
   status: ArticleStatus!
   title: String!
 
@@ -85,6 +85,6 @@ type User {
   nickname: String!
   email: String!
   avatar: String!
-  creatTime: DateTime!
+  createTime: DateTime!
   articles: [Article!]!
 }

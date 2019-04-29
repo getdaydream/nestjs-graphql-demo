@@ -47,5 +47,5 @@ export class User {
 
   @Field()
   @CreateDateColumn()
-  creatTime: Date;
+  createTime: Date;
 }
