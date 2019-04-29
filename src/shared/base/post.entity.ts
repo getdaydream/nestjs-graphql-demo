@@ -34,5 +34,5 @@ export abstract class Post {
 
   @Field()
   @CreateDateColumn()
-  creatTime: Date;
+  createTime: Date;
 }

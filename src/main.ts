@@ -2,7 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as cookieParser from 'cookie-parser';
-import * as rateLimit from 'express-rate-limit';
+// import * as rateLimit from 'express-rate-limit';
 import { express as voyagerMiddleware } from 'graphql-voyager/middleware';
 import * as helmet from 'helmet';
 import * as morgan from 'morgan';
@@ -15,12 +15,12 @@ async function bootstrap() {
 
   app.use(helmet());
   // app.use(csurf());
-  app.use(
-    rateLimit({
-      windowMs: 15 * 60 * 1000, // 15 minutes
-      max: 100, // limit each IP to 100 requests per windowMs
-    }),
-  );
+  // app.use(
+  //   rateLimit({
+  //     windowMs: 15 * 60 * 1000, // 15 minutes
+  //     max: 100, // limit each IP to 100 requests per windowMs
+  //   }),
+  // );
 
   app.setGlobalPrefix('api');
   app.enableCors({
