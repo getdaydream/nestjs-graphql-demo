@@ -31,6 +31,7 @@ export class ArticleResolver {
         userId: user.id,
         title: input.title,
         abstract: input.content,
+        format: input.format,
       },
       input.content,
     );
