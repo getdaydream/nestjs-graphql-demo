@@ -32,6 +32,8 @@ enum ArticleStatus {
 }
 
 input CreateArticleInput {
+  title: String
+  content: String
   format: String!
 }
 

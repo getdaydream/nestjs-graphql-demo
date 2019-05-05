@@ -29,6 +29,8 @@ export class ArticleResolver {
     const { article } = await this.articleService.createArticle({
       userId: user.id,
       title: new Date().toLocaleTimeString(),
+      abstract: input.content,
+      format: input.format,
     });
     return article;
   }
