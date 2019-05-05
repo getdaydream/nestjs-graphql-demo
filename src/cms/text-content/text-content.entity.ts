@@ -14,7 +14,7 @@ export class TextContent {
   @Column()
   userId: number;
 
-  @Column({ type: 'text' })
+  @Column({ type: 'text', default: '' })
   content: string;
 
   @CreateDateColumn()

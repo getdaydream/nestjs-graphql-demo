@@ -29,7 +29,7 @@ export class Article extends Post {
   title: string;
 
   @Field({ description: '摘要' })
-  @Column({ length: 140 })
+  @Column({ length: 140, default: '' })
   abstract: string;
 
   @Field()

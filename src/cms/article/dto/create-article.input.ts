@@ -1,13 +1,10 @@
-import { IsString } from 'class-validator';
+import { IsEnum, IsString } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
+import { ArticleFormatEnum } from '../article.interface';
 
 @InputType()
 export class CreateArticleInput {
   @Field()
-  @IsString()
-  title: string;
-
-  @Field()
-  @IsString()
-  content: string;
+  @IsEnum(ArticleFormatEnum)
+  format: ArticleFormatEnum;
 }

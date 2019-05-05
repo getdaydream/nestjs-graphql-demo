@@ -26,14 +26,10 @@ export class ArticleResolver {
     @UserDecorator() user: User,
     @Args('createArticleInput') input: CreateArticleInput,
   ) {
-    const { article } = await this.articleService.createArticle(
-      {
-        userId: user.id,
-        title: input.title,
-        abstract: input.content,
-      },
-      input.content,
-    );
+    const { article } = await this.articleService.createArticle({
+      userId: user.id,
+      title: new Date().toLocaleTimeString(),
+    });
     return article;
   }
 
