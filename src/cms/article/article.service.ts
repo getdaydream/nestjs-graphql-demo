@@ -16,13 +16,12 @@ export class ArticleService extends BaseService<Article> {
     super(articleRepository);
   }
 
-  async createArticle(articleParams: Partial<Article>, content: string) {
+  async createArticle(articleParams: Partial<Article>) {
     return await getConnection().transaction(async manager => {
       const article = await manager.save(Article, articleParams);
       const textContent = await manager.save(TextContent, {
         postId: article.id,
         userId: article.userId,
-        content,
       });
       return { article, textContent };
     });
