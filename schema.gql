@@ -18,12 +18,16 @@ type Article {
 
   """摘要"""
   abstract: String!
+
+  """内容"""
+  content: String!
   cover: String!
   format: ArticleFormat!
 }
 
 enum ArticleFormat {
   Markdown
+  RichText
 }
 
 enum ArticleStatus {
