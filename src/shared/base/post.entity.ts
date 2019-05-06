@@ -16,7 +16,7 @@ import {
 @Entity()
 @TableInheritance({ column: { type: 'varchar', name: 'type' } })
 export abstract class Post {
-  @Field(() => ID)
+  @Field(() => Int)
   @PrimaryGeneratedColumn()
   id: number;
 
