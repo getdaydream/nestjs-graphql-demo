@@ -25,12 +25,16 @@ export class Article extends Post {
   // TODO: jsplayground link image dynamic todo
   // TODO: repost 转发 annotation 书摘 投票
   @Field()
-  @Column({ length: 120, nullable: true })
+  @Column({ length: 50, nullable: true })
   title: string;
 
   @Field({ description: '摘要' })
   @Column({ length: 140, default: '' })
   abstract: string;
+
+  @Field({ description: '内容' })
+  @Column({ type: 'text', nullable: false })
+  content: string;
 
   @Field()
   @Column({ default: '' })

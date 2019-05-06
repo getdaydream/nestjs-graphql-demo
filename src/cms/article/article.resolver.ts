@@ -26,13 +26,7 @@ export class ArticleResolver {
     @UserDecorator() user: User,
     @Args('createArticleInput') input: CreateArticleInput,
   ) {
-    const { article } = await this.articleService.createArticle({
-      userId: user.id,
-      title: new Date().toLocaleTimeString(),
-      abstract: input.content,
-      format: input.format,
-    });
-    return article;
+    return await this.articleService.save(input);
   }
 
   @Mutation(() => Article)
