@@ -17,9 +17,11 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
    * @param _info error info
    */
   handleRequest(err: any, user: any, _info: any) {
-    if (err || !user) {
-      throw err || new AuthenticationError('Could not authenticate with token');
-    }
+    // TODO: hack 避免 apollo-client getDataFromTree 报错
+
+    // if (err || !user) {
+    //   throw err || new AuthenticationError('Could not authenticate with token');
+    // }
     return user;
   }
 }

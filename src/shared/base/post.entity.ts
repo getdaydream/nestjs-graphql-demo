@@ -21,7 +21,7 @@ export abstract class Post {
   id: number;
 
   @Field(() => Int, { description: '作者ID' })
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   userId: number;
 
   @Field(() => Int, { description: '访问量(点击数)' })

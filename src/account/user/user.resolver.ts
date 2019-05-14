@@ -46,9 +46,13 @@ export class UserResolver {
     };
   }
 
-  @Query(() => User, { name: 'me' })
+  @Query(() => User, { name: 'me', nullable: true })
   @UseGuards(GqlAuthGuard)
   async getMe(@UserDecorator() user: User) {
+    if (!user) {
+      return null;
+    }
+
     const { email } = user;
     return await this.userService.findOne({ email });
   }

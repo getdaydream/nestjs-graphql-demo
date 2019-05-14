@@ -74,7 +74,7 @@ type PostStats {
 type Query {
   article(id: Int!): Article
   login(email: String!, password: String!): LoginResult!
-  me: User!
+  me: User
   user(id: Int!): User!
 }
 
