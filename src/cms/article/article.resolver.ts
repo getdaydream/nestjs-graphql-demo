@@ -26,7 +26,7 @@ export class ArticleResolver {
     @UserDecorator() user: User,
     @Args('createArticleInput') input: CreateArticleInput,
   ) {
-    return await this.articleService.save(input);
+    return await this.articleService.save({ userId: user.id, ...input });
   }
 
   @Mutation(() => Article)
