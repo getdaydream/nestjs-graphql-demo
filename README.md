@@ -47,24 +47,3 @@ $ npm run test:cov
 ## DEP
 
 - [express-rate-limit](https://github.com/nfriedly/express-rate-limit): Use to limit repeated requests to public APIs and/or endpoints such as password reset.
-
-## UNKONOWN
-
-## TODO
-
-- crud mixin
-- [Query complexity](https://typegraphql.ml/docs/complexity.html)
-- [dataloader](https://github.com/facebook/dataloader)
-- [passport](https://github.com/jaredhanson/passport)
-- [nestjs-config](https://github.com/nestjs-community/nestjs-config)
-- 在 `.module.ts` 中引用环境变量
-- websocket 聊天
-- 装饰器
-- 测试
-- 微服务
-- 热搜
-- 热重载
-
-## 备忘
-
-- `nodemon.json`中`exec`添加`--files`参数，否则不会加载本地声明文件
