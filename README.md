@@ -1,28 +1,70 @@
-## Roadmap
+# README
 
-- 测试 puppeteer pdf 或 dom-to-image 是否可行
-- 先写个人主页
-- 图片关联标签
-- 部署
-- 添加到 collection
-- 图片上传
-- 读书笔记
-- 使用 decorator
-- 记录用户 action
-- 添加到 gallery
-- 分享链接
-- 添加 cheatsheet，可能配合 playground
-- 评论
+## Description
 
-## point
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-- mysql 事务隔离级别
-- CI
+## Installation
 
-## 依赖
+```bash
+npm install
+```
 
-- [joi](https://github.com/hapijs/joi): 参数验证
+## Running the app
 
-##　 TOUSE
+```bash
+# development
+$ npm run start
 
-- [node-schedule](https://github.com/node-schedule/node-schedule)
+# watch mode
+$ npm run start:dev
+
+# production mode
+$ npm run start:prod
+```
+
+## Test
+
+```bash
+# unit tests
+$ npm run test
+
+# e2e tests
+$ npm run test:e2e
+
+# test coverage
+$ npm run test:cov
+```
+
+## REFFERENCE
+
+- [notadd](https://github.com/notadd/notadd/blob/master/README_zh.md)
+- [nest-access-control](https://github.com/nestjs-community/nest-access-control.git)
+- [Node.js 最佳实践](https://github.com/i0natan/nodebestpractices/blob/master/README.chinese.md#1-project-structure-practices)
+- [node-interview](https://elemefe.github.io/node-interview/#/sections/zh-cn/)
+- [nest-user-auth](https://github.com/EricKit/nest-user-auth)
+
+## DEP
+
+- [express-rate-limit](https://github.com/nfriedly/express-rate-limit): Use to limit repeated requests to public APIs and/or endpoints such as password reset.
+
+## UNKONOWN
+
+## TODO
+
+- crud mixin
+- [Query complexity](https://typegraphql.ml/docs/complexity.html)
+- [dataloader](https://github.com/facebook/dataloader)
+- [passport](https://github.com/jaredhanson/passport)
+- [nestjs-config](https://github.com/nestjs-community/nestjs-config)
+- 在 `.module.ts` 中引用环境变量
+- websocket 聊天
+- 装饰器
+- 测试
+- 微服务
+- 热搜
+- 热重载
+
+## 备忘
+
+- `nodemon.json`中`exec`添加`--files`参数，否则不会加载本地声明文件
